@@ -1,0 +1,22 @@
+unmanaged implementation in class /ey1/bp_sav_i_fiscalintention unique;
+
+define behavior for /EY1/SAV_I_FiscalIntention //alias <alias_name>
+//late numbering
+//lock master
+//authorization master
+//etag <field_name>
+{
+  create;
+  update;
+  delete;
+  //mapping fields to table fields for create update and delete operations
+  mapping for /ey1/intent_stat
+  {
+    Guid = guid;
+    FiscalYear = gjahr;
+    Intention = intention;
+    ChangedBy = Changed_by;
+    ChangedOn = Changed_on;
+    SerialNumber = seqnr_flb;
+  }
+}

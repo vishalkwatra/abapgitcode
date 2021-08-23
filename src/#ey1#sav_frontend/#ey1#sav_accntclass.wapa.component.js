@@ -1,0 +1,1 @@
+sap.ui.define(["sap/suite/ui/generic/template/lib/AppComponent"],function(e){return e.extend("ey.sap.fin.cs.accountclass.accountsclass.Component",{metadata:{manifest:"json"}})});                                                                             

@@ -1,0 +1,1 @@
+sap.ui.define([],function(){"use strict";return{numberUnit:function(n){if(!n){return""}return parseFloat(n).toFixed(2)},convertStringToInt:function(n){if(!n){return""}let t=parseInt(n,[10]);return t!==0?t:""}}});                                           

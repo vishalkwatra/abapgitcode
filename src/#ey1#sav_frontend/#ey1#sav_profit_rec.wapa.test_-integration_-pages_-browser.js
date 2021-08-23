@@ -1,0 +1,3 @@
+sap.ui.define(["sap/ui/test/Opa5","./Common"],function(e,t){"use strict";e.createPageObjects({onTheBrowser:{baseClass:t,actions:{iGoBack:function(){return this.waitFor({success:function(){e.getWindow().history.back()}})},iGoForward:function(){return this+
+.waitFor({success:function(){e.getWindow().history.forward()}})},iChangeTheHashToSomethingInvalid:function(){return this.waitFor({success:function(){e.getHashChanger().setHash("somethingInvalid")}})},iChangeTheHashToTheRememberedItem:function(){return th+
+is.waitFor({success:function(){var t=this.getContext().currentItem.id;e.getHashChanger().setHash("ZEY_SAV_C_DeferredTaxRollFrwdResults/"+t)}})}},assertions:{}}})});                                                                                           

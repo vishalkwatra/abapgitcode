@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SUSH" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <HEAD>
+    <NAME>FEA8A05E2E4F4B3AF02C0B4AFDE7A2</NAME>
+    <TYPE>HT</TYPE>
+    <DISPLAY_NAME>R3TR IWSV /EY1/SAV_MANAGE_INTENTIONS_SRV     0001</DISPLAY_NAME>
+    <SRCSYSTEM>CS4</SRCSYSTEM>
+    <AUTHOR>RASHIKAP</AUTHOR>
+    <DEVCLASS>/EY1/SAV_MANAGE_INTENTIONS</DEVCLASS>
+   </HEAD>
+  </asx:values>
+ </asx:abap>
+</abapGit>

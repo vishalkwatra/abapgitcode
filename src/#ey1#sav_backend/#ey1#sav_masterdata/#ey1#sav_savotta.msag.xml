@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+    <MASTERLANG>E</MASTERLANG>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>000</MSGNR>
+     <TEXT>&amp;1&amp;2&amp;3&amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Database Table &amp;1 update failed</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Database Table &amp;1 updated</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Database Table &amp;1 row deleted</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Entry Deleted from Database table successfully</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Entry created in Database table successfully</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Entry cannot be created in database table</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Entry cannot be updated in database table &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Entry updated in Database table successfully</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Mandatory field &amp;1 must be filled</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Enter Valid value for &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>Account Class Code &amp;1 already exists</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>FS Item &amp;1 is not valid for Consolidation COA &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>FS Item &amp;1 for COA &amp;2 is duplicate</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Operation not supported</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>Document &amp;1 posted in consolidation unit &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>Global parameter cannot be found for user: &amp;1.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>Please input the Tax Rates in proper format (00.00).</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>Please maintain GAAP CB and STAT CB DT Rate for previous Fiscal Year.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>019</MSGNR>
+     <TEXT>Entry already exist in database table.</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>020</MSGNR>
+     <TEXT>Please correct the year format: &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>021</MSGNR>
+     <TEXT>Entry with Consolidation Group &amp;1 already exists</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>022</MSGNR>
+     <TEXT>Consolidation Unit &amp;1 for Consolidation Group &amp;2 is duplicate</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>023</MSGNR>
+     <TEXT>Only one configuration is allowed for group gaap</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>024</MSGNR>
+     <TEXT>Entry created in database table &amp;1 successfully</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>025</MSGNR>
+     <TEXT>Entry cannot be deleted from database table</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>026</MSGNR>
+     <TEXT>Tier &amp;1 is updated</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>027</MSGNR>
+     <TEXT>Tier &amp;1 is created</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>028</MSGNR>
+     <TEXT>Tier &amp;1 is deleted</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>029</MSGNR>
+     <TEXT>Entry &amp;1 does not exist in TF200(check entry)</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>030</MSGNR>
+     <TEXT>Entry &amp;1 does not exist in TF120(check entry)</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>031</MSGNR>
+     <TEXT>Consolidation Group &amp;1 has no mapping with Consolidation Unit &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>032</MSGNR>
+     <TEXT>&amp;1&amp;2&amp;3&amp;4 will be Overwritten From Header</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>033</MSGNR>
+     <TEXT>Currency &amp;1 not assigned to Consolidation Unit &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>034</MSGNR>
+     <TEXT>&amp;1 will be Derived</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>035</MSGNR>
+     <TEXT>Intention &amp;1 Data Updated for Fiscal Year &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>036</MSGNR>
+     <TEXT>Data for Fiscal Year &amp;1 is already Maintained</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>037</MSGNR>
+     <TEXT>Data Saved for Fiscal Year &amp;1</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -1,0 +1,1 @@
+sap.ui.define(["ey/sap/fin/cs/effectivetaxrate/test/unit/controller/MainReport.controller"],function(){"use strict"});                                                                                                                                         

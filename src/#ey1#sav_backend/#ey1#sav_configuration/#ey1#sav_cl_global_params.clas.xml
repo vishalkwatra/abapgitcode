@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>/EY1/SAV_CL_GLOBAL_PARAMS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Savotta : User dependent Global settings</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_CL_GLOBAL_PARAMS</CLSNAME>
+     <CMPNAME>GET_INSTANCE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Instantiate the class</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_CL_GLOBAL_PARAMS</CLSNAME>
+     <CMPNAME>GET_USER_SETTINGS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Get User settings for currently logged in user</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_CL_GLOBAL_PARAMS</CLSNAME>
+     <CMPNAME>LV_SELF</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Self Reference</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

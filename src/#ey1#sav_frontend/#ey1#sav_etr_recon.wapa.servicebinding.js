@@ -1,0 +1,1 @@
+function initModel(){var a="/sap/opu/odata/ey1/SAV_EFFECTIVE_TAX_RECON_SRV/";var e=new sap.ui.model.odata.ODataModel(a,true);sap.ui.getCore().setModel(e)}                                                                                                     

@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/test/Opa5","../../../localService/mockserver"],function(e,t){"use strict";return e.extend("ey.sap.fin.cs.equityreconciliation.test.integration.pages.Common",{getEntitySet:function(e){return t.getMockServer().getEntitySetData(e)}})}+
+);                                                                                                                                                                                                                                                             

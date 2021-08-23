@@ -1,0 +1,9 @@
+projection;
+
+define behavior for /EY1/SAV_C_FiscalIntention //alias <alias_name>
+use etag
+{
+  use create;
+  use update;
+  use delete;
+}

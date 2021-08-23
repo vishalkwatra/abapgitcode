@@ -1,0 +1,3 @@
+sap.ui.define(["sap/ui/core/format/NumberFormat"],function(e){"use strict";return{appendPercentageSign:function(e){let r;if(e){r=e.replaceAll(/[^0-9.-]/gi,"")}else{r=e}if(!r){return""}else{return parseFloat(r,[10]).toFixed(2)+" %"}},removeLeadingZero:fun+
+ction(e){if(!e){return"0"}return parseInt(e)},formatTierAmountDisplayAndEdit:function(r,t,n){let i;if(r){i=r.replaceAll(/[^0-9.-]/gi,"")}else{i=r}if(!i){return""}else if(!t){return e.getFloatInstance({maxFractionDigits:2}).format(i)+" "+n}else{return par+
+seFloat(i,[10]).toFixed(2)+" "+n}},addDescription:function(e){if(e){return"("+e+")"}else{return""}}}});                                                                                                                                                        

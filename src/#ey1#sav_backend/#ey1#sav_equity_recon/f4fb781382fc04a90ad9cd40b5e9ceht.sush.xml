@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_SUSH" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <HEAD>
+    <NAME>F4FB781382FC04A90AD9CD40B5E9CE</NAME>
+    <TYPE>HT</TYPE>
+    <DISPLAY_NAME>R3TR IWSV /EY1/SAV_EQUITY_RECON_SRV          0001</DISPLAY_NAME>
+    <SRCSYSTEM>CS4</SRCSYSTEM>
+    <AUTHOR>NEHAK</AUTHOR>
+    <DEVCLASS>/EY1/SAV_EQUITY_RECON</DEVCLASS>
+   </HEAD>
+  </asx:values>
+ </asx:abap>
+</abapGit>

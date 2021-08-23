@@ -1,0 +1,3 @@
+sap.ui.define([],function(){"use strict";let t=new sap.ui.model.type.Currency({showMeasure:false});return{numberUnit:function(t){if(!t){return""}return parseFloat(t).toFixed(2)},convertStringToInt:function(t){if(!t){return""}let e=parseInt(t,[10]);return+
+ e!==0?e:""},appendPercentageSign:function(t){if(!t){return""}return t+" %"},setDateFormatToDDMMYYYY:function(t){if(!t){return""}let e=sap.ui.core.format.DateFormat.getDateTimeInstance({pattern:"dd.MM.yyyy"});return e.format(t)},setCurrencyAndUnit:functi+
+on(e,n){if(e){return t.formatValue([e,n],"string").concat(" ",n)}return""}}});                                                                                                                                                                                 

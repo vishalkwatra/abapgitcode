@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/core/UIComponent","sap/ui/Device","ey/sap/fin/cs/effectivetaxrate/model/models"],function(e,t,i){"use strict";return e.extend("ey.sap.fin.cs.effectivetaxrate.Component",{metadata:{manifest:"json"},init:function(){e.prototype.init.a+
+pply(this,arguments);this.getRouter().initialize();this.setModel(i.createDeviceModel(),"device")}})});                                                                                                                                                         

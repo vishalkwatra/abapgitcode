@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_IWMO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <_-IWBEP_-I_MGW_OHD>
+    <_-IWBEP_-I_MGW_OHD>
+     <TECHNICAL_NAME>/EY1/SAV_TEMP_ROLL_FORWARD_MDL</TECHNICAL_NAME>
+     <VERSION>0001</VERSION>
+     <CLASS_NAME>/EY1/CL_SAV_TEMP_ROLL__MPC_EXT</CLASS_NAME>
+     <CREATED_BY>RASHIKAP</CREATED_BY>
+     <CREATED_TIMESTMP>20210108083707</CREATED_TIMESTMP>
+    </_-IWBEP_-I_MGW_OHD>
+   </_-IWBEP_-I_MGW_OHD>
+   <_-IWBEP_-I_MGW_OHT>
+    <_-IWBEP_-I_MGW_OHT>
+     <TECHNICAL_NAME>/EY1/SAV_TEMP_ROLL_FORWARD_MDL</TECHNICAL_NAME>
+     <VERSION>0001</VERSION>
+     <LANGUAGE>E</LANGUAGE>
+     <DESCRIPTION>Roll-Forward of Temporary Differences</DESCRIPTION>
+    </_-IWBEP_-I_MGW_OHT>
+   </_-IWBEP_-I_MGW_OHT>
+  </asx:values>
+ </asx:abap>
+</abapGit>

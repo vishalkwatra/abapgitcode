@@ -1,0 +1,2 @@
+sap.ui.define(["sap/ui/test/Opa5"],function(t){"use strict";return t.extend("ey.sap.fin.cs.effectivetaxrate.test.integration.arrangements.Startup",{iStartMyApp:function(t){var e=t||{};e.delay=e.delay||50;this.iStartMyUIComponent({componentConfig:{name:"e+
+y.sap.fin.cs.effectivetaxrate",async:true},hash:e.hash,autoWait:e.autoWait})}})});                                                                                                                                                                             

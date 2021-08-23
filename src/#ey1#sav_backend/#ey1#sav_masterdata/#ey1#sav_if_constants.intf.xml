@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_INTF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOINTERF>
+    <CLSNAME>/EY1/SAV_IF_CONSTANTS</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Savotta : Constants</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <UNICODE>X</UNICODE>
+   </VSEOINTERF>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_IF_CONSTANTS</CLSNAME>
+     <CMPNAME>C_FISC_YEAR_2020</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>2020 To fiscal year</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_IF_CONSTANTS</CLSNAME>
+     <CMPNAME>C_MSG_ID_SAVOTTA</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>ZSAVOTTA Message Class</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_IF_CONSTANTS</CLSNAME>
+     <CMPNAME>C_MSG_RECON_PTA</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>/EY1/RECON_PTA Message Variable</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_IF_CONSTANTS</CLSNAME>
+     <CMPNAME>C_MSG_TIER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>/EY1/MANAGE_TIER Message Variable</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_IF_CONSTANTS</CLSNAME>
+     <CMPNAME>C_NRRANGENR_PT</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>PT Number range number</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_IF_CONSTANTS</CLSNAME>
+     <CMPNAME>C_OBJECT_CORPTAX</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>ZCORPTAX Name of number range object</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/SAV_IF_CONSTANTS</CLSNAME>
+     <CMPNAME>C_SUBOBJECT_Y1</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Y1 Number range object subobject value</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

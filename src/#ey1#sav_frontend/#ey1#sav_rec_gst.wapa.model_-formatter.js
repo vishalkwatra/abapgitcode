@@ -1,0 +1,3 @@
+sap.ui.define([],function(){"use strict";let t=new sap.ui.model.type.Currency({showMeasure:false});return{numberUnit:function(t){if(!t){return""}return parseFloat(t).toFixed(2)},addPercent:function(t){if(!t){return""}return t+"%"},concatPeriodAndFiscalYe+
+ar:function(t,e){var n=t+"."+e;return n},setDateFormatToDDMMYYYY:function(t){let e=sap.ui.core.format.DateFormat.getDateTimeInstance({pattern:"dd.MM.yyyy"});return e.format(t)},setCurrencyAndUnit:function(e,n){if(e){return t.formatValue([e,n],"string").c+
+oncat(" ",n)}return""},convertStringToInt:function(t){if(!t){return""}let e=parseInt(t,[10]);return e!==0?e:""}}});                                                                                                                                            

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_CLAS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOCLASS>
+    <CLSNAME>/EY1/CL_DATA_MONITOR_UTIL</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Data Monitor Utility</DESCRIPT>
+    <STATE>1</STATE>
+    <CLSCCINCL>X</CLSCCINCL>
+    <FIXPT>X</FIXPT>
+    <UNICODE>X</UNICODE>
+   </VSEOCLASS>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/CL_DATA_MONITOR_UTIL</CLSNAME>
+     <CMPNAME>EXECUTE_ACTION</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Execute Action</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/CL_DATA_MONITOR_UTIL</CLSNAME>
+     <CMPNAME>EXECUTE_ACTIONS_MANGE_INTNTN</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Execute Actions for Manage Intentions App</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/CL_DATA_MONITOR_UTIL</CLSNAME>
+     <CMPNAME>EXECUTE_ALL_ACTIONS</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Execute All Action</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/CL_DATA_MONITOR_UTIL</CLSNAME>
+     <CMPNAME>GET_INSTANCE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Returns Instance of Utility Class</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/CL_DATA_MONITOR_UTIL</CLSNAME>
+     <CMPNAME>GR_DATA_MON</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Data Monitor Abstract Class</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/CL_DATA_MONITOR_UTIL</CLSNAME>
+     <CMPNAME>GR_DATA_MON_UTIL</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Data Monitor Utility</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

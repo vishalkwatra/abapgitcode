@@ -1,0 +1,1 @@
+function initModel(){var a="/sap/opu/odata/ey1/SAV_APP_SERVICES_SRV/";var e=new sap.ui.model.odata.ODataModel(a,true);sap.ui.getCore().setModel(e)}                                                                                                            

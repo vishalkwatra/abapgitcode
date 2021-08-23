@@ -1,0 +1,17 @@
+{
+"BASEINFO":
+{
+"FROM":
+[
+"/EY1/SAV_I_TRF_RGAAP_LCGC_UNI",
+"/EY1/SAV_I_TRF_SGAAP_LCGC_UNI"
+],
+"ASSOCIATED":
+[],
+"BASE":
+[],
+"ANNO_REF":
+[],
+"VERSION":0
+}
+}

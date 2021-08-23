@@ -1,0 +1,1 @@
+sap.ui.define(["ey/sap/fin/cs/intentionmanagement/test/unit/controller/intention.controller"],function(){"use strict"});                                                                                                                                       

@@ -1,0 +1,2 @@
+sap.ui.define([],function(){"use strict";let n=new sap.ui.model.type.Currency({showMeasure:false});return{numberUnit:function(n){if(!n){return""}return parseFloat(n).toFixed(2)},convertStringToInt:function(n){if(!n){return""}let t=parseInt(n,[10]);return+
+ t!==0?t:""},setCurrencyAndUnit:function(t,e){if(t){return n.formatValue([t,e],"string").concat(" ",e)}return""}}});                                                                                                                                           

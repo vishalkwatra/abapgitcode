@@ -1,0 +1,1 @@
+sap.ui.define(["ey/sap/fin/cs/managetiers/controller/Tiers.controller"],function(e){"use strict";QUnit.module("Tiers Controller");QUnit.test("I should test the Tiers controller",function(t){var n=new e;n.onInit();t.ok(n)})});                              
