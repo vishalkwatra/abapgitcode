@@ -12,12 +12,16 @@ define view /EY1/SAV_I_TRF_RGAAP_CB_EQ_LC
     p_ryear        : gjahr,
     //   p_specialperiod : zz1_specialperiod
     p_taxintention : zz1_taxintention
+    
+    
+    
   as select from    /EY1/SAV_I_GlAcc_TRF_MD
                  ( p_ryear:$parameters.p_ryear )                       as GLAccnt
 
     left outer join /EY1/SAV_I_TRF_RGAAP_OB_LC
                     ( p_ryear:$parameters.p_ryear,
-                          p_taxintention :$parameters.p_taxintention ) as RGaapOBLC on  RGaapOBLC.GLAccount         = GLAccnt.GLAccount
+                          p_taxintention :$parameters.p_taxintention,
+                          p_toperiod :$parameters.p_toperiod )         as RGaapOBLC on  RGaapOBLC.GLAccount         = GLAccnt.GLAccount
                                                                                     and RGaapOBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
     left outer join /EY1/SAV_I_TRF_RGAAP_YB_LC
@@ -26,10 +30,10 @@ define view /EY1/SAV_I_TRF_RGAAP_CB_EQ_LC
                           p_taxintention :$parameters.p_taxintention ) as RGaapYBLC on  RGaapYBLC.GLAccount         = GLAccnt.GLAccount
                                                                                     and RGaapYBLC.FiscalYear        = GLAccnt.FiscalYear
                                                                                     and RGaapYBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
-    left outer join /EY1/SAV_I_TRF_RGAAP_PYA
-                    ( p_toperiod :$parameters.p_toperiod,
-                          p_ryear:$parameters.p_ryear )                as RGaapPYA  on  RGaapPYA.GLAccount         = GLAccnt.GLAccount
-                                                                                    and RGaapPYA.FiscalYear        = GLAccnt.FiscalYear
+    left outer join /EY1/SAV_I_TRF_RGAAP_PYA_LC
+                    (p_ryear:$parameters.p_ryear,
+                          p_taxintention :$parameters.p_taxintention,
+                          p_toperiod :$parameters.p_toperiod )         as RGaapPYA  on  RGaapPYA.GLAccount         = GLAccnt.GLAccount
                                                                                     and RGaapPYA.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_TRF_RGAAP_CTA
                     ( p_toperiod :$parameters.p_toperiod,

@@ -62,7 +62,7 @@ METHOD /EY1/IF_DATA_MONITOR~SUBMIT_ACTION.
 
 
     DATA: jobname       TYPE tbtcjob-jobname VALUE
-                             'CURR_TRANS'.
+                             'BAL_TRANS'.
     DATA: jobcount      TYPE tbtcjob-jobcount,
           host          TYPE msxxlist-host.
     TYPES: BEGIN OF ts_starttime.
@@ -77,7 +77,7 @@ METHOD /EY1/IF_DATA_MONITOR~SUBMIT_ACTION.
         UP TO 1 ROWS
         INTO CORRESPONDING FIELDS OF TABLE lt_tf184
         WHERE dimen = gs_tf004-dimen
-        AND   congr = gs_tf004-congr
+        AND   congr = gs_global_params-congr
         AND   rldnr = gs_tf004-rldnr
         ORDER BY ryear ASCENDING.
      IF sy-subrc = 0.
@@ -94,7 +94,7 @@ METHOD /EY1/IF_DATA_MONITOR~SUBMIT_ACTION.
       CALL FUNCTION '/EY1/FM_DATA_MONITOR_BAL_TRANS' IN UPDATE TASK
         EXPORTING
           iv_dimen             =  gs_tf004-dimen
-          iv_congr             =  gs_tf004-congr
+          iv_congr             =  gs_global_params-congr
           iv_bunit             =  gs_global_params-bunit
           iv_rvers             =  gs_global_params-rvers
           iv_ryear             =  gs_global_params-ryear
@@ -105,16 +105,63 @@ METHOD /EY1/IF_DATA_MONITOR~SUBMIT_ACTION.
           iv_itclg             =  gs_global_params-itclg
                 .
      COMMIT WORK AND WAIT.
-     IF sy-subrc = 0.
+
+     DO 20 TIMES.
+       SELECT SINGLE * FROM tbtco
+         INTO @DATA(ls_job)
+         WHERE jobname = @jobname.
+       IF sy-subrc = 0.
+         IF ls_job-status = 'A' OR ls_job-status = 'F'.
+           "Read Log
+           DATA: lv_congr TYPE congr.
+           TYPES: BEGIN OF ty_data,
+                   col1  TYPE string,
+                   col2  TYPE string,
+                   col3  TYPE string,
+                   col4  TYPE string,
+                   col5  TYPE string,
+                   col6  TYPE string,
+                   col7  TYPE string,
+                   col8  TYPE string,
+                   col9  TYPE string,
+                   col10 TYPE string,
+                 END OF ty_data.
+            DATA: lt_data TYPE TABLE OF ty_data.
+*           CALL FUNCTION '/EY1/FM_GET_BAL_TRANSF_LOG'
+*            EXPORTING
+**              IV_DIMEN         =
+**              IV_CONGR         =
+**              IV_RVERS         =
+**              IV_RYEAR         =
+**              IV_BUNIT         =
+**              IV_ITCLG         =
+*              iv_jobname       = jobname
+*            IMPORTING
+*              et_tab           = lt_data
+*              ev_congr         = lv_congr
+*                     .
+
+
+           EXIT.
+         ELSE.
+           WAIT UP TO 1 SECONDS.
+         ENDIF.
+       ELSE.
+         WAIT UP TO 1 SECONDS.
+       ENDIF.
+     ENDDO.
+
+     DATA(lv_new_year) = gs_global_params-ryear + 1.
+     IF sy-subrc = 0 AND ls_job-status = 'F'.
       ls_msg-id      = '/EY1/'.
       ls_msg-number  = '000'.
       ls_msg-type    = 'S'.
-      ls_msg-message = | Balance Transfer(1010): Successfully Updated For Version | && gs_global_params-rvers.
-     ELSE.
+      ls_msg-message = | Balance Transfer(1010): Balance was carried forward successfully to Year | && lv_new_year && | and version | && gs_global_params-rvers.
+     ELSEIF  ls_job-status = 'A'.
       ls_msg-id      = '/EY1/'.
       ls_msg-number  = '000'.
       ls_msg-type    = 'E'.
-      ls_msg-message = | Balance Transfer(1010): Error In Update For Version | && gs_global_params-rvers.
+      ls_msg-message = | Balance Transfer(1010): Error in Balance carry forward to Year | && lv_new_year && | and version | && gs_global_params-rvers.
      ENDIF.
 
     APPEND ls_msg TO et_message.

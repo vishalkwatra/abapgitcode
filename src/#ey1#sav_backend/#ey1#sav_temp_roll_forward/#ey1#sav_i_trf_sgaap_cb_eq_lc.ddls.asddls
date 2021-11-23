@@ -16,7 +16,8 @@ define view /EY1/SAV_I_TRF_SGAAP_CB_EQ_LC
 
     left outer join /EY1/SAV_I_TRF_SGAAP_OB_LC
                     ( p_ryear:$parameters.p_ryear,
-                          p_taxintention :$parameters.p_taxintention ) as SGaapOBLC on  SGaapOBLC.GLAccount         = GLAccnt.GLAccount
+                          p_taxintention :$parameters.p_taxintention,
+                           p_toperiod :$parameters.p_toperiod )        as SGaapOBLC on  SGaapOBLC.GLAccount         = GLAccnt.GLAccount
                                                                                     and SGaapOBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
     left outer join /EY1/SAV_I_TRF_SGAAP_YB_LC
@@ -25,10 +26,10 @@ define view /EY1/SAV_I_TRF_SGAAP_CB_EQ_LC
                           p_taxintention :$parameters.p_taxintention ) as SGaapYBLC on  SGaapYBLC.GLAccount         = GLAccnt.GLAccount
                                                                                     and SGaapYBLC.FiscalYear        = GLAccnt.FiscalYear
                                                                                     and SGaapYBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
-    left outer join /EY1/SAV_I_TRF_SGAAP_PYA
-                    ( p_toperiod :$parameters.p_toperiod,
-                          p_ryear:$parameters.p_ryear )                as SGaapPYA  on  SGaapPYA.GLAccount         = GLAccnt.GLAccount
-                                                                                    and SGaapPYA.FiscalYear        = GLAccnt.FiscalYear
+    left outer join /EY1/SAV_I_TRF_SGAAP_PYA_LC
+                     ( p_ryear:$parameters.p_ryear,
+                           p_taxintention :$parameters.p_taxintention,
+                           p_toperiod :$parameters.p_toperiod  )       as SGaapPYA  on  SGaapPYA.GLAccount         = GLAccnt.GLAccount
                                                                                     and SGaapPYA.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_TRF_SGAAP_CTA
                     ( p_toperiod :$parameters.p_toperiod,

@@ -9,6 +9,8 @@ public section.
     returning
       value(RO_SELF) type ref to /EY1/SAV_CL_GLOBAL_PARAMS .
   methods GET_USER_SETTINGS
+    importing
+      value(IV_DEFAULT) type ABAP_BOOL optional
     exporting
       value(ES_USER_GLOBAL_PARAMS) type /EY1/SAV_STR_GLBL_PARAMS .
 protected section.
@@ -36,12 +38,23 @@ CLASS /EY1/SAV_CL_GLOBAL_PARAMS IMPLEMENTATION.
 
 
   METHOD get_user_settings.
-    SELECT * FROM /ey1/globalparam
-      INTO @DATA(ls_global_params) UP TO 1 ROWS
-      WHERE uname = @sy-uname.
-      IF sy-subrc EQ 0.
-        MOVE-CORRESPONDING ls_global_params TO es_user_global_params.
-      ENDIF.
-    ENDSELECT.
+    IF iv_default EQ abap_true.
+      SELECT * FROM /ey1/globalparam
+        INTO @DATA(ls_global_params) UP TO 1 ROWS
+        WHERE uname = @sy-uname
+        AND   userdefault = @iv_default.
+        IF sy-subrc EQ 0.
+          MOVE-CORRESPONDING ls_global_params TO es_user_global_params.
+        ENDIF.
+      ENDSELECT.
+    ELSE.
+      SELECT * FROM /ey1/globalparam
+        INTO ls_global_params UP TO 1 ROWS
+        WHERE uname = sy-uname.
+        IF sy-subrc EQ 0.
+          MOVE-CORRESPONDING ls_global_params TO es_user_global_params.
+        ENDIF.
+      ENDSELECT.
+    ENDIF.
   ENDMETHOD.
 ENDCLASS.

@@ -1,0 +1,17 @@
+{
+"BASEINFO":
+{
+"FROM":
+[
+"/EY1/SAV_I_ETR_RG_PYA_DTRPL_NR",
+"/EY1/SAV_I_ETR_SG_PYA_DTRPL_NR"
+],
+"ASSOCIATED":
+[],
+"BASE":
+[],
+"ANNO_REF":
+[],
+"VERSION":0
+}
+}

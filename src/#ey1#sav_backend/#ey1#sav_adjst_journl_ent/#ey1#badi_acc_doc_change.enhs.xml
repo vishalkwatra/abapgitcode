@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_ENHS" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOOL>BADI_DEF</TOOL>
+   <SHORTTEXT>BADI To Change Accounting Document Line Item</SHORTTEXT>
+   <BADI_DATA>
+    <ENH_BADI_DATA>
+     <BADI_NAME>/EY1/AC_DOCUMENT</BADI_NAME>
+     <INTERFACE_NAME>/EY1/IF_ACC_DOC_CHANGE</INTERFACE_NAME>
+     <CONTEXT_MODE>N</CONTEXT_MODE>
+     <BADI_SHORTTEXT>BADI to change Accounting Document Line Item</BADI_SHORTTEXT>
+     <BADI_SHORTTEXT_ID>000D3A212B281EDC838E1C63A892FF45</BADI_SHORTTEXT_ID>
+     <SAMPLE_IMPLS>
+      <CLASSNAME>/EY1/CL_EX_AC_DOCUMENT</CLASSNAME>
+     </SAMPLE_IMPLS>
+    </ENH_BADI_DATA>
+   </BADI_DATA>
+   <SOTR>
+    <item>
+     <HEADER>
+      <CONCEPT>000D3A212B281EDC82F8409A78BB7F45</CONCEPT>
+      <CREA_LAN>E</CREA_LAN>
+      <TRALA_TYPE>1</TRALA_TYPE>
+      <OBJID_VEC>AAE=</OBJID_VEC>
+     </HEADER>
+     <ENTRIES>
+      <SOTR_TEXT>
+       <CONCEPT>000D3A212B281EDC82F8409A78BB7F45</CONCEPT>
+       <LANGU>E</LANGU>
+       <LFD_NUM>0001</LFD_NUM>
+       <FLAG_CNTXT>X</FLAG_CNTXT>
+       <STATUS>R</STATUS>
+       <LENGTH>066</LENGTH>
+       <TEXT>BADI To Change Accounting Document Line Item</TEXT>
+      </SOTR_TEXT>
+     </ENTRIES>
+    </item>
+    <item>
+     <HEADER>
+      <CONCEPT>000D3A212B281EDC838E1C63A892FF45</CONCEPT>
+      <CREA_LAN>E</CREA_LAN>
+      <TRALA_TYPE>1</TRALA_TYPE>
+      <OBJID_VEC>AAE=</OBJID_VEC>
+     </HEADER>
+     <ENTRIES>
+      <SOTR_TEXT>
+       <CONCEPT>000D3A212B281EDC838E1C63A892FF45</CONCEPT>
+       <LANGU>E</LANGU>
+       <LFD_NUM>0001</LFD_NUM>
+       <FLAG_CNTXT>X</FLAG_CNTXT>
+       <STATUS>R</STATUS>
+       <LENGTH>066</LENGTH>
+       <TEXT>BADI to change Accounting Document Line Item</TEXT>
+      </SOTR_TEXT>
+     </ENTRIES>
+    </item>
+   </SOTR>
+   <SOTR_USE>
+    <SOTR_USE>
+     <PGMID>R3TR</PGMID>
+     <OBJECT>ENHS</OBJECT>
+     <OBJ_NAME>/EY1/BADI_ACC_DOC_CHANGE</OBJ_NAME>
+     <CONCEPT>000D3A212B281EDC82F8409A78BB7F45</CONCEPT>
+     <LFD_NUM>0001</LFD_NUM>
+    </SOTR_USE>
+    <SOTR_USE>
+     <PGMID>R3TR</PGMID>
+     <OBJECT>ENHS</OBJECT>
+     <OBJ_NAME>/EY1/BADI_ACC_DOC_CHANGE</OBJ_NAME>
+     <CONCEPT>000D3A212B281EDC838E1C63A892FF45</CONCEPT>
+     <LFD_NUM>0001</LFD_NUM>
+    </SOTR_USE>
+   </SOTR_USE>
+  </asx:values>
+ </asx:abap>
+</abapGit>

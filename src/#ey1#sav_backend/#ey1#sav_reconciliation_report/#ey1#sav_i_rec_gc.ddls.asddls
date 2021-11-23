@@ -12,7 +12,8 @@ define view /EY1/SAV_I_Rec_GC
     p_toyb         : poper,
     p_switch       : char1,
     //    p_specialperiod : zz1_specialperiod
-    p_taxintention : zz1_taxintention
+    p_taxintention : zz1_taxintention,
+    p_intention    : zz1_taxintention
 
   as select distinct from /EY1/SAV_I_GlAcc_MD
                           ( p_ryear:$parameters.p_ryear ) as GlAccnt
@@ -31,36 +32,38 @@ define view /EY1/SAV_I_Rec_GC
                     ( p_ryear:$parameters.p_ryear ,
                           p_fromyb:$parameters.p_fromyb, p_toyb:$parameters.p_toyb ,
                           p_switch: $parameters.p_switch,
-                          p_taxintention: $parameters.p_taxintention
+                          p_taxintention: $parameters.p_taxintention,
+                          p_intention: $parameters.p_intention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                           )                              as StatOBGC             on  StatOBGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and StatOBGC.FiscalYear        = GaapOBGC.FiscalYear
+                           )                              as StatOBGC             on  StatOBGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and StatOBGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and StatOBGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_TAX_OB_YB_GC
                     ( p_ryear:$parameters.p_ryear ,
                           p_fromyb:$parameters.p_fromyb , p_toyb:$parameters.p_toyb,
                           p_switch: $parameters.p_switch,
-                          p_taxintention: $parameters.p_taxintention
+                          p_taxintention: $parameters.p_taxintention,
+                          p_intention: $parameters.p_intention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                           )                              as TaxOBGC              on  TaxOBGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and TaxOBGC.FiscalYear        = GaapOBGC.FiscalYear
+                           )                              as TaxOBGC              on  TaxOBGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and TaxOBGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and TaxOBGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
     left outer join       /EY1/SAV_I_Rec_G2S_PL_GC
                     ( p_toperiod:$parameters.p_toyb ,
                           p_ryear:$parameters.p_ryear,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                           )                              as Gaap2StatPLGC        on  Gaap2StatPLGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Gaap2StatPLGC.FiscalYear        = GaapOBGC.FiscalYear
+                           )                              as Gaap2StatPLGC        on  Gaap2StatPLGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Gaap2StatPLGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Gaap2StatPLGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
     left outer join       /EY1/SAV_I_Rec_G2S_Pmnt_GC
                     ( p_toperiod:$parameters.p_toyb ,
                           p_ryear:$parameters.p_ryear,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                            )                             as Gaap2StatPmntGC      on  Gaap2StatPmntGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Gaap2StatPmntGC.FiscalYear        = GaapOBGC.FiscalYear
+                            )                             as Gaap2StatPmntGC      on  Gaap2StatPmntGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Gaap2StatPmntGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Gaap2StatPmntGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_G2S_Equity_GC
@@ -68,8 +71,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_ryear:$parameters.p_ryear,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                               as Gaap2StatEQGC        on  Gaap2StatEQGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Gaap2StatEQGC.FiscalYear        = GaapOBGC.FiscalYear
+                          )                               as Gaap2StatEQGC        on  Gaap2StatEQGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Gaap2StatEQGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Gaap2StatEQGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_G2S_OthrPL_GC
@@ -77,8 +80,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_ryear:$parameters.p_ryear,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                           )                              as Gaap2StatOtherPLGC   on  Gaap2StatOtherPLGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Gaap2StatOtherPLGC.FiscalYear        = GaapOBGC.FiscalYear
+                           )                              as Gaap2StatOtherPLGC   on  Gaap2StatOtherPLGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Gaap2StatOtherPLGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Gaap2StatOtherPLGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_G2S_OthrPmt_GC
@@ -86,8 +89,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_ryear:$parameters.p_ryear,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                               as Gaap2StatOtherPmntGC on  Gaap2StatOtherPmntGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Gaap2StatOtherPmntGC.FiscalYear        = GaapOBGC.FiscalYear
+                          )                               as Gaap2StatOtherPmntGC on  Gaap2StatOtherPmntGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Gaap2StatOtherPmntGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Gaap2StatOtherPmntGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_G2S_OthrEq_GC
@@ -95,8 +98,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_ryear:$parameters.p_ryear,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                               as Gaap2StatOtherEQGC   on  Gaap2StatOtherEQGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Gaap2StatOtherEQGC.FiscalYear        = GaapOBGC.FiscalYear
+                          )                               as Gaap2StatOtherEQGC   on  Gaap2StatOtherEQGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Gaap2StatOtherEQGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Gaap2StatOtherEQGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_S2T_PL_GC
@@ -104,8 +107,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_toperiod:$parameters.p_toyb,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                               as Stat2TaxPLGC         on  Stat2TaxPLGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Stat2TaxPLGC.FiscalYear        = GaapOBGC.FiscalYear
+                          )                               as Stat2TaxPLGC         on  Stat2TaxPLGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Stat2TaxPLGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Stat2TaxPLGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_S2T_Pmnt_GC
@@ -113,8 +116,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_toperiod:$parameters.p_toyb,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                               as Stat2TaxPmntGC       on  Stat2TaxPmntGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Stat2TaxPmntGC.FiscalYear        = GaapOBGC.FiscalYear
+                          )                               as Stat2TaxPmntGC       on  Stat2TaxPmntGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Stat2TaxPmntGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Stat2TaxPmntGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_S2T_Equity_GC
@@ -122,8 +125,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_toperiod:$parameters.p_toyb,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                           )                              as Stat2TaxEQGC         on  Stat2TaxEQGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Stat2TaxEQGC.FiscalYear        = GaapOBGC.FiscalYear
+                           )                              as Stat2TaxEQGC         on  Stat2TaxEQGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Stat2TaxEQGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Stat2TaxEQGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_S2T_OthrPL_GC
@@ -131,8 +134,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_toperiod:$parameters.p_toyb,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                               as Stat2TaxOtherPLGC    on  Stat2TaxOtherPLGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Stat2TaxOtherPLGC.FiscalYear        = GaapOBGC.FiscalYear
+                          )                               as Stat2TaxOtherPLGC    on  Stat2TaxOtherPLGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Stat2TaxOtherPLGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Stat2TaxOtherPLGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_S2T_OthrPmnt_GC
@@ -140,8 +143,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_toperiod:$parameters.p_toyb,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                               as Stat2TaxOtherPmntGC  on  Stat2TaxOtherPmntGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Stat2TaxOtherPmntGC.FiscalYear        = GaapOBGC.FiscalYear
+                          )                               as Stat2TaxOtherPmntGC  on  Stat2TaxOtherPmntGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Stat2TaxOtherPmntGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Stat2TaxOtherPmntGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_S2T_OthrEq_GC
@@ -149,8 +152,8 @@ define view /EY1/SAV_I_Rec_GC
                           p_toperiod:$parameters.p_toyb,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                               as Stat2TaxOtherEQGC    on  Stat2TaxOtherEQGC.GLAccount         = GaapOBGC.GLAccount
-                                                                                  and Stat2TaxOtherEQGC.FiscalYear        = GaapOBGC.FiscalYear
+                          )                               as Stat2TaxOtherEQGC    on  Stat2TaxOtherEQGC.GLAccount         = GlAccnt.GLAccount
+                                                                                  and Stat2TaxOtherEQGC.FiscalYear        = GlAccnt.FiscalYear
                                                                                   and Stat2TaxOtherEQGC.ConsolidationUnit = GlAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_TAX_PTA_GC

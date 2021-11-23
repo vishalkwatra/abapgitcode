@@ -11,12 +11,14 @@ define view /EY1/SAV_I_ETR_SG_SUM_PBT_LCGC
     p_fromperiod    : poper,
     p_toperiod      : poper,
     p_switch        : char1,
-    p_taxintention : zz1_taxintention
+    p_taxintention : zz1_taxintention,
+    p_intention    : zz1_taxintention
   as select from /EY1/SAV_I_ETR_SG_SUM_PBT_LC
                  ( p_ryear:$parameters.p_ryear,
                   p_fromperiod:$parameters.p_fromperiod,
                   p_toperiod:$parameters.p_toperiod,
-                  p_taxintention: $parameters.p_taxintention )
+                  p_taxintention: $parameters.p_taxintention,
+                  p_intention: $parameters.p_intention)
 {
       ///EY1/SAV_I_ETR_SG_SUM_PBT_LC
   key ConsolidationChartofAccounts,
@@ -35,7 +37,8 @@ union all select from /EY1/SAV_I_ETR_SG_SUM_PBT_GC
                       p_fromperiod:$parameters.p_fromperiod,
                       p_toperiod:$parameters.p_toperiod,
                       p_switch:$parameters.p_switch,
-                      p_taxintention: $parameters.p_taxintention )
+                      p_taxintention: $parameters.p_taxintention,
+                      p_intention: $parameters.p_intention )
 {
       ///EY1/SAV_I_ETR_RG_SUM_PBT_LC
   key ConsolidationChartofAccounts,

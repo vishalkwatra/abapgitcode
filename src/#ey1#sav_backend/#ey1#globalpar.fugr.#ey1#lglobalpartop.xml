@@ -6,7 +6,7 @@
     <NAME>/EY1/LGLOBALPARTOP</NAME>
     <DBAPL>S</DBAPL>
     <DBNA>D$</DBNA>
-    <SUBC>F</SUBC>
+    <SUBC>I</SUBC>
     <APPL>S</APPL>
     <FIXPT>X</FIXPT>
     <LDBNAME>D$S</LDBNAME>

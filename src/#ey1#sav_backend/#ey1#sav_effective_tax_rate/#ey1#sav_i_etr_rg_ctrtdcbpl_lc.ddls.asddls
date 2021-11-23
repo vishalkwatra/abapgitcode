@@ -11,6 +11,8 @@ define view /EY1/SAV_I_ETR_RG_CTRTDCBPL_LC
     p_ryear         : gjahr,
     p_taxintention : zz1_taxintention,
     p_rbunit        : fc_bunit
+    
+ 
   as select from    /EY1/SAV_I_GlAcc_BSEQTE_MD
                  ( p_ryear: $parameters.p_ryear)                  as MasterData
 

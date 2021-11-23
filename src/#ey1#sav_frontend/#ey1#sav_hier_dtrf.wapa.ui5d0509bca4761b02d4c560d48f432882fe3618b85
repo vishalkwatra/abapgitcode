@@ -1,0 +1,3 @@
+{"version":"1.0.0","results":{"@sap/di.code-validation.js":{"issues":{"webapp/model/formatter.js":[{"category":"Syntax Error","checker":"ESLint","column":4,"helpUrl":"http://www.ecma-international.org/ecma-262/5.1/","line":11,"message":"Parsing error: Th+
+e keyword 'let' is reserved","path":"webapp/model/formatter.js","ruleId":"syntax-parse","severity":"error"}],"webapp/serviceBinding.js":[{"category":"Possible Error","checker":"ESLint","column":10,"helpUrl":"http://eslint.org/docs/rules/no-unused-vars","+
+line":1,"message":"'initModel' is defined but never used.","path":"webapp/serviceBinding.js","ruleId":"no-unused-vars","severity":"warning"}]}},"@sap/di.code-validation.xml":{"issues":{}},"@sap/di.code-validation.json":{"issues":{}}}}                     

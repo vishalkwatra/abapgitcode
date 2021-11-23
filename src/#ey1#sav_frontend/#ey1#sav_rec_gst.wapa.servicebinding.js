@@ -1,0 +1,1 @@
+function initModel(){var a="/sap/opu/odata/sap/FIN_USER_DEFAULTPARAMETER_SRV/";var e=new sap.ui.model.odata.ODataModel(a,true);sap.ui.getCore().setModel(e)}                                                                                                   

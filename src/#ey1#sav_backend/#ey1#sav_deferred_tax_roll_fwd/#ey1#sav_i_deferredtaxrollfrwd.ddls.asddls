@@ -11,16 +11,17 @@ define view /EY1/SAV_I_DeferredTaxRollFrwd
     p_toperiod     : poper,
     p_ryear        : gjahr,
     p_taxintention : zz1_taxintention
-  as select from /EY1/SAV_I_DTRF_RS_GAAP_Union(  p_rbunit :$parameters.p_rbunit,
+
+  as select from /EY1/SAV_I_DTRF_RS_GAAP_Union( p_rbunit :$parameters.p_rbunit,
                                                 p_toperiod :$parameters.p_toperiod,
                                                 p_ryear:$parameters.p_ryear,
                                                 p_taxintention :$parameters.p_taxintention ) as RSGaap
-{     //RGaapUnion
+{ //RGaapUnion
   key ChartOfAccounts,
-  key RSGaap.ConsolidationUnit,
+  key ConsolidationUnit,
   key ConsolidationChartofAccounts,
   key GLAccount,
-  key RSGaap.FiscalYear,
+  key FiscalYear,
   key AccountClassCode,
 
       ConsolidationDimension,
@@ -28,7 +29,7 @@ define view /EY1/SAV_I_DeferredTaxRollFrwd
       @Semantics.currencyCode: true
       MainCurrency,
 
-      // OB & CB Class
+      //OB & CB Class
       OBClass,
       CBClass,
 
@@ -78,14 +79,19 @@ define view /EY1/SAV_I_DeferredTaxRollFrwd
 
       //PYA
       @Semantics.amount.currencyCode: 'MainCurrency'
+      // ( cast(( PYAPl * OBRate ) as abap.fltp) / 100.0 ) as PYAPl,
       PYAPl,
       @Semantics.amount.currencyCode: 'MainCurrency'
+      //( cast((PYAEq * OBRate ) as abap.fltp ) / 100.0 ) as PYAEq,
       PYAEq,
       @Semantics.amount.currencyCode: 'MainCurrency'
+      //( cast((PYAOpl * OBRate) as abap.fltp ) / 100.0 ) as PYAOpl,
       PYAOpl,
       @Semantics.amount.currencyCode: 'MainCurrency'
+      //( cast((PYAOeq * OBRate) as abap.fltp ) / 100.0 ) as PYAOeq,
       PYAOeq,
       @Semantics.amount.currencyCode: 'MainCurrency'
+      //( cast((PYA * OBRate) as abap.fltp ) / 100.0 ) as PYA,
       PYA,
 
       //TRC
@@ -101,3 +107,28 @@ define view /EY1/SAV_I_DeferredTaxRollFrwd
       TaxEffected,
       ReportingType
 }
+where
+     EqOpeningBalance != 0
+  or PlOpeningBalance != 0
+  or OpeningBalanceDTADTL != 0
+  or PlYearBalance != 0
+  or EqYearBalance != 0
+  or OPlYearBalance != 0
+  or OEqYearBalance != 0
+  or TempTransType != 0
+  or TempOtherTransType != 0
+  or CurrentYearMvmnt != 0
+  or PlClosingBalance != 0
+  or EqClosingBalance != 0
+  or ClosingBalanceDTADTL != 0
+  or CTAPl != 0
+  or CTAEq != 0
+  or CTA != 0
+  or PYAPl != 0
+  or PYAEq != 0
+  or PYAOpl != 0
+  or PYAOeq != 0
+  or PYA != 0
+  or TRCPl != 0
+  or TRCEq != 0
+  or TRC != 0

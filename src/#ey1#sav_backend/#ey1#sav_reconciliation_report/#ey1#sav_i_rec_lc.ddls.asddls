@@ -11,7 +11,8 @@ define view /EY1/SAV_I_Rec_LC
     p_fromyb       : poper,
     p_toyb         : poper,
     //    p_specialperiod : zz1_specialperiod
-    p_taxintention : zz1_taxintention
+    p_taxintention : zz1_taxintention,
+    p_intention : /ey1/sav_intent
 
   as select distinct from /EY1/SAV_I_GlAcc_MD( p_ryear:$parameters.p_ryear ) as GlAccnt
 
@@ -29,7 +30,8 @@ define view /EY1/SAV_I_Rec_LC
                     ( p_ryear:$parameters.p_ryear ,
                           p_toyb:$parameters.p_toyb ,
                           p_fromyb:$parameters.p_fromyb,
-                          p_taxintention: $parameters.p_taxintention
+                          p_taxintention: $parameters.p_taxintention,
+                          p_intention: $parameters.p_intention
                           //                          p_specialperiod: $parameters.p_specialperiod
                           )                                                  as StatOBLC             on  StatOBLC.GLAccount         = GlAccnt.GLAccount
                                                                                                      and StatOBLC.FiscalYear        = GlAccnt.FiscalYear
@@ -38,7 +40,8 @@ define view /EY1/SAV_I_Rec_LC
                     ( p_ryear:$parameters.p_ryear ,
                           p_fromyb:$parameters.p_fromyb ,
                           p_toyb:$parameters.p_toyb,
-                          p_taxintention: $parameters.p_taxintention
+                          p_taxintention: $parameters.p_taxintention,
+                          p_intention: $parameters.p_intention
                           //                          p_specialperiod: $parameters.p_specialperiod
 
                           )                                                  as TaxOBLC              on  TaxOBLC.GLAccount         = GlAccnt.GLAccount

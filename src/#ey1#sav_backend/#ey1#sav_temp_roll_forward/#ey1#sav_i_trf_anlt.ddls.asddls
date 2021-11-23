@@ -15,7 +15,9 @@ define view /EY1/SAV_I_TRF_ANLT
      p_taxintention : zz1_taxintention,
     //    p_p_taxintention : zz1_p_taxintention,
     p_rbunit       : fc_bunit
-   
+    
+ 
+//   
   as select from /EY1/SAV_I_TRF_RS_GAAP_Union( p_toperiod :$parameters.p_toperiod,
                                                p_ryear:$parameters.p_ryear,
                                                p_taxintention :$parameters.p_taxintention,

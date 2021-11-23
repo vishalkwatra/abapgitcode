@@ -8,19 +8,19 @@
 define view /EY1/SAV_I_TRF_SGAAP_LCGC_Uni
   with parameters
 
-    p_toperiod      : poper,
-    p_ryear         : gjahr,
-    p_taxintention  : zz1_taxintention,
-//    p_specialperiod : zz1_specialperiod,
-    p_rbunit        : fc_bunit
-    
+    p_toperiod     : poper,
+    p_ryear        : gjahr,
+    p_taxintention : zz1_taxintention,
+    //    p_specialperiod : zz1_specialperiod,
+    p_rbunit       : fc_bunit
+
   as select from    /EY1/SAV_I_TRF_SGAAP_OBYBCB_LC( p_toperiod :$parameters.p_toperiod,
                                                     p_ryear:$parameters.p_ryear,
-                                                    p_taxintention :$parameters.p_taxintention ) as SGaapLC
+                                                    p_taxintention :$parameters.p_taxintention) as SGaapLC
     left outer join /EY1/SAV_I_Get_Tax_Rate(  p_toperiod:$parameters.p_toperiod ,
                                               p_ryear:$parameters.p_ryear,
-                                              p_rbunit:  $parameters.p_rbunit)                     as TaxRate on  TaxRate.ConsolidationUnit = $parameters.p_rbunit
-                                                                                                              and TaxRate.FiscalYear        = $parameters.p_ryear
+                                              p_rbunit:  $parameters.p_rbunit)             as TaxRate on  TaxRate.ConsolidationUnit = $parameters.p_rbunit
+                                                                                                      and TaxRate.FiscalYear        = $parameters.p_ryear
 {
       //ZEY_SAV_I_TRF_RGAAP_OBYBCB_LC
   key ChartOfAccounts,
@@ -115,13 +115,13 @@ define view /EY1/SAV_I_TRF_SGAAP_LCGC_Uni
 union all select from /EY1/SAV_I_TRF_SGAAP_OBYBCB_GC
                       ( p_toperiod :$parameters.p_toperiod,
                       p_ryear:$parameters.p_ryear,
-                      p_taxintention :$parameters.p_taxintention ) as SGaapGC
+                      p_taxintention :$parameters.p_taxintention  ) as SGaapGC
 
   left outer join     /EY1/SAV_I_Get_Tax_Rate
                   (  p_toperiod:$parameters.p_toperiod ,
                       p_ryear:$parameters.p_ryear,
-                      p_rbunit:  $parameters.p_rbunit)               as TaxRate on  TaxRate.ConsolidationUnit = $parameters.p_rbunit
-                                                                                and TaxRate.FiscalYear        = $parameters.p_ryear
+                      p_rbunit:  $parameters.p_rbunit)             as TaxRate on  TaxRate.ConsolidationUnit = $parameters.p_rbunit
+                                                                              and TaxRate.FiscalYear        = $parameters.p_ryear
 
 {
       //ZEY_SAV_I_TRF_RGAAP_OBYBCB_GC

@@ -99,13 +99,22 @@ ENDMODULE.
 MODULE init_user OUTPUT.
 
   CHECK gv_ok_flag IS INITIAL.
-
+  gv_bunit = /ey1/globalparam-bunit.
   CLEAR : /ey1/globalparam.
 
+  IF gv_bunit IS INITIAL.
   SELECT SINGLE *
     FROM /ey1/globalparam
     INTO @DATA(lw_user_data)
-    WHERE uname = @sy-uname.
+    WHERE uname = @sy-uname
+    AND   userdefault = 'X'.
+  ELSE.
+   SELECT SINGLE *
+    FROM /ey1/globalparam
+    INTO lw_user_data
+    WHERE uname = sy-uname
+    AND   bunit = gv_bunit.
+  ENDIF.
 
   IF sy-subrc EQ 0.
     /ey1/globalparam-bunit     = lw_user_data-bunit.                         "Consolidation Unit
@@ -174,19 +183,25 @@ MODULE init_bunit_listbox OUTPUT.
 
   CLEAR: gt_list,gw_value.
 
-  SELECT DISTINCT tf~bunit,txtmi                       "#EC CI_BUFFJOIN
-    FROM tf160 AS tf INNER JOIN tf161 AS txt
-    ON tf~bunit = txt~bunit
-    INTO TABLE @DATA(lt_bunit)
-    WHERE langu = @sy-langu.
-
-  IF sy-subrc EQ 0.
-    LOOP AT lt_bunit ASSIGNING FIELD-SYMBOL(<fs_bunit>).
-      gw_value-key  = <fs_bunit>-bunit.
-      gw_value-text = <fs_bunit>-txtmi.
-      APPEND gw_value TO gt_list.
-    ENDLOOP.
-  ENDIF.
+  SELECT bunit FROM /ey1/globalparam   "Added Line
+    INTO TABLE @DATA(lt_bunit_user)    "Added Line
+    WHERE uname = @sy-uname.            "Added Line
+  IF sy-subrc = 0.                     "Added Line
+    SELECT DISTINCT tf~bunit,txtmi                       "#EC CI_BUFFJOIN
+      FROM tf160 AS tf INNER JOIN tf161 AS txt
+      ON tf~bunit = txt~bunit
+      INTO TABLE @DATA(lt_bunit)
+      FOR ALL ENTRIES IN @lt_bunit_user "Added Line
+      WHERE langu = @sy-langu
+      AND   tf~bunit = @lt_bunit_user-bunit. "Added Line
+    IF sy-subrc EQ 0.
+      LOOP AT lt_bunit ASSIGNING FIELD-SYMBOL(<fs_bunit>).
+        gw_value-key  = <fs_bunit>-bunit.
+        gw_value-text = <fs_bunit>-txtmi.
+        APPEND gw_value TO gt_list.
+      ENDLOOP.
+    ENDIF.
+  ENDIF.                               "Added Line
 
   CALL FUNCTION 'VRM_SET_VALUES'
     EXPORTING
@@ -229,18 +244,26 @@ MODULE init_congr_listbox OUTPUT.
 
   CLEAR: gt_list,gw_value.
 
-  SELECT DISTINCT tf~congr, txtmi                       "#EC CI_BUFFJOIN
-    FROM tf180 AS tf INNER JOIN tf181 AS txt
-    ON tf~congr = txt~congr
-    INTO TABLE @DATA(lt_congr)
-    WHERE langu = @sy-langu.
+  SELECT congr FROM /ey1/globalparam
+    INTO TABLE @DATA(lt_congr_user)
+    WHERE uname = @sy-uname
+    AND   bunit = @/ey1/globalparam-bunit.
+  IF sy-subrc = 0.
+    SELECT DISTINCT tf~congr, txtmi                       "#EC CI_BUFFJOIN
+      FROM tf180 AS tf INNER JOIN tf181 AS txt
+      ON tf~congr = txt~congr
+      INTO TABLE @DATA(lt_congr)
+      FOR ALL ENTRIES IN @lt_congr_user
+      WHERE langu = @sy-langu
+      AND   tf~congr = @lt_congr_user-congr.
 
-  IF sy-subrc EQ 0.
-    LOOP AT lt_congr ASSIGNING FIELD-SYMBOL(<fs_congr>).
-      gw_value-key  = <fs_congr>-congr.
-      gw_value-text = <fs_congr>-txtmi.
-      APPEND gw_value TO gt_list.
-    ENDLOOP.
+    IF sy-subrc EQ 0.
+      LOOP AT lt_congr ASSIGNING FIELD-SYMBOL(<fs_congr>).
+        gw_value-key  = <fs_congr>-congr.
+        gw_value-text = <fs_congr>-txtmi.
+        APPEND gw_value TO gt_list.
+      ENDLOOP.
+    ENDIF.
   ENDIF.
 
   CALL FUNCTION 'VRM_SET_VALUES'

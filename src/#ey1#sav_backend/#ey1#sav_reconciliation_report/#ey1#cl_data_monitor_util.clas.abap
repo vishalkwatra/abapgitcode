@@ -91,6 +91,7 @@ CLASS /EY1/CL_DATA_MONITOR_UTIL IMPLEMENTATION.
       WHEN '1015'.
             gr_data_mon_util->gr_data_mon = /ey1/cl_data_monitor_jv_releas=>get_instance(
                                                                                         EXPORTING
+                                                                                          bunit                 = bunit
                                                                                           period_from           = period_from
                                                                                           ryear                 = ryear
                                                                                           period_to             = period_to
@@ -105,6 +106,7 @@ CLASS /EY1/CL_DATA_MONITOR_UTIL IMPLEMENTATION.
       WHEN '1100'.
             gr_data_mon_util->gr_data_mon = /ey1/cl_data_monitor_curr_tran=>get_instance(
                                                                                         EXPORTING
+                                                                                          bunit                 = bunit
                                                                                           period_from           = period_from
                                                                                           ryear                 = ryear
                                                                                           period_to             = period_to
@@ -119,6 +121,7 @@ CLASS /EY1/CL_DATA_MONITOR_UTIL IMPLEMENTATION.
       WHEN '1010'.
            gr_data_mon_util->gr_data_mon = /ey1/cl_data_monitor_bal_trans=>get_instance(
                                                                                         EXPORTING
+                                                                                          bunit                 = bunit
                                                                                           period_from           = period_from
                                                                                           ryear                 = ryear
                                                                                           period_to             = period_to

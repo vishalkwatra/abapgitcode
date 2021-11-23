@@ -10,14 +10,16 @@ define view /EY1/SAV_I_ETR_SG_SUM_PBT_LC
     p_ryear         : gjahr,
     p_fromperiod    : poper,
     p_toperiod      : poper,
-    p_taxintention : zz1_taxintention
+    p_taxintention : zz1_taxintention,
+    p_intention    : /ey1/sav_intent
   as select from    /EY1/SAV_I_GlAcc_ETR_MD
                  ( p_ryear:$parameters.p_ryear )                   as GlAccMasterData
     left outer join /EY1/SAV_I_Rec_STAT_OB_YB_LC
                     ( p_ryear:$parameters.p_ryear,
                     p_toyb:$parameters.p_toperiod,
                     p_fromyb:$parameters.p_fromperiod,
-                    p_taxintention: $parameters.p_taxintention ) as SGAAPCB on  SGAAPCB.ChartOfAccounts        = GlAccMasterData.ChartOfAccounts
+                    p_taxintention: $parameters.p_taxintention,
+                    p_intention: $parameters.p_intention ) as SGAAPCB on  SGAAPCB.ChartOfAccounts        = GlAccMasterData.ChartOfAccounts
                                                                               and SGAAPCB.ConsolidationDimension = GlAccMasterData.ConsolidationDimension
                                                                               and SGAAPCB.ConsolidationUnit      = GlAccMasterData.ConsolidationUnit
                                                                               and SGAAPCB.GLAccount              = GlAccMasterData.GLAccount

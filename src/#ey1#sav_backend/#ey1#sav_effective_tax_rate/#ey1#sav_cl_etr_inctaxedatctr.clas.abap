@@ -69,6 +69,10 @@ CLASS /EY1/SAV_CL_ETR_INCTAXEDATCTR IMPLEMENTATION.
                             AND  country      = @<fs_data>-countrykey.
 
         IF sy-subrc IS INITIAL.
+
+          SELECT SINGLE intent FROM /ey1/intention
+          INTO @DATA(lv_intention) where taxintention = @<fs_data>-speriod.
+
           lv_tax_inc = ls_ota-taxableinclossbcl.
 
           "Fetch Profit Before tax amount
@@ -77,7 +81,8 @@ CLASS /EY1/SAV_CL_ETR_INCTAXEDATCTR IMPLEMENTATION.
                                                                 p_toperiod       = @<fs_data>-period,
                                                                 p_switch         = @<fs_data>-switch,
                                                                 p_taxintention  = @<fs_data>-speriod,
-                                                                p_rbunit         = @ls_ota-consolidationunit )
+                                                                p_rbunit         = @ls_ota-consolidationunit,
+                                                                p_intention      = @lv_intention )
              INTO @DATA(ls_exp_tax_eb) WHERE currtype           = @<fs_data>-currencytype
                                        AND   consolidationunit  = @ls_ota-consolidationunit.
            IF sy-subrc IS INITIAL.

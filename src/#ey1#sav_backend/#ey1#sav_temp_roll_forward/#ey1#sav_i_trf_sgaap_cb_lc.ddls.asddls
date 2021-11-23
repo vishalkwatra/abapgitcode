@@ -10,29 +10,28 @@ define view /EY1/SAV_I_TRF_SGAAP_CB_LC
     p_toperiod     : poper,
     p_ryear        : gjahr,
     //    p_specialperiod : zz1_specialperiod
-    p_taxintention : zz1_taxintention
-  //  as select distinct from /EY1/SAV_I_GlAcc_TRF_MD
+    p_taxintention : zz1_taxintention  //  as select distinct from /EY1/SAV_I_GlAcc_TRF_MD
   as select from    /EY1/SAV_I_GlAcc_TRF_MD
-                   ( p_ryear:$parameters.p_ryear )                 as GLAccnt
+                 ( p_ryear:$parameters.p_ryear )               as GLAccnt
 
     left outer join /EY1/SAV_I_TRF_SGAAP_CB_PL_LC
                     ( p_toperiod :$parameters.p_toperiod,
                     p_ryear:$parameters.p_ryear,
-                    p_taxintention :$parameters.p_taxintention )   as SGaapCBPlLC   on  SGaapCBPlLC.GLAccount         = GLAccnt.GLAccount
-                                                                                    and SGaapCBPlLC.FiscalYear        = GLAccnt.FiscalYear
-                                                                                    and SGaapCBPlLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                    p_taxintention :$parameters.p_taxintention  )   as SGaapCBPlLC   on  SGaapCBPlLC.GLAccount         = GLAccnt.GLAccount
+                                                                                and SGaapCBPlLC.FiscalYear        = GLAccnt.FiscalYear
+                                                                                and SGaapCBPlLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_TRF_SGAAP_CB_PMT_LC
                     ( p_toperiod :$parameters.p_toperiod,
                       p_ryear:$parameters.p_ryear,
                       p_taxintention :$parameters.p_taxintention ) as SGaapCBPmntLC on  SGaapCBPmntLC.GLAccount         = GLAccnt.GLAccount
-                                                                                    and SGaapCBPmntLC.FiscalYear        = GLAccnt.FiscalYear
-                                                                                    and SGaapCBPmntLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                                                                                and SGaapCBPmntLC.FiscalYear        = GLAccnt.FiscalYear
+                                                                                and SGaapCBPmntLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_TRF_SGAAP_CB_EQ_LC
                     ( p_toperiod :$parameters.p_toperiod,
                     p_ryear:$parameters.p_ryear,
                     p_taxintention :$parameters.p_taxintention )   as SGaapCBEqLC   on  SGaapCBEqLC.GLAccount         = GLAccnt.GLAccount
-                                                                                    and SGaapCBEqLC.FiscalYear        = GLAccnt.FiscalYear
-                                                                                    and SGaapCBEqLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                                                                                and SGaapCBEqLC.FiscalYear        = GLAccnt.FiscalYear
+                                                                                and SGaapCBEqLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
 {
       //GLAccnt
   key GLAccnt.ChartOfAccounts,

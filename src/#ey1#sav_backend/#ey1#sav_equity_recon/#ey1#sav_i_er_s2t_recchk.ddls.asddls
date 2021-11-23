@@ -7,11 +7,12 @@
 
 define view /EY1/SAV_I_ER_S2T_RecChk
   with parameters
-    p_ryear         : gjahr,
-    p_fromyb        : poper,
-    p_toyb          : poper,
-    p_switch        : char1,
-    p_taxintention : zz1_taxintention
+    p_ryear        : gjahr,
+    p_fromyb       : poper,
+    p_toyb         : poper,
+    p_switch       : char1,
+    p_taxintention : zz1_taxintention,
+    p_intention    : zz1_taxintention
   as select from    /EY1/SAV_I_ER_TaxGaapEquiTot(p_ryear:$parameters.p_ryear,
                                             p_fromperiod:$parameters.p_fromyb,
                                             p_toperiod:$parameters.p_toyb,
@@ -20,11 +21,12 @@ define view /EY1/SAV_I_ER_S2T_RecChk
                     p_fromyb:$parameters.p_fromyb ,
                     p_toyb:$parameters.p_toyb ,
                     p_switch:$parameters.p_switch ,
-                    p_taxintention:$parameters.p_taxintention )                         as RecChk on  RecChk.ConsolidationUnit            = GLAcc.ConsolidationUnit
-                                                                                                    and RecChk.ConsolidationChartofAccounts = GLAcc.ConsolidationChartofAccounts
-                                                                                                    and RecChk.ChartOfAccounts              = GLAcc.ChartOfAccounts
-                                                                                                    and RecChk.FiscalYear                   = GLAcc.FiscalYear
-                                                                                                    and RecChk.CurrencyType                 = GLAcc.CurrencyType
+                    p_taxintention:$parameters.p_taxintention,
+                     p_intention:$parameters.p_intention  )                             as RecChk on  RecChk.ConsolidationUnit            = GLAcc.ConsolidationUnit
+                                                                                                  and RecChk.ConsolidationChartofAccounts = GLAcc.ConsolidationChartofAccounts
+                                                                                                  and RecChk.ChartOfAccounts              = GLAcc.ChartOfAccounts
+                                                                                                  and RecChk.FiscalYear                   = GLAcc.FiscalYear
+                                                                                                  and RecChk.CurrencyType                 = GLAcc.CurrencyType
 {
   key GLAcc.ChartOfAccounts,
   key GLAcc.ConsolidationUnit,

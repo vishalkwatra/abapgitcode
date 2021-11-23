@@ -7,12 +7,14 @@
 
 define view /EY1/SAV_I_TRF_SGAAP_OB_LC
   with parameters
-    p_ryear         : gjahr,
-//    p_taxintention : zz1_specialperiod
-    p_taxintention  : zz1_taxintention  
+    p_ryear        : gjahr,
+    //    p_taxintention : zz1_specialperiod
+    p_taxintention : zz1_taxintention,
+    p_toperiod     : poper
   as select from /EY1/SAV_I_TRF_SGAAP_OB_NRM_LC
                  (p_ryear:$parameters.p_ryear,
-                  p_taxintention :$parameters.p_taxintention ) as GLAccnt
+                  p_taxintention :$parameters.p_taxintention,
+                  p_toperiod :$parameters.p_toperiod ) as GLAccnt
 {
   key GLAccnt.ChartOfAccounts,
   key GLAccnt.ConsolidationUnit,

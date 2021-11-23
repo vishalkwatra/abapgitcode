@@ -12,14 +12,16 @@ define view /EY1/SAV_I_ETR_SUM_ExpTaxEB
     p_toperiod      : poper,
     p_switch        : char1,
     p_taxintention : zz1_taxintention,
-    p_rbunit        : fc_bunit
+    p_rbunit        : fc_bunit,
+    p_intention     : /ey1/sav_intent
   as select from /EY1/SAV_I_ETR_RS_SUM_ExpTaxEB
                  ( p_ryear:$parameters.p_ryear,
                  p_fromperiod:$parameters.p_fromperiod,
                  p_toperiod:$parameters.p_toperiod,
                  p_switch:$parameters.p_switch,
                  p_taxintention: $parameters.p_taxintention,
-                 p_rbunit: $parameters.p_rbunit )
+                 p_rbunit: $parameters.p_rbunit,
+                 p_intention: $parameters.p_intention )
 {
       ///EY1/SAV_I_ETR_RS_SUM_ExpTaxEB
   key ConsolidationChartofAccounts,

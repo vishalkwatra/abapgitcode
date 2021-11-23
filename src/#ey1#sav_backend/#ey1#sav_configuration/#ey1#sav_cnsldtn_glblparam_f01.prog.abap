@@ -61,6 +61,7 @@ ENDFORM.
 *& <--  p2        text
 *&---------------------------------------------------------------------*
 FORM save .
+
   gv_ok_flag = 'X'.
 
   "Check if currency field is filled by the user

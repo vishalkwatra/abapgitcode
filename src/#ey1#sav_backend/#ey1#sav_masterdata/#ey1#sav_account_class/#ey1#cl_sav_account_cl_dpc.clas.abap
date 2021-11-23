@@ -953,7 +953,7 @@ CLASS /EY1/CL_SAV_ACCOUNT_CL_DPC IMPLEMENTATION.
   method /IWBEP/IF_MGW_APPL_SRV_RUNTIME~CREATE_ENTITY.
 *&----------------------------------------------------------------------------------------------*
 *&  Include           /IWBEP/DPC_TEMP_CRT_ENTITY_BASE
-*&* This class has been generated on 19.01.2021 11:22:42 in client 100
+*&* This class has been generated on 02.09.2021 07:23:21 in client 100
 *&*
 *&*       WARNING--> NEVER MODIFY THIS CLASS <--WARNING
 *&*   If you want to change the DPC implementation, use the
@@ -1272,7 +1272,7 @@ ENDCASE.
   method /IWBEP/IF_MGW_APPL_SRV_RUNTIME~DELETE_ENTITY.
 *&----------------------------------------------------------------------------------------------*
 *&  Include           /IWBEP/DPC_TEMP_DEL_ENTITY_BASE
-*&* This class has been generated on 19.01.2021 11:22:42 in client 100
+*&* This class has been generated on 02.09.2021 07:23:21 in client 100
 *&*
 *&*       WARNING--> NEVER MODIFY THIS CLASS <--WARNING
 *&*   If you want to change the DPC implementation, use the
@@ -1474,7 +1474,7 @@ CASE lv_entityset_name.
   method /IWBEP/IF_MGW_APPL_SRV_RUNTIME~GET_ENTITY.
 *&-----------------------------------------------------------------------------------------------*
 *&  Include           /IWBEP/DPC_TEMP_GETENTITY_BASE
-*&* This class has been generated  on 19.01.2021 11:22:42 in client 100
+*&* This class has been generated  on 02.09.2021 07:23:21 in client 100
 *&*
 *&*       WARNING--> NEVER MODIFY THIS CLASS <--WARNING
 *&*   If you want to change the DPC implementation, use the
@@ -1854,7 +1854,7 @@ CASE lv_entityset_name.
   method /IWBEP/IF_MGW_APPL_SRV_RUNTIME~GET_ENTITYSET.
 *&----------------------------------------------------------------------------------------------*
 *&  Include           /IWBEP/DPC_TMP_ENTITYSET_BASE
-*&* This class has been generated on 19.01.2021 11:22:42 in client 100
+*&* This class has been generated on 02.09.2021 07:23:21 in client 100
 *&*
 *&*       WARNING--> NEVER MODIFY THIS CLASS <--WARNING
 *&*   If you want to change the DPC implementation, use the
@@ -2323,7 +2323,7 @@ CASE lv_entityset_name.
   method /IWBEP/IF_MGW_APPL_SRV_RUNTIME~UPDATE_ENTITY.
 *&----------------------------------------------------------------------------------------------*
 *&  Include           /IWBEP/DPC_TEMP_UPD_ENTITY_BASE
-*&* This class has been generated on 19.01.2021 11:22:42 in client 100
+*&* This class has been generated on 02.09.2021 07:23:21 in client 100
 *&*
 *&*       WARNING--> NEVER MODIFY THIS CLASS <--WARNING
 *&*   If you want to change the DPC implementation, use the
@@ -2891,8 +2891,6 @@ lo_logger = /iwbep/if_mgw_conv_srv_runtime~get_logger( ).
                |<?xml version="1.0" encoding="utf-16"?>| &
                |<sadl:definition xmlns:sadl="http://sap.com/sap.nw.f.sadl" syntaxVersion="" >| &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_C_ACC_CLASS" binding="/EY1/SAV_C_ACC_CLASS" />| &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACCTYPE_VH" binding="/EY1/SAV_I_ACCTYPE_VH" />| &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACC_CLASS_TEXT" binding="/EY1/SAV_I_ACC_CLASS_TEXT" />| &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_I_FSTYPE_VH" binding="/EY1/SAV_I_FSTYPE_VH" />| &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_I_TRANSACTIONTYPE_VH" binding="/EY1/SAV_I_TRANSACTIONTYPE_VH" />| &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNCHARTOFACCOUNTSVH" binding="C_CNSLDTNCHARTOFACCOUNTSVH" />| &
@@ -2901,6 +2899,8 @@ lo_logger = /iwbep/if_mgw_conv_srv_runtime~get_logger( ).
                | <sadl:dataSource type="CDS" name="Z_I_FSTYPE_VH" binding="Z_I_FSTYPE_VH" />| &
                | <sadl:dataSource type="CDS" name="Z_I_TRANSACTIONTYPE_VH" binding="Z_I_TRANSACTIONTYPE_VH" />| &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_C_ACC_FS_ITEM" binding="/EY1/SAV_C_ACC_FS_ITEM" />| &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACCTYPE_VH" binding="/EY1/SAV_I_ACCTYPE_VH" />| &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACC_CLASS_TEXT" binding="/EY1/SAV_I_ACC_CLASS_TEXT" />| &
                |<sadl:resultSet>| &
                |<sadl:structure name="xEY1xSAV_C_Acc_Class" dataSource="/EY1/SAV_C_ACC_CLASS" maxEditMode="RO" exposure="TRUE" >| &
                | <sadl:query name="SADL_QUERY">| &
@@ -2910,14 +2910,6 @@ lo_logger = /iwbep/if_mgw_conv_srv_runtime~get_logger( ).
                | <sadl:association name="TO_FINSTATITEM" binding="_FINSTATITEM" target="xEY1xSAV_C_Acc_FS_Item" cardinality="zeroToMany" />| &
                | <sadl:association name="TO_FSTYPETEXT" binding="_FSTYPETEXT" target="xEY1xSAV_I_FSType_VH" cardinality="one" />| &
                | <sadl:association name="TO_TRANSACTIONTYPETEXT" binding="_TRANSACTIONTYPETEXT" target="xEY1xSAV_I_TransactionType_VH" cardinality="one" />| &
-               |</sadl:structure>| &
-               |<sadl:structure name="xEY1xSAV_I_AccType_VH" dataSource="/EY1/SAV_I_ACCTYPE_VH" maxEditMode="RO" exposure="TRUE" >| &
-               | <sadl:query name="SADL_QUERY">| &
-               | </sadl:query>| &
-               |</sadl:structure>| &
-               |<sadl:structure name="xEY1xSAV_I_Acc_Class_Text" dataSource="/EY1/SAV_I_ACC_CLASS_TEXT" maxEditMode="RO" exposure="TRUE" >| &
-               | <sadl:query name="SADL_QUERY">| &
-               | </sadl:query>| &
                |</sadl:structure>| &
                |<sadl:structure name="xEY1xSAV_I_FSType_VH" dataSource="/EY1/SAV_I_FSTYPE_VH" maxEditMode="RO" exposure="TRUE" >| &
                | <sadl:query name="SADL_QUERY">| &
@@ -2937,8 +2929,7 @@ lo_logger = /iwbep/if_mgw_conv_srv_runtime~get_logger( ).
                |</sadl:structure>| &
                |<sadl:structure name="Z_I_ACCTYPE_VH" dataSource="Z_I_ACCTYPE_VH" maxEditMode="RO" exposure="TRUE" >| &
                | <sadl:query name="SADL_QUERY">| &
-               | </sadl:query>| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
+               | </sadl:query>| &
                |</sadl:structure>| &
                |<sadl:structure name="Z_I_FSTYPE_VH" dataSource="Z_I_FSTYPE_VH" maxEditMode="RO" exposure="TRUE" >| &
                | <sadl:query name="SADL_QUERY">| &
@@ -2946,16 +2937,25 @@ lo_logger = /iwbep/if_mgw_conv_srv_runtime~get_logger( ).
                |</sadl:structure>| &
                |<sadl:structure name="Z_I_TransactionType_VH" dataSource="Z_I_TRANSACTIONTYPE_VH" maxEditMode="RO" exposure="TRUE" >| &
                | <sadl:query name="SADL_QUERY">| &
-               | </sadl:query>| &
+               | </sadl:query>| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                |</sadl:structure>| &
                |<sadl:structure name="xEY1xSAV_C_Acc_FS_Item" dataSource="/EY1/SAV_C_ACC_FS_ITEM" maxEditMode="RO" exposure="TRUE" >| &
+               | <sadl:query name="SADL_QUERY">| &
+               | </sadl:query>| &
+               |</sadl:structure>| &
+               |<sadl:structure name="xEY1xSAV_I_AccType_VH" dataSource="/EY1/SAV_I_ACCTYPE_VH" maxEditMode="RO" exposure="TRUE" >| &
+               | <sadl:query name="SADL_QUERY">| &
+               | </sadl:query>| &
+               |</sadl:structure>| &
+               |<sadl:structure name="xEY1xSAV_I_Acc_Class_Text" dataSource="/EY1/SAV_I_ACC_CLASS_TEXT" maxEditMode="RO" exposure="TRUE" >| &
                | <sadl:query name="SADL_QUERY">| &
                | </sadl:query>| &
                |</sadl:structure>| &
                |</sadl:resultSet>| &
                |</sadl:definition>| .
     ro_dpc = cl_sadl_gw_dpc_factory=>create_for_sadl( iv_sadl_xml   = lv_sadl_xml
-               iv_timestamp         = 20210119112240
+               iv_timestamp         = 20210902072318
                iv_uuid              = '/EY1/SAV_ACCOUNT_CLASS'
                io_context           = me->mo_context ).
   endmethod.

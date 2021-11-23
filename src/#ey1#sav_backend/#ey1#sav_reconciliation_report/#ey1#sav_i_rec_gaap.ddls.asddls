@@ -6,7 +6,9 @@
 @VDM.viewType: #BASIC
 
 define view /EY1/SAV_I_Rec_GAAP
-  as select distinct from acdocu
+with parameters 
+  p_ryear : gjahr
+    as select distinct from /EY1/I_ACDOCU_CUM_PYA( p_ryear:$parameters.p_ryear )   as acdocu 
     right outer join      /ey1/reconledger                             on  /ey1/reconledger.bunit = acdocu.rbunit
                                                                        and acdocu.rldnr           = /ey1/reconledger.gaap
 
@@ -26,5 +28,6 @@ define view /EY1/SAV_I_Rec_GAAP
       rkcur  as GroupCurrency,
       @Semantics.currencyCode: true
       rtcur  as TransactionCurrency,
-      rvers  as ConsolidationVersion
+      rvers  as ConsolidationVersion,
+      ktopl
 }

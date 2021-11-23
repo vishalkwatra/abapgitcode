@@ -16,7 +16,7 @@ define view /EY1/SAV_I_Rec_G2S_PL_GC
     inner join   /ey1/reconledger               as ReconLedger on  acdocu.rbunit = ReconLedger.bunit
                                                                and acdocu.rldnr  = ReconLedger.g2s
 
-    inner join   /ey1/trans_type                as TransType   on  TransType.rldnrassgnttype = 'P&L'
+    inner join   /EY1/I_TRANS_TYPE              as TransType   on  TransType.rldnrassgnttype = 'P&L'
                                                                and acdocu.rmvct              = TransType.trtyp
 
     inner join   /EY1/SAV_I_Get_Cnsldtn_Version as GetVersion  on  GetVersion.ConsolidationLedger = ReconLedger.g2s

@@ -1,0 +1,1 @@
+sap.ui.define(["ey/sap/fin/cs/DtrfHierarchyReport/controller/hierarchy.controller"],function(r){"use strict";QUnit.module("hierarchy Controller");QUnit.test("I should test the hierarchy controller",function(e){var t=new r;t.onInit();e.ok(t)})});          

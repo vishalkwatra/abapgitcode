@@ -38,6 +38,7 @@ where
       poper                =  '000'
   //  and zz1_specialperiod_cje <= :p_specialperiod
   and zz1_taxintention_cje <= :p_taxintention
+  and ryear                =  :p_ryear
 
 group by
   rbunit,

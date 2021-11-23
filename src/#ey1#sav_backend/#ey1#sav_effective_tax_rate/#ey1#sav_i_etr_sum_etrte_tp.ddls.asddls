@@ -7,14 +7,14 @@
 
 define view /EY1/SAV_I_ETR_SUM_ETRTE_TP
   with parameters
-    p_cntry         : land1,
-    p_ryear         : gjahr,
-    p_fromperiod    : poper,
-    p_toperiod      : poper,
-    p_intention     : /ey1/sav_intent,
-    p_switch        : char1,
+    p_cntry        : land1,
+    p_ryear        : gjahr,
+    p_fromperiod   : poper,
+    p_toperiod     : poper,
+    p_intention    : /ey1/sav_intent,
+    p_switch       : char1,
     p_taxintention : zz1_taxintention,
-    p_rbunit        : fc_bunit
+    p_rbunit       : fc_bunit
 
   as select from /EY1/SAV_I_ETR_SUM_ETRTE_TP_NL
                  ( p_cntry: $parameters.p_cntry,
@@ -39,10 +39,10 @@ define view /EY1/SAV_I_ETR_SUM_ETRTE_TP
       //      Intention,
       MainCurrency,
 
-      cast(ITDCTRTax as /ey1/sav_amount) + cast(ETEBTax as /ey1/sav_amount) + cast(DDCTETax as /ey1/sav_amount) + cast(BDDTTax as /ey1/sav_amount) + cast(PTATax as /ey1/sav_amount)   + cast(CTRTDTax as /ey1/sav_amount)                            as Tax,
+      cast(ITDCTRTax as /ey1/sav_amount) + cast(ETEBTax as /ey1/sav_amount) + cast(DDCTETax as /ey1/sav_amount) + cast(BDDTTax as /ey1/sav_amount) + cast(PTATax as /ey1/sav_amount)   + cast(CTRTDTax as /ey1/sav_amount)    + cast(PYADTRFTax as /ey1/sav_amount)                              as Tax,
 
 
-      cast(ITDCTRPercentage as /ey1/sav_rate) + cast(ETEBPercentage as /ey1/sav_rate) + cast(DDCTEPercentage as /ey1/sav_rate) + cast(BDDTPercentage as /ey1/sav_rate) + cast(PTAPercentage as /ey1/sav_rate)+ cast(CTRTDPercentage as /ey1/sav_rate) as Percentage,
+      cast(ITDCTRPercentage as /ey1/sav_rate) + cast(ETEBPercentage as /ey1/sav_rate) + cast(DDCTEPercentage as /ey1/sav_rate) + cast(BDDTPercentage as /ey1/sav_rate) + cast(PTAPercentage as /ey1/sav_rate)+ cast(CTRTDPercentage as /ey1/sav_rate) + cast(PYADTRFPercentage as /ey1/sav_rate) as Percentage,
 
 
       CurrType,

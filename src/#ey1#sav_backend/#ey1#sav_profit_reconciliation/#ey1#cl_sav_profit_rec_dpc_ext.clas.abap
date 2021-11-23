@@ -67,7 +67,8 @@ CLASS /EY1/CL_SAV_PROFIT_REC_DPC_EXT IMPLEMENTATION.
           lv_per_to             TYPE poper,
           lv_log                TYPE fincs_lognumber,
           lv_rldnr              TYPE rldnr,
-          lv_url                TYPE c LENGTH 1024.
+          lv_url                TYPE c LENGTH 1024,
+          lv_default            TYPE abap_bool.
 
     CREATE DATA lo_global_param.
 
@@ -80,7 +81,16 @@ CLASS /EY1/CL_SAV_PROFIT_REC_DPC_EXT IMPLEMENTATION.
 
         lo_glbparam_utility = /ey1/sav_cl_global_params=>get_instance( ).
 
+
+        "Consolidation Unut
+        READ TABLE it_parameter INTO ls_parameter WITH KEY name = 'Default'.
+        IF sy-subrc = 0.
+            lv_default = ls_parameter-value.
+        ENDIF.
+
         CALL METHOD lo_glbparam_utility->get_user_settings
+          EXPORTING
+            iv_default            = lv_default
           IMPORTING
             es_user_global_params = ls_user_global_params.
 

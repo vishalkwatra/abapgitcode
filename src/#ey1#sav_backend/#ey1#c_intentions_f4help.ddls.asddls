@@ -15,5 +15,5 @@ define view /EY1/C_Intentions_F4Help
    cast(status as char15) as status,
    seqnr_flb,
    curropenperiod,
-   cast(Intention as char70) as Intention
+   upper( cast(Intention as char70) ) as Intention
 }

@@ -210,12 +210,12 @@ METHOD /EY1/IF_DATA_MONITOR~SUBMIT_ACTION.
      ls_msg-id      = '/EY1/'.
      ls_msg-number  = '000'.
      ls_msg-type    = 'S'.
-     ls_msg-message = | JV Release(1015): Successfully Updated For Version | && gs_global_params-rvers.
+     ls_msg-message = | JV Release(1015): Successfully Updated For Version | && gs_global_params-rvers && | Year | && gs_global_params-ryear.
    ELSE.
      ls_msg-id      = '/EY1/'.
      ls_msg-number  = '000'.
      ls_msg-type    = 'E'.
-     ls_msg-message = | JV Release(1015): Error In Update For Version | && gs_global_params-rvers.
+     ls_msg-message = | JV Release(1015): Error In Update For Version | && gs_global_params-rvers && | Year | && gs_global_params-ryear.
    ENDIF.
 
    APPEND ls_msg TO et_message.
@@ -259,7 +259,7 @@ ENDMETHOD.
         UP TO 1 ROWS
         INTO CORRESPONDING FIELDS OF TABLE lt_tf184
         WHERE dimen = gs_tf004-dimen
-        AND   congr = gs_tf004-congr
+        AND   congr = gs_global_params-congr
         AND   rldnr = gs_tf004-rldnr
         ORDER BY ryear ASCENDING.
      IF sy-subrc = 0.

@@ -23,7 +23,8 @@ METHOD get_intention BY DATABASE FUNCTION FOR HDB LANGUAGE
                                 /EY1/FISCL_INTNT
                                 dd08l
                                 dd01l
-                                /EY1/IRINTENTVH.
+                                /EY1/IRINTENTVH
+                                /EY1/GLOBALPARAM.
 
    DECLARE lc_table "$ABAP.type( TABNAME )";
    DECLARE ls_str   "$ABAP.type( String )";
@@ -48,7 +49,8 @@ METHOD get_intention BY DATABASE FUNCTION FOR HDB LANGUAGE
                                 description "$ABAP.type( ZZ1_TAXINTENTION_D )",
                                 curropenperiod "$ABAP.type( /EY1/TO_PERIOD )",
                                 Status "$ABAP.type( String )",
-                                Seqnr_flb "$ABAP.type( SEQNR_FLB )"
+                                Seqnr_flb "$ABAP.type( SEQNR_FLB )",
+                                isSelected "$ABAP.type( FLAG )"
                             );
 
    DECLARE lv_bool integer;
@@ -62,7 +64,8 @@ METHOD get_intention BY DATABASE FUNCTION FOR HDB LANGUAGE
           '' as description,
           '' as curropenperiod,
           '' as Status,
-          '' as Seqnr_flb FROM dummy;
+          '' as Seqnr_flb,
+          '' as isSelected FROM dummy;
 
    SELECT tabname
      INTO lc_table FROM DD08L
@@ -77,7 +80,7 @@ METHOD get_intention BY DATABASE FUNCTION FOR HDB LANGUAGE
   lt_intention = SELECT  * FROM "/EY1/FISCL_INTNT"
      WHERE bunit          = p_bunit;
 
-   lt_intnt = select a.*,b.intnsn_act_flg,b.gjahr FROM "/EY1/INTENTION" AS a
+   lt_intnt = select a.*,b.intnsn_act_flg,b.intnsn_status ,b.gjahr FROM "/EY1/INTENTION" AS a
                inner join :lt_intention AS b
                ON a.intent = b.intention;
 
@@ -121,9 +124,13 @@ METHOD get_intention BY DATABASE FUNCTION FOR HDB LANGUAGE
                     CASE WHEN a.SerialNumber < lc_seq_no
                       then 'Closed'
                       WHEN a.SerialNumber = lc_seq_no
-                       then 'Open'
+                       then
+                       CASE b.intnsn_status
+                        WHEN 'X'
+                          THEN 'Closed'
+                        ELSE 'Open' END
                       else
-                       'Yet To Open' end
+                       'Not started' end
                    END as Status,
                    :lv_gjahr AS gjahr
                   from :lt_new_intention as a
@@ -142,7 +149,7 @@ METHOD get_intention BY DATABASE FUNCTION FOR HDB LANGUAGE
     IF lv_bool > 0 THEN
     lt_resu = select gjahr, periodto, code, intent, description,
         lv_periodto as curropenperiod,
-        CASE WHEN Status = 'Yet To Open'
+        CASE WHEN Status = 'Not started'
           THEN
            CASE WHEN intent = 'Q1' THEN
             CASE WHEN lv_periodto > ( ( select periodto from "/EY1/INTENTION" where intent = 'Q1' )   )
@@ -179,11 +186,34 @@ METHOD get_intention BY DATABASE FUNCTION FOR HDB LANGUAGE
     from :lt_result;
     END IF;
 
-    lt_result1 = select mandt, gjahr, periodto, code, intent, description, curropenperiod, Status, Seqnr_flb from :lt_result1
+    lt_result1 = select mandt, gjahr, periodto, code, intent, description, curropenperiod, Status, Seqnr_flb, isSelected from :lt_result1
                     UNION
-                 select p_mandt AS mandt, gjahr, periodto, code, intent, description, curropenperiod, Status, Seqnr_flb from :lt_resu;
+                 select p_mandt AS mandt, gjahr, periodto, code, intent, description, curropenperiod, Status, Seqnr_flb,'' as isSelected from :lt_resu;
 
   end for;
+
+  lt_result_new = select a.mandt, a.gjahr, a.periodto, a.code, a.intent,
+                       a.description, a.curropenperiod, a.Status, a.Seqnr_flb,
+                       CASE b.intention
+                            WHEN ' '
+                             THEN ' '
+                            ELSE 'X'
+                            END as isSelected
+                       from :lt_result1 as a
+                       left outer join "/EY1/GLOBALPARAM" as b
+                       on a.intent = b.intention
+                       AND a.gjahr = b.ryear
+                       AND b.mandt = SESSION_CONTEXT('CLIENT')
+                       where b.bunit = :p_bunit
+                       AND b.uname = SESSION_CONTEXT('APPLICATIONUSER');
+
+
+   lt_result1 = SELECT a.mandt, a.gjahr, a.periodto, a.code, a.intent,
+                       a.description, a.curropenperiod, a.Status, a.Seqnr_flb,
+                       b.isSelected from :lt_result1 as a
+                   left join :lt_result_new as b
+                   on a.gjahr = b.gjahr
+                   and a.intent = b.intent;
 
    RETURN SELECT
                  p_mandt as mandt,
@@ -194,7 +224,8 @@ METHOD get_intention BY DATABASE FUNCTION FOR HDB LANGUAGE
                  description,
                  Status,
                  seqnr_flb,
-                 curropenperiod
+                 curropenperiod,
+                 isSelected
                  from :lt_result1;
 
   ENDMETHOD.

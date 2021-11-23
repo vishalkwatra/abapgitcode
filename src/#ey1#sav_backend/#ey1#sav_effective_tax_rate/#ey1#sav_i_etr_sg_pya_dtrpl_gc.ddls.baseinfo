@@ -1,0 +1,17 @@
+{
+"BASEINFO":
+{
+"FROM":
+[
+"/EY1/SAV_I_DTRF_SGAAP_PYA_PLGC",
+"/EY1/SAV_I_GLACC_BSEQTE_MD"
+],
+"ASSOCIATED":
+[],
+"BASE":
+[],
+"ANNO_REF":
+[],
+"VERSION":0
+}
+}

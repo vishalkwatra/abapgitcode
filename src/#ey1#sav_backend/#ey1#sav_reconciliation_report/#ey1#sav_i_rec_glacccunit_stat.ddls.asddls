@@ -6,8 +6,12 @@
 @VDM.viewType: #BASIC
 
 define view /EY1/SAV_I_Rec_GlAccCUnit_STAT
+  with parameters
+   p_ryear : gjahr
   as select from    /EY1/SAV_I_GlAccCUnit as glaccnt
-    left outer join /EY1/SAV_I_Rec_STAT   as acdocu on acdocu.GLAccount = glaccnt.GLAccount
+    left outer join /EY1/SAV_I_Rec_STAT(p_ryear: $parameters.p_ryear)   as acdocu on  acdocu.GLAccount = glaccnt.GLAccount
+                                                    and acdocu.ktopl     = glaccnt.ktopl
+
 {
 
   key glaccnt.GLAccount,

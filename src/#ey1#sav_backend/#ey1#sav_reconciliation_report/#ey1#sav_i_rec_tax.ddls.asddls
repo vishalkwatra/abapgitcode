@@ -29,5 +29,6 @@ define view /EY1/SAV_I_Rec_TAX
       @Semantics.currencyCode: true
       rtcur         as TransactionCurrency,
 
-      rvers         as ConsolidationVersion
+      rvers         as ConsolidationVersion,
+      ktopl
 }

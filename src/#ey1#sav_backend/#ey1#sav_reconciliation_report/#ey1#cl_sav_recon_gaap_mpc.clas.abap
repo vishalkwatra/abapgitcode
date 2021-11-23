@@ -9,14 +9,15 @@ public section.
 
   types:
     begin of TS_DATAMONITORPARAMETERS,
-        PERIODTO type string,
-        PERIODFROM type string,
-        LOCALCURRENCY type string,
-        LEDGER type string,
-        GROUPCURRENCY type string,
-        FISCALYEAR type string,
-        CONSOLIDATIONUNIT type string,
+        INTENTION type string,
         ACTION type string,
+        CONSOLIDATIONUNIT type string,
+        FISCALYEAR type string,
+        GROUPCURRENCY type string,
+        LEDGER type string,
+        LOCALCURRENCY type string,
+        PERIODFROM type string,
+        PERIODTO type string,
     end of TS_DATAMONITORPARAMETERS .
   types:
    begin of ts_text_element,
@@ -30,23 +31,27 @@ public section.
          tt_text_elements type standard table of ts_text_element with key text_symbol .
   types:
     begin of TS_POSTINGDATE,
-        FISCALYEAR type C length 4,
-        POPER type C length 3,
         CONSOLIDATIONUNIT type C length 18,
+        POPER type C length 3,
+        FISCALYEAR type C length 4,
     end of TS_POSTINGDATE .
   types:
     begin of TS_CONVERTCURRENCY,
-        TOCURRENCY type C length 5,
-        FROMCURRENCY type C length 5,
-        EXCHANGERATEDATE type TIMESTAMP,
         AMOUNT type P length 13 decimals 3,
+        EXCHANGERATEDATE type TIMESTAMP,
+        FROMCURRENCY type C length 5,
+        TOCURRENCY type C length 5,
     end of TS_CONVERTCURRENCY .
   types:
     begin of TS_DETERMINEPERIOD,
-        DATE type TIMESTAMP,
-        RBUNIT type string,
         CHAR4 type string,
+        RBUNIT type string,
+        DATE type TIMESTAMP,
     end of TS_DETERMINEPERIOD .
+  types:
+    begin of TS_GLOBALPARAMETER,
+        DEFAULT type FLAG,
+    end of TS_GLOBALPARAMETER .
   types:
   begin of TS_DATAMONITORPARAMETERS01,
      TYPE type C length 1,
@@ -131,6 +136,10 @@ TT_MESSAGES type standard table of TS_MESSAGES .
      TS_PTAATTACH type /EY1/RECPTA_ATCH .
   types:
 TT_PTAATTACH type standard table of TS_PTAATTACH .
+  types:
+   TS_XEY1XC_CONSOLIDATIONUNITVHT type /EY1/C_CONSOLIDATIONUNITVH .
+  types:
+   TT_XEY1XC_CONSOLIDATIONUNITVHT type standard table of TS_XEY1XC_CONSOLIDATIONUNITVHT .
   types:
     begin of TS_XEY1XC_INTENTIONS_VALUESPAR.
       include type /EY1/C_INTENTIONS_VALUES.
@@ -229,6 +238,7 @@ TT_PTAATTACH type standard table of TS_PTAATTACH .
       P_TOYB type POPER,
       P_SWITCH type CHAR1,
       P_TAXINTENTION type ZZ1_TAXINTENTION,
+      P_INTENTION type ZZ1_TAXINTENTION,
     end of TS_XEY1XSAV_C_RECONCILIATIONPA .
   types:
    TT_XEY1XSAV_C_RECONCILIATIONPA type standard table of TS_XEY1XSAV_C_RECONCILIATIONPA .
@@ -242,6 +252,7 @@ TT_PTAATTACH type standard table of TS_PTAATTACH .
       P_TOYB type POPER,
       P_SWITCH type CHAR1,
       P_TAXINTENTION type ZZ1_TAXINTENTION,
+      P_INTENTION type ZZ1_TAXINTENTION,
     end of TS_XEY1XSAV_C_RECONCILIATIONRE .
   types:
    TT_XEY1XSAV_C_RECONCILIATIONRE type standard table of TS_XEY1XSAV_C_RECONCILIATIONRE .
@@ -806,6 +817,7 @@ TT_PTAATTACH type standard table of TS_PTAATTACH .
   types:
    TT_I_UNITOFMEASURETYPE type standard table of TS_I_UNITOFMEASURETYPE .
 
+  constants GC_I_GLOBALCOMPANYTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_GlobalcompanyType' ##NO_TEXT.
   constants GC_I_DEBITCREDITCODETYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_DebitCreditCodeType' ##NO_TEXT.
   constants GC_I_CURRENCYTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CurrencyType' ##NO_TEXT.
   constants GC_I_CREDITCONTROLAREATEXTTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CreditControlAreaTextType' ##NO_TEXT.
@@ -833,7 +845,6 @@ TT_PTAATTACH type standard table of TS_PTAATTACH .
   constants GC_I_CNSLDTNPOSTINGLEVELTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CnsldtnPostingLevelType' ##NO_TEXT.
   constants GC_I_CNSLDTNPOSTINGLEVELTTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CnsldtnPostingLevelTType' ##NO_TEXT.
   constants GC_I_CNSLDTNPLANTTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CnsldtnPlantType' ##NO_TEXT.
-  constants GC_I_CNSLDTNPERIODMODETYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CnsldtnPeriodModeType' ##NO_TEXT.
   constants GC_XEY1XSAV_I_JOURNALENTRYITEM type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'xEY1xSAV_I_JournalEntryItemType' ##NO_TEXT.
   constants GC_XEY1XSAV_I_GLACCTEXTTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'xEY1xSAV_I_GlAccTextType' ##NO_TEXT.
   constants GC_XEY1XSAV_I_FSITEMTEXTTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'xEY1xSAV_I_FSItemTextType' ##NO_TEXT.
@@ -853,6 +864,7 @@ TT_PTAATTACH type standard table of TS_PTAATTACH .
   constants GC_XEY1XSAV_C_CNSLDTNJRNLENTR type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'xEY1xSAV_C_CnsldtnJrnlEntryResult' ##NO_TEXT.
   constants GC_XEY1XC_INTENTIONS_VALUESTYP type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'xEY1xC_INTENTIONS_VALUESType' ##NO_TEXT.
   constants GC_XEY1XC_INTENTIONS_VALUESPAR type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'xEY1xC_INTENTIONS_VALUESParameters' ##NO_TEXT.
+  constants GC_XEY1XC_CONSOLIDATIONUNITVHT type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'xEY1xC_ConsolidationUnitVHType' ##NO_TEXT.
   constants GC_TRANSACTIONCURRENCYTEXTTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'TransactionCurrencyTextType' ##NO_TEXT.
   constants GC_PTAATTACH type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'PtaAttach' ##NO_TEXT.
   constants GC_POSTINGDATE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'PostingDate' ##NO_TEXT.
@@ -861,7 +873,7 @@ TT_PTAATTACH type standard table of TS_PTAATTACH .
   constants GC_I_UNITOFMEASURETYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_UnitOfMeasureType' ##NO_TEXT.
   constants GC_I_LANGUAGETYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_LanguageType' ##NO_TEXT.
   constants GC_I_GROUPREPORTINGFSITEMTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_GroupReportingFSItemType' ##NO_TEXT.
-  constants GC_I_GLOBALCOMPANYTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_GlobalcompanyType' ##NO_TEXT.
+  constants GC_I_CNSLDTNPERIODMODETYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CnsldtnPeriodModeType' ##NO_TEXT.
   constants GC_I_CNSLDTNBUSINESSAREATYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CnsldtnBusinessAreaType' ##NO_TEXT.
   constants GC_I_CNSLDTNBILLINGTYPETYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CnsldtnBillingTypeType' ##NO_TEXT.
   constants GC_I_CNSLDTNAPPORTIONMENTTYPE type /IWBEP/IF_MGW_MED_ODATA_TYPES=>TY_E_MED_ENTITY_NAME value 'I_CnsldtnApportionmentType' ##NO_TEXT.
@@ -1032,21 +1044,23 @@ lo_action->set_return_multiplicity( 'N' ). "#EC NOTEXT
 * Parameters
 ***********************************************************************************************************************************
 
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'PeriodTo'    iv_abap_fieldname = 'PERIODTO' ). "#EC NOTEXT
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Intention'    iv_abap_fieldname = 'INTENTION' ). "#EC NOTEXT
 lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'PeriodFrom'    iv_abap_fieldname = 'PERIODFROM' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'LocalCurrency'    iv_abap_fieldname = 'LOCALCURRENCY' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Ledger'    iv_abap_fieldname = 'LEDGER' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'GroupCurrency'    iv_abap_fieldname = 'GROUPCURRENCY' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'FiscalYear'    iv_abap_fieldname = 'FISCALYEAR' ). "#EC NOTEXT
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Action'    iv_abap_fieldname = 'ACTION' ). "#EC NOTEXT
 lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
 lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ConsolidationUnit'    iv_abap_fieldname = 'CONSOLIDATIONUNIT' ). "#EC NOTEXT
 lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Action'    iv_abap_fieldname = 'ACTION' ). "#EC NOTEXT
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'FiscalYear'    iv_abap_fieldname = 'FISCALYEAR' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'GroupCurrency'    iv_abap_fieldname = 'GROUPCURRENCY' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Ledger'    iv_abap_fieldname = 'LEDGER' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'LocalCurrency'    iv_abap_fieldname = 'LOCALCURRENCY' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'PeriodFrom'    iv_abap_fieldname = 'PERIODFROM' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'PeriodTo'    iv_abap_fieldname = 'PERIODTO' ). "#EC NOTEXT
 lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
 lo_action->bind_input_structure( iv_structure_name  = '/EY1/CL_SAV_RECON_GAAP_MPC=>TS_DATAMONITORPARAMETERS' ). "#EC NOTEXT
 ***********************************************************************************************************************************
@@ -1064,15 +1078,15 @@ lo_action->set_return_multiplicity( '1' ). "#EC NOTEXT
 * Parameters
 ***********************************************************************************************************************************
 
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'FiscalYear'    iv_abap_fieldname = 'FISCALYEAR' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter->set_maxlength( iv_max_length = 4 ). "#EC NOTEXT
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Poper'    iv_abap_fieldname = 'POPER' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter->set_maxlength( iv_max_length = 3 ). "#EC NOTEXT
 lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ConsolidationUnit'    iv_abap_fieldname = 'CONSOLIDATIONUNIT' ). "#EC NOTEXT
 lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
 lo_parameter->set_maxlength( iv_max_length = 18 ). "#EC NOTEXT
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Poper'    iv_abap_fieldname = 'POPER' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter->set_maxlength( iv_max_length = 3 ). "#EC NOTEXT
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'FiscalYear'    iv_abap_fieldname = 'FISCALYEAR' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter->set_maxlength( iv_max_length = 4 ). "#EC NOTEXT
 lo_action->bind_input_structure( iv_structure_name  = '/EY1/CL_SAV_RECON_GAAP_MPC=>TS_POSTINGDATE' ). "#EC NOTEXT
 ***********************************************************************************************************************************
 *   ACTION - ConvertCurrency
@@ -1089,18 +1103,18 @@ lo_action->set_return_multiplicity( '1' ). "#EC NOTEXT
 * Parameters
 ***********************************************************************************************************************************
 
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ToCurrency'    iv_abap_fieldname = 'TOCURRENCY' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter->set_maxlength( iv_max_length = 5 ). "#EC NOTEXT
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'FromCurrency'    iv_abap_fieldname = 'FROMCURRENCY' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
-lo_parameter->set_maxlength( iv_max_length = 5 ). "#EC NOTEXT
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ExchangeRateDate'    iv_abap_fieldname = 'EXCHANGERATEDATE' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_datetime( ).
 lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Amount'    iv_abap_fieldname = 'AMOUNT' ). "#EC NOTEXT
 lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_decimal( ).
 lo_parameter->set_precison( iv_precision = 3 ). "#EC NOTEXT
 lo_parameter->set_maxlength( iv_max_length = 3 ). "#EC NOTEXT
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ExchangeRateDate'    iv_abap_fieldname = 'EXCHANGERATEDATE' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_datetime( ).
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'FromCurrency'    iv_abap_fieldname = 'FROMCURRENCY' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter->set_maxlength( iv_max_length = 5 ). "#EC NOTEXT
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ToCurrency'    iv_abap_fieldname = 'TOCURRENCY' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter->set_maxlength( iv_max_length = 5 ). "#EC NOTEXT
 lo_action->bind_input_structure( iv_structure_name  = '/EY1/CL_SAV_RECON_GAAP_MPC=>TS_CONVERTCURRENCY' ). "#EC NOTEXT
 ***********************************************************************************************************************************
 *   ACTION - DeterminePeriod
@@ -1117,12 +1131,12 @@ lo_action->set_return_multiplicity( '1' ). "#EC NOTEXT
 * Parameters
 ***********************************************************************************************************************************
 
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Date'    iv_abap_fieldname = 'DATE' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_datetime( ).
-lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ConsolidationUnit'    iv_abap_fieldname = 'RBUNIT' ). "#EC NOTEXT
-lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
 lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ConsolidationLedger'    iv_abap_fieldname = 'CHAR4' ). "#EC NOTEXT
 lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'ConsolidationUnit'    iv_abap_fieldname = 'RBUNIT' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_string( ).
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Date'    iv_abap_fieldname = 'DATE' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_datetime( ).
 lo_action->bind_input_structure( iv_structure_name  = '/EY1/CL_SAV_RECON_GAAP_MPC=>TS_DETERMINEPERIOD' ). "#EC NOTEXT
 ***********************************************************************************************************************************
 *   ACTION - GlobalParameter
@@ -1135,6 +1149,13 @@ lo_action->set_return_entity_type( 'GlobalParameter' ). "#EC NOTEXT
 lo_action->set_http_method( 'GET' ). "#EC NOTEXT
 * Set return type multiplicity
 lo_action->set_return_multiplicity( '1' ). "#EC NOTEXT
+***********************************************************************************************************************************
+* Parameters
+***********************************************************************************************************************************
+
+lo_parameter = lo_action->create_input_parameter( iv_parameter_name = 'Default'    iv_abap_fieldname = 'DEFAULT' ). "#EC NOTEXT
+lo_parameter->/iwbep/if_mgw_odata_property~set_type_edm_boolean( ).
+lo_action->bind_input_structure( iv_structure_name  = '/EY1/CL_SAV_RECON_GAAP_MPC=>TS_GLOBALPARAMETER' ). "#EC NOTEXT
   endmethod.
 
 
@@ -2375,7 +2396,7 @@ lo_entity_set->set_filter_required( abap_false ).
 *&---------------------------------------------------------------------*
 
 
-  CONSTANTS: lc_gen_date_time TYPE timestamp VALUE '20210810102551'.                  "#EC NOTEXT
+  CONSTANTS: lc_gen_date_time TYPE timestamp VALUE '20211110054115'.                  "#EC NOTEXT
  DATA: lv_rds_last_modified TYPE timestamp .
   rv_last_modified = super->get_last_modified( ).
   IF rv_last_modified LT lc_gen_date_time.
@@ -2400,7 +2421,7 @@ lo_entity_set->set_filter_required( abap_false ).
 *   4
 *&---------------------------------------------------------------------*
 *    @@TYPE_SWITCH:
-    CONSTANTS: co_gen_date_time TYPE timestamp VALUE '20210810122553'.
+    CONSTANTS: co_gen_date_time TYPE timestamp VALUE '20211110064117'.
     TRY.
         rv_last_modified_rds = CAST cl_sadl_gw_model_exposure( if_sadl_gw_model_exposure_data~get_model_exposure( ) )->get_last_modified( ).
       CATCH cx_root ##CATCH_ALL.
@@ -2413,40 +2434,46 @@ lo_entity_set->set_filter_required( abap_false ).
 
 
   method IF_SADL_GW_MODEL_EXPOSURE_DATA~GET_MODEL_EXPOSURE.
-    CONSTANTS: co_gen_timestamp TYPE timestamp VALUE '20210810122553'.
+    CONSTANTS: co_gen_timestamp TYPE timestamp VALUE '20211110064117'.
     DATA(lv_sadl_xml) =
                |<?xml version="1.0" encoding="utf-16"?>|  &
                |<sadl:definition xmlns:sadl="http://sap.com/sap.nw.f.sadl" syntaxVersion="V2" >|  &
-               | <sadl:dataSource type="CDS" name="/EY1/C_INTENTIONS_VALUES" binding="/EY1/C_INTENTIONS_VALUES" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNDOCUMENTTYPET" binding="I_CNSLDTNDOCUMENTTYPET" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNPERIODMODETEXT" binding="I_CNSLDTNPERIODMODETEXT" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNFINSTMNTITEMTEXT" binding="I_CNSLDTNFINSTMNTITEMTEXT" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/C_CONSOLIDATIONUNITVH" binding="/EY1/C_CONSOLIDATIONUNITVH" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_FSITEMTEXT" binding="/EY1/SAV_I_FSITEMTEXT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNFINTRANSTYPE" binding="I_CNSLDTNFINTRANSTYPE" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_RECONCILIATION" binding="/EY1/SAV_C_RECONCILIATION" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNFUNCTIONALAREA" binding="I_CNSLDTNFUNCTIONALAREA" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNGLACCOUNT" binding="I_CNSLDTNGLACCOUNT" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNGLCHARTOFACCOUNTS" binding="I_CNSLDTNGLCHARTOFACCOUNTS" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNGROUPT" binding="I_CNSLDTNGROUPT" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNGROUPWITHEMPTYVALUE" binding="I_CNSLDTNGROUPWITHEMPTYVALUE" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNINDUSTRY" binding="I_CNSLDTNINDUSTRY" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNINTERNALORDER" binding="I_CNSLDTNINTERNALORDER" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNLEDGER" binding="I_CNSLDTNLEDGER" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNLEDGERT" binding="I_CNSLDTNLEDGERT" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_GLACCTEXT" binding="/EY1/SAV_I_GLACCTEXT" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNMATERIAL" binding="I_CNSLDTNMATERIAL" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNMATERIALGROUP" binding="I_CNSLDTNMATERIALGROUP" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNPERIODMODE" binding="I_CNSLDTNPERIODMODE" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNPERIODMODETEXT" binding="I_CNSLDTNPERIODMODETEXT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNPLANT" binding="I_CNSLDTNPLANT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNPOSTINGLEVEL" binding="I_CNSLDTNPOSTINGLEVEL" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNPOSTINGLEVELT" binding="I_CNSLDTNPOSTINGLEVELT" />|  &
-               | <sadl:dataSource type="CDS" name="A_CNSLDTNTRANSCURRENCYT" binding="A_CNSLDTNTRANSCURRENCYT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNPRODUCT" binding="I_CNSLDTNPRODUCT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNPROFITCENTER" binding="I_CNSLDTNPROFITCENTER" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_JOURNALENTRYITEM" binding="/EY1/SAV_I_JOURNALENTRYITEM" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNPROFITCENTERFORELIMT" binding="I_CNSLDTNPROFITCENTERFORELIMT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNPROFITCENTERT" binding="I_CNSLDTNPROFITCENTERT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNPROJECT" binding="I_CNSLDTNPROJECT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNSALESDISTRICT" binding="I_CNSLDTNSALESDISTRICT" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNGLCHARTOFACCOUNTS" binding="I_CNSLDTNGLCHARTOFACCOUNTS" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNSALESORGANIZATION" binding="I_CNSLDTNSALESORGANIZATION" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNSEGMENT" binding="I_CNSLDTNSEGMENT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNSEGMENTFORELIMT" binding="I_CNSLDTNSEGMENTFORELIMT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNSEGMENTT" binding="I_CNSLDTNSEGMENTT" />|  &
-               | <sadl:dataSource type="CDS" name="A_CNSLDTNUNIT" binding="A_CNSLDTNUNIT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNSUBITEM" binding="I_CNSLDTNSUBITEM" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNSUBITEMCATEGORY" binding="I_CNSLDTNSUBITEMCATEGORY" />|  &
+               | <sadl:dataSource type="CDS" name="A_CNSLDTNDIMENSION" binding="A_CNSLDTNDIMENSION" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNSUPPLIER" binding="I_CNSLDTNSUPPLIER" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNGROUPT" binding="I_CNSLDTNGROUPT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNUNITFORELIMINATIONT" binding="I_CNSLDTNUNITFORELIMINATIONT" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_RECON_ADJ_REASON" binding="/EY1/SAV_C_RECON_ADJ_REASON" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNUNITT" binding="I_CNSLDTNUNITT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNUNIT_2" binding="I_CNSLDTNUNIT_2" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNVERSION" binding="I_CNSLDTNVERSION" />|  &
@@ -2455,29 +2482,29 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:dataSource type="CDS" name="I_CONTROLLINGAREASTDVH" binding="I_CONTROLLINGAREASTDVH" />|  &
                | <sadl:dataSource type="CDS" name="I_CREDITCONTROLAREASTDVH" binding="I_CREDITCONTROLAREASTDVH" />|  &
                | <sadl:dataSource type="CDS" name="I_CREDITCONTROLAREATEXT" binding="I_CREDITCONTROLAREATEXT" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNGROUPWITHEMPTYVALUE" binding="I_CNSLDTNGROUPWITHEMPTYVALUE" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_RECON_LEDGER" binding="/EY1/SAV_C_RECON_LEDGER" />|  &
+               | <sadl:dataSource type="CDS" name="A_CNSLDTNTRANSCURRENCYT" binding="A_CNSLDTNTRANSCURRENCYT" />|  &
                | <sadl:dataSource type="CDS" name="I_CURRENCY" binding="I_CURRENCY" />|  &
                | <sadl:dataSource type="CDS" name="I_DEBITCREDITCODE" binding="I_DEBITCREDITCODE" />|  &
-               | <sadl:dataSource type="CDS" name="I_GLOBALCOMPANY" binding="I_GLOBALCOMPANY" />|  &
+               | <sadl:dataSource type="CDS" name="I_GLOBALCOMPANY" binding="I_GLOBALCOMPANY" />| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                | <sadl:dataSource type="CDS" name="I_GROUPREPORTINGFSITEM" binding="I_GROUPREPORTINGFSITEM" />|  &
                | <sadl:dataSource type="CDS" name="I_LANGUAGE" binding="I_LANGUAGE" />|  &
                | <sadl:dataSource type="CDS" name="I_UNITOFMEASURE" binding="I_UNITOFMEASURE" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/C_INTENTIONS_VALUES" binding="/EY1/C_INTENTIONS_VALUES" />|  &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_C_CNSLDTNJRNLENTRY" binding="/EY1/SAV_C_CNSLDTNJRNLENTRY" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_REC_PTA" binding="/EY1/SAV_C_REC_PTA" />| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNMATERIAL" binding="I_CNSLDTNMATERIAL" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACC_CLASS_TEXT" binding="/EY1/SAV_I_ACC_CLASS_TEXT" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNINDUSTRY" binding="I_CNSLDTNINDUSTRY" />|  &
-               | <sadl:dataSource type="CDS" name="A_CNSLDTNDIMENSION" binding="A_CNSLDTNDIMENSION" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNINTERNALORDER" binding="I_CNSLDTNINTERNALORDER" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNLEDGER" binding="I_CNSLDTNLEDGER" />|  &
+               | <sadl:dataSource type="CDS" name="A_CNSLDTNUNIT" binding="A_CNSLDTNUNIT" />|  &
                | <sadl:dataSource type="CDS" name="A_CNSLDTNUNITHIER" binding="A_CNSLDTNUNITHIER" />|  &
-               | <sadl:dataSource type="CDS" name="A_CNSLDTNUNITLATESTLOCALCRCY" binding="A_CNSLDTNUNITLATESTLOCALCRCY" />|  &
-               | <sadl:dataSource type="CDS" name="A_CNSLDTNUNITT" binding="A_CNSLDTNUNITT" />|  &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_C_CURRLOCALGROUPVH" binding="/EY1/SAV_C_CURRLOCALGROUPVH" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_GET_VERSION" binding="/EY1/SAV_C_GET_VERSION" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_INTENTIONSSTATUS" binding="/EY1/SAV_C_INTENTIONSSTATUS" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_READINTENTVH" binding="/EY1/SAV_C_READINTENTVH" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_RECONCILIATION" binding="/EY1/SAV_C_RECONCILIATION" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_RECON_ADJ_REASON" binding="/EY1/SAV_C_RECON_ADJ_REASON" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_RECON_LEDGER" binding="/EY1/SAV_C_RECON_LEDGER" />|  &
+               | <sadl:dataSource type="CDS" name="A_CNSLDTNUNITLATESTLOCALCRCY" binding="A_CNSLDTNUNITLATESTLOCALCRCY" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_REC_PTA" binding="/EY1/SAV_C_REC_PTA" />|  &
+               | <sadl:dataSource type="CDS" name="A_CNSLDTNUNITT" binding="A_CNSLDTNUNITT" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNCHARTOFACCOUNTSVH" binding="C_CNSLDTNCHARTOFACCOUNTSVH" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNLEDGERT" binding="I_CNSLDTNLEDGERT" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNCTRLGAREAVH" binding="C_CNSLDTNCTRLGAREAVH" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNDOCUMENTTYPEVH" binding="C_CNSLDTNDOCUMENTTYPEVH" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNFINSTMNTITEMVH" binding="C_CNSLDTNFINSTMNTITEMVH" />|  &
@@ -2486,10 +2513,7 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:dataSource type="CDS" name="C_CNSLDTNPOSTINGLEVELVH" binding="C_CNSLDTNPOSTINGLEVELVH" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNPROFITCENTERFORELIMVH" binding="C_CNSLDTNPROFITCENTERFORELIMVH" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNPROFITCENTERVH" binding="C_CNSLDTNPROFITCENTERVH" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNMATERIALGROUP" binding="I_CNSLDTNMATERIALGROUP" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNSEGMENTFORELIMVH" binding="C_CNSLDTNSEGMENTFORELIMVH" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_GET_VERSION" binding="/EY1/SAV_C_GET_VERSION" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_FSITEMTEXT" binding="/EY1/SAV_I_FSITEMTEXT" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNSEGMENTVH" binding="C_CNSLDTNSEGMENTVH" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNUNITFORELIMINATIONVH" binding="C_CNSLDTNUNITFORELIMINATIONVH" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNUNITVALUEHELP" binding="C_CNSLDTNUNITVALUEHELP" />|  &
@@ -2498,40 +2522,28 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:dataSource type="CDS" name="I_CNSLDTNBILLINGTYPE" binding="I_CNSLDTNBILLINGTYPE" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNBUSINESSAREA" binding="I_CNSLDTNBUSINESSAREA" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCHARTOFACCOUNTS" binding="I_CNSLDTNCHARTOFACCOUNTS" />|  &
-               | <sadl:dataSource type="CDS" name="I_CNSLDTNPERIODMODE" binding="I_CNSLDTNPERIODMODE" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_INTENTIONSSTATUS" binding="/EY1/SAV_C_INTENTIONSSTATUS" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCHARTOFACCOUNTST" binding="I_CNSLDTNCHARTOFACCOUNTST" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCONTROLLINGAREA" binding="I_CNSLDTNCONTROLLINGAREA" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_GLACCTEXT" binding="/EY1/SAV_I_GLACCTEXT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCONTROLLINGAREAT" binding="I_CNSLDTNCONTROLLINGAREAT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCOSTCENTER" binding="I_CNSLDTNCOSTCENTER" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCOUNTRY" binding="I_CNSLDTNCOUNTRY" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACC_CLASS_TEXT" binding="/EY1/SAV_I_ACC_CLASS_TEXT" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCRCYCNVRSNDIFFTYPE" binding="I_CNSLDTNCRCYCNVRSNDIFFTYPE" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCUSTOMER" binding="I_CNSLDTNCUSTOMER" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNCUSTOMERGROUP" binding="I_CNSLDTNCUSTOMERGROUP" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_C_READINTENTVH" binding="/EY1/SAV_C_READINTENTVH" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNDIMENSION" binding="I_CNSLDTNDIMENSION" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNDISTRIBUTIONCHANNEL" binding="I_CNSLDTNDISTRIBUTIONCHANNEL" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNDIVISION" binding="I_CNSLDTNDIVISION" />|  &
                | <sadl:dataSource type="CDS" name="I_CNSLDTNDOCUMENTTYPE" binding="I_CNSLDTNDOCUMENTTYPE" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_JOURNALENTRYITEM" binding="/EY1/SAV_I_JOURNALENTRYITEM" />|  &
-               |<sadl:resultSet>| .
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNDOCUMENTTYPET" binding="I_CNSLDTNDOCUMENTTYPET" />|  &
+               | <sadl:dataSource type="CDS" name="I_CNSLDTNFINSTMNTITEMTEXT" binding="I_CNSLDTNFINSTMNTITEMTEXT" />| .
       lv_sadl_xml = |{ lv_sadl_xml }| &
-               |<sadl:structure name="xEY1xC_INTENTIONS_VALUESSet" dataSource="/EY1/C_INTENTIONS_VALUES" maxEditMode="RO" exposure="TRUE" >|  &
+               |<sadl:resultSet>|  &
+               |<sadl:structure name="xEY1xC_ConsolidationUnitVH" dataSource="/EY1/C_CONSOLIDATIONUNITVH" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnDocumentTypeT" dataSource="I_CNSLDTNDOCUMENTTYPET" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               | <sadl:association name="TO_DIMENSION" binding="_DIMENSION" target="I_CnsldtnDimension" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_LANGUAGE" binding="_LANGUAGE" target="I_Language" cardinality="zeroToOne" />|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnPeriodModeText" dataSource="I_CNSLDTNPERIODMODETEXT" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnFinStmntItemText" dataSource="I_CNSLDTNFINSTMNTITEMTEXT" maxEditMode="RO" exposure="TRUE" >|  &
+               |<sadl:structure name="xEY1xSAV_I_FSItemText" dataSource="/EY1/SAV_I_FSITEMTEXT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2539,18 +2551,61 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_C_ReconciliationResults" dataSource="/EY1/SAV_C_RECONCILIATION" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               | <sadl:association name="TO_ACCCODE_TEXT" binding="_ACCCODE_TEXT" target="xEY1xSAV_I_Acc_Class_Text" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_FSITEM_TEXT" binding="_FSITEM_TEXT" target="xEY1xSAV_I_FSItemText" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_RACCT_TEXT" binding="_RACCT_TEXT" target="xEY1xSAV_I_GlAccText" cardinality="zeroToOne" />|  &
-               |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnFunctionalArea" dataSource="I_CNSLDTNFUNCTIONALAREA" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnGLAccount" dataSource="I_CNSLDTNGLACCOUNT" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnGLChartOfAccounts" dataSource="I_CNSLDTNGLCHARTOFACCOUNTS" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnGroupT" dataSource="I_CNSLDTNGROUPT" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnGroupWithEmptyValue" dataSource="I_CNSLDTNGROUPWITHEMPTYVALUE" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnIndustry" dataSource="I_CNSLDTNINDUSTRY" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnInternalOrder" dataSource="I_CNSLDTNINTERNALORDER" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnLedger" dataSource="I_CNSLDTNLEDGER" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnLedgerT" dataSource="I_CNSLDTNLEDGERT" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_I_GlAccText" dataSource="/EY1/SAV_I_GLACCTEXT" maxEditMode="RO" exposure="TRUE" >| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnMaterial" dataSource="I_CNSLDTNMATERIAL" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnMaterialGroup" dataSource="I_CNSLDTNMATERIALGROUP" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnPeriodMode" dataSource="I_CNSLDTNPERIODMODE" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               | <sadl:association name="TO_TEXT" binding="_TEXT" target="I_CnsldtnPeriodModeText" cardinality="zeroToMany" />|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnPeriodModeText" dataSource="I_CNSLDTNPERIODMODETEXT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2566,11 +2621,6 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="TransactionCurrencyText" dataSource="A_CNSLDTNTRANSCURRENCYT" maxEditMode="RO" exposure="TRUE" >| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnProduct" dataSource="I_CNSLDTNPRODUCT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
@@ -2579,12 +2629,17 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_I_JournalEntryItem" dataSource="/EY1/SAV_I_JOURNALENTRYITEM" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnProfitCenterForElimT" dataSource="I_CNSLDTNPROFITCENTERFORELIMT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnProfitCenterT" dataSource="I_CNSLDTNPROFITCENTERT" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
+               | <sadl:query name="SADL_QUERY">| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnProject" dataSource="I_CNSLDTNPROJECT" maxEditMode="RO" exposure="TRUE" >|  &
@@ -2592,10 +2647,6 @@ lo_entity_set->set_filter_required( abap_false ).
                | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnSalesDistrict" dataSource="I_CNSLDTNSALESDISTRICT" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnGLChartOfAccounts" dataSource="I_CNSLDTNGLCHARTOFACCOUNTS" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2615,16 +2666,6 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="ConsolidationUnit" dataSource="A_CNSLDTNUNIT" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
-               | <sadl:association name="TO_CNSLDTNDIMENSION" binding="_CNSLDTNDIMENSION" target="ConsolidationDimension" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_CNSLDTNTRANSCURRENCYT" binding="_CNSLDTNTRANSCURRENCYT" target="TransactionCurrencyText" cardinality="zeroToMany" />|  &
-               | <sadl:association name="TO_CNSLDTNUNITHIER" binding="_CNSLDTNUNITHIER" target="ConsolidationUnitHier" cardinality="zeroToMany" />|  &
-               | <sadl:association name="TO_CNSLDTNUNITLATESTLOCALCRCY" binding="_CNSLDTNUNITLATESTLOCALCRCY" target="CnsldtnUnitLatestLocalCrcy" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_CNSLDTNUNITT" binding="_CNSLDTNUNITT" target="ConsolidationUnitText" cardinality="zeroToMany" />|  &
-               |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnSubItem" dataSource="I_CNSLDTNSUBITEM" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
@@ -2633,11 +2674,11 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnSupplier" dataSource="I_CNSLDTNSUPPLIER" maxEditMode="RO" exposure="TRUE" >|  &
+               |<sadl:structure name="ConsolidationDimension" dataSource="A_CNSLDTNDIMENSION" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnGroupT" dataSource="I_CNSLDTNGROUPT" maxEditMode="RO" exposure="TRUE" >|  &
+               |<sadl:structure name="I_CnsldtnSupplier" dataSource="I_CNSLDTNSUPPLIER" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2645,14 +2686,11 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_C_Recon_Adj_Reason" dataSource="/EY1/SAV_C_RECON_ADJ_REASON" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnUnitT" dataSource="I_CNSLDTNUNITT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
-               |</sadl:structure>|  &
+               |</sadl:structure>| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                |<sadl:structure name="I_CnsldtnUnit_2" dataSource="I_CNSLDTNUNIT_2" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
@@ -2668,8 +2706,7 @@ lo_entity_set->set_filter_required( abap_false ).
                |<sadl:structure name="I_CompanyCode" dataSource="I_COMPANYCODE" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
-               |</sadl:structure>| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
+               |</sadl:structure>|  &
                |<sadl:structure name="I_ControllingAreaStdVH" dataSource="I_CONTROLLINGAREASTDVH" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
@@ -2683,11 +2720,7 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnGroupWithEmptyValue" dataSource="I_CNSLDTNGROUPWITHEMPTYVALUE" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_C_Recon_Ledger" dataSource="/EY1/SAV_C_RECON_LEDGER" maxEditMode="RO" exposure="TRUE" >|  &
+               |<sadl:structure name="TransactionCurrencyText" dataSource="A_CNSLDTNTRANSCURRENCYT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2707,7 +2740,8 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_Language" dataSource="I_LANGUAGE" maxEditMode="RO" exposure="TRUE" >|  &
+               |<sadl:structure name="I_Language" dataSource="I_LANGUAGE" maxEditMode="RO" exposure="TRUE" >| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2715,12 +2749,20 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xC_INTENTIONS_VALUESSet" dataSource="/EY1/C_INTENTIONS_VALUES" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
                |<sadl:structure name="xEY1xSAV_C_CnsldtnJrnlEntryResults" dataSource="/EY1/SAV_C_CNSLDTNJRNLENTRY" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
+               | <sadl:association name="TO_BILLTOPARTY" binding="_BILLTOPARTY" target="I_CnsldtnCustomer" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_BUSINESSAREA" binding="_BUSINESSAREA" target="I_CnsldtnBusinessArea" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_CHARTOFACCOUNTS" binding="_CHARTOFACCOUNTS" target="I_CnsldtnChartOfAccounts" cardinality="one" />|  &
+               | <sadl:association name="TO_CHARTOFACCOUNTSTEXT" binding="_CHARTOFACCOUNTSTEXT" target="I_CnsldtnChartOfAccountsT" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_CNSLDTNGROUP" binding="_CNSLDTNGROUP" target="I_CnsldtnGroupWithEmptyValue" cardinality="one" />|  &
                | <sadl:association name="TO_CNSLDTNSEGMENTELIMINATEDT" binding="_CNSLDTNSEGMENTELIMINATEDT" target="I_CnsldtnSegmentForElimT" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_CNSLDTNUNIT" binding="_CNSLDTNUNIT" target="I_CnsldtnUnit_2" cardinality="one" />| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
+               | <sadl:association name="TO_CNSLDTNUNIT" binding="_CNSLDTNUNIT" target="I_CnsldtnUnit_2" cardinality="one" />|  &
                | <sadl:association name="TO_CNSLDTNUNITELIMINATEDTEXT" binding="_CNSLDTNUNITELIMINATEDTEXT" target="I_CnsldtnUnitForEliminationT" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_CNSLDTNUNITTEXT" binding="_CNSLDTNUNITTEXT" target="I_CnsldtnUnitT" cardinality="one" />|  &
                | <sadl:association name="TO_COMPANY" binding="_COMPANY" target="I_Globalcompany" cardinality="one" />|  &
@@ -2749,14 +2791,14 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:association name="TO_GROUPTEXT" binding="_GROUPTEXT" target="I_CnsldtnGroupT" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_INDUSTRY" binding="_INDUSTRY" target="I_CnsldtnIndustry" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_INTERNALORDER" binding="_INTERNALORDER" target="I_CnsldtnInternalOrder" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_INVESTEEUNIT" binding="_INVESTEEUNIT" target="I_CnsldtnUnit_2" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_INVESTEEUNIT" binding="_INVESTEEUNIT" target="I_CnsldtnUnit_2" cardinality="zeroToOne" />| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                | <sadl:association name="TO_LEDGER" binding="_LEDGER" target="I_CnsldtnLedger" cardinality="one" />|  &
                | <sadl:association name="TO_LEDGERTEXT" binding="_LEDGERTEXT" target="I_CnsldtnLedgerT" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_LOCALCURRENCY" binding="_LOCALCURRENCY" target="I_Currency" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_MATERIAL" binding="_MATERIAL" target="I_CnsldtnMaterial" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_MATERIALGROUP" binding="_MATERIALGROUP" target="I_CnsldtnMaterialGroup" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PARTNERBUSINESSAREA" binding="_PARTNERBUSINESSAREA" target="I_CnsldtnBusinessArea" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_APPORTIONMENT" binding="_APPORTIONMENT" target="I_CnsldtnApportionment" cardinality="one" />|  &
                | <sadl:association name="TO_PARTNERCOMPANY" binding="_PARTNERCOMPANY" target="I_Globalcompany" cardinality="one" />|  &
                | <sadl:association name="TO_PARTNERCOSTCENTER" binding="_PARTNERCOSTCENTER" target="I_CnsldtnCostCenter" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PARTNERFUNCTIONALAREA" binding="_PARTNERFUNCTIONALAREA" target="I_CnsldtnFunctionalArea" cardinality="zeroToOne" />|  &
@@ -2767,20 +2809,17 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:association name="TO_PARTNERUNIT" binding="_PARTNERUNIT" target="I_CnsldtnUnit_2" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PARTNERUNITTEXT" binding="_PARTNERUNITTEXT" target="I_CnsldtnUnitT" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PERIODMODETEXT" binding="_PERIODMODETEXT" target="I_CnsldtnPeriodModeText" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_BASEUNIT" binding="_BASEUNIT" target="I_UnitOfMeasure" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PLANT" binding="_PLANT" target="I_CnsldtnPlant" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_POSTINGLEVEL" binding="_POSTINGLEVEL" target="I_CnsldtnPostingLevel" cardinality="one" />|  &
-               | <sadl:association name="TO_POSTINGLEVELTEXT" binding="_POSTINGLEVELTEXT" target="I_CnsldtnPostingLevelT" cardinality="zeroToOne" />| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
+               | <sadl:association name="TO_POSTINGLEVELTEXT" binding="_POSTINGLEVELTEXT" target="I_CnsldtnPostingLevelT" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PROFITCENTER" binding="_PROFITCENTER" target="I_CnsldtnProfitCenter" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PROFITCENTERELIMINATEDT" binding="_PROFITCENTERELIMINATEDT" target="I_CnsldtnProfitCenterForElimT" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PROFITCENTERTEXT" binding="_PROFITCENTERTEXT" target="I_CnsldtnProfitCenterT" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_PROJECT" binding="_PROJECT" target="I_CnsldtnProject" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_SALESDISTRICT" binding="_SALESDISTRICT" target="I_CnsldtnSalesDistrict" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_APPORTIONMENT" binding="_APPORTIONMENT" target="I_CnsldtnApportionment" cardinality="one" />|  &
                | <sadl:association name="TO_SALESORGANIZATION" binding="_SALESORGANIZATION" target="I_CnsldtnSalesOrganization" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_SEGMENT" binding="_SEGMENT" target="I_CnsldtnSegment" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_BILLINGDOCUMENTTYPE" binding="_BILLINGDOCUMENTTYPE" target="I_CnsldtnBillingType" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_CHARTOFACCOUNTS" binding="_CHARTOFACCOUNTS" target="I_CnsldtnChartOfAccounts" cardinality="one" />|  &
                | <sadl:association name="TO_SEGMENTTEXT" binding="_SEGMENTTEXT" target="I_CnsldtnSegmentT" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_SHIPTOPARTY" binding="_SHIPTOPARTY" target="I_CnsldtnCustomer" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_SOLDMATERIAL" binding="_SOLDMATERIAL" target="I_CnsldtnMaterial" cardinality="zeroToOne" />|  &
@@ -2789,13 +2828,60 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:association name="TO_SUBITEM" binding="_SUBITEM" target="I_CnsldtnSubItem" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_SUBITEMCATEGORY" binding="_SUBITEMCATEGORY" target="I_CnsldtnSubItemCategory" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_SUPPLIER" binding="_SUPPLIER" target="I_CnsldtnSupplier" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_BASEUNIT" binding="_BASEUNIT" target="I_UnitOfMeasure" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_TRANSACTIONCURRENCY" binding="_TRANSACTIONCURRENCY" target="I_Currency" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_VERSION" binding="_VERSION" target="I_CnsldtnVersion" cardinality="one" />|  &
-               | <sadl:association name="TO_CHARTOFACCOUNTSTEXT" binding="_CHARTOFACCOUNTSTEXT" target="I_CnsldtnChartOfAccountsT" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_BILLTOPARTY" binding="_BILLTOPARTY" target="I_CnsldtnCustomer" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_VERSIONTEXT" binding="_VERSIONTEXT" target="I_CnsldtnVersionT" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_BUSINESSAREA" binding="_BUSINESSAREA" target="I_CnsldtnBusinessArea" cardinality="zeroToOne" />|  &
-               | <sadl:association name="TO_CNSLDTNGROUP" binding="_CNSLDTNGROUP" target="I_CnsldtnGroupWithEmptyValue" cardinality="one" />|  &
+               | <sadl:association name="TO_BILLINGDOCUMENTTYPE" binding="_BILLINGDOCUMENTTYPE" target="I_CnsldtnBillingType" cardinality="zeroToOne" />|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="ConsolidationUnit" dataSource="A_CNSLDTNUNIT" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               | <sadl:association name="TO_CNSLDTNDIMENSION" binding="_CNSLDTNDIMENSION" target="ConsolidationDimension" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_CNSLDTNTRANSCURRENCYT" binding="_CNSLDTNTRANSCURRENCYT" target="TransactionCurrencyText" cardinality="zeroToMany" />|  &
+               | <sadl:association name="TO_CNSLDTNUNITHIER" binding="_CNSLDTNUNITHIER" target="ConsolidationUnitHier" cardinality="zeroToMany" />|  &
+               | <sadl:association name="TO_CNSLDTNUNITLATESTLOCALCRCY" binding="_CNSLDTNUNITLATESTLOCALCRCY" target="CnsldtnUnitLatestLocalCrcy" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_CNSLDTNUNITT" binding="_CNSLDTNUNITT" target="ConsolidationUnitText" cardinality="zeroToMany" />|  &
+               |</sadl:structure>| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
+               |<sadl:structure name="ConsolidationUnitHier" dataSource="A_CNSLDTNUNITHIER" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_C_CurrLocalGroupVH" dataSource="/EY1/SAV_C_CURRLOCALGROUPVH" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_C_Get_VersionSet" dataSource="/EY1/SAV_C_GET_VERSION" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_C_IntentionsStatusSet" dataSource="/EY1/SAV_C_INTENTIONSSTATUS" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_C_ReadIntentVH" dataSource="/EY1/SAV_C_READINTENTVH" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_C_ReconciliationResults" dataSource="/EY1/SAV_C_RECONCILIATION" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               | <sadl:association name="TO_ACCCODE_TEXT" binding="_ACCCODE_TEXT" target="xEY1xSAV_I_Acc_Class_Text" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_FSITEM_TEXT" binding="_FSITEM_TEXT" target="xEY1xSAV_I_FSItemText" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_RACCT_TEXT" binding="_RACCT_TEXT" target="xEY1xSAV_I_GlAccText" cardinality="zeroToOne" />|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_C_Recon_Adj_Reason" dataSource="/EY1/SAV_C_RECON_ADJ_REASON" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_C_Recon_Ledger" dataSource="/EY1/SAV_C_RECON_LEDGER" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="CnsldtnUnitLatestLocalCrcy" dataSource="A_CNSLDTNUNITLATESTLOCALCRCY" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="xEY1xSAV_C_Rec_PTA" dataSource="/EY1/SAV_C_REC_PTA" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
@@ -2804,54 +2890,14 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:association name="TO_FSITEM_TEXT" binding="_FSITEM_TEXT" target="xEY1xSAV_I_FSItemText" cardinality="zeroToOne" />|  &
                | <sadl:association name="TO_RACCT_TEXT" binding="_RACCT_TEXT" target="xEY1xSAV_I_GlAccText" cardinality="zeroToOne" />|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnMaterial" dataSource="I_CNSLDTNMATERIAL" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_I_Acc_Class_Text" dataSource="/EY1/SAV_I_ACC_CLASS_TEXT" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnIndustry" dataSource="I_CNSLDTNINDUSTRY" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="ConsolidationDimension" dataSource="A_CNSLDTNDIMENSION" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnInternalOrder" dataSource="I_CNSLDTNINTERNALORDER" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnLedger" dataSource="I_CNSLDTNLEDGER" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="ConsolidationUnitHier" dataSource="A_CNSLDTNUNITHIER" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="CnsldtnUnitLatestLocalCrcy" dataSource="A_CNSLDTNUNITLATESTLOCALCRCY" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
                |<sadl:structure name="ConsolidationUnitText" dataSource="A_CNSLDTNUNITT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
-               | <sadl:association name="TO_CNSLDTNDIMENSION" binding="_CNSLDTNDIMENSION" target="ConsolidationDimension" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_CNSLDTNDIMENSION" binding="_CNSLDTNDIMENSION" target="ConsolidationDimension" cardinality="zeroToOne" />| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                | <sadl:association name="TO_CNSLDTNUNIT" binding="_CNSLDTNUNIT" target="ConsolidationUnit" cardinality="zeroToOne" />|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_C_CurrLocalGroupVH" dataSource="/EY1/SAV_C_CURRLOCALGROUPVH" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
                |<sadl:structure name="C_CnsldtnChartOfAccountsVH" dataSource="C_CNSLDTNCHARTOFACCOUNTSVH" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnLedgerT" dataSource="I_CNSLDTNLEDGERT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2872,8 +2918,7 @@ lo_entity_set->set_filter_required( abap_false ).
                | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="C_CnsldtnLedgerVH" dataSource="C_CNSLDTNLEDGERVH" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
+               | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="C_CnsldtnPostingLevelVH" dataSource="C_CNSLDTNPOSTINGLEVELVH" maxEditMode="RO" exposure="TRUE" >|  &
@@ -2888,19 +2933,7 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnMaterialGroup" dataSource="I_CNSLDTNMATERIALGROUP" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
                |<sadl:structure name="C_CnsldtnSegmentForElimVH" dataSource="C_CNSLDTNSEGMENTFORELIMVH" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_C_Get_VersionSet" dataSource="/EY1/SAV_C_GET_VERSION" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_I_FSItemText" dataSource="/EY1/SAV_I_FSITEMTEXT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2911,7 +2944,8 @@ lo_entity_set->set_filter_required( abap_false ).
                |<sadl:structure name="C_CnsldtnUnitForEliminationVH" dataSource="C_CNSLDTNUNITFORELIMINATIONVH" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
-               |</sadl:structure>|  &
+               |</sadl:structure>| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                |<sadl:structure name="C_CnsldtnUnitValueHelp" dataSource="C_CNSLDTNUNITVALUEHELP" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
@@ -2923,8 +2957,7 @@ lo_entity_set->set_filter_required( abap_false ).
                |<sadl:structure name="I_CnsldtnApportionment" dataSource="I_CNSLDTNAPPORTIONMENT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
-               |</sadl:structure>| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
+               |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnBillingType" dataSource="I_CNSLDTNBILLINGTYPE" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
@@ -2937,24 +2970,11 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnPeriodMode" dataSource="I_CNSLDTNPERIODMODE" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               | <sadl:association name="TO_TEXT" binding="_TEXT" target="I_CnsldtnPeriodModeText" cardinality="zeroToMany" />|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_C_IntentionsStatusSet" dataSource="/EY1/SAV_C_INTENTIONSSTATUS" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnChartOfAccountsT" dataSource="I_CNSLDTNCHARTOFACCOUNTST" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnControllingArea" dataSource="I_CNSLDTNCONTROLLINGAREA" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_I_GlAccText" dataSource="/EY1/SAV_I_GLACCTEXT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -2970,20 +2990,20 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnCrcyCnvrsnDiffType" dataSource="I_CNSLDTNCRCYCNVRSNDIFFTYPE" maxEditMode="RO" exposure="TRUE" >|  &
+               |<sadl:structure name="xEY1xSAV_I_Acc_Class_Text" dataSource="/EY1/SAV_I_ACC_CLASS_TEXT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="I_CnsldtnCustomer" dataSource="I_CNSLDTNCUSTOMER" maxEditMode="RO" exposure="TRUE" >| .
+               |<sadl:structure name="I_CnsldtnCrcyCnvrsnDiffType" dataSource="I_CNSLDTNCRCYCNVRSNDIFFTYPE" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">| .
       lv_sadl_xml = |{ lv_sadl_xml }| &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnCustomer" dataSource="I_CNSLDTNCUSTOMER" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="I_CnsldtnCustomerGroup" dataSource="I_CNSLDTNCUSTOMERGROUP" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_C_ReadIntentVH" dataSource="/EY1/SAV_C_READINTENTVH" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
@@ -3003,7 +3023,13 @@ lo_entity_set->set_filter_required( abap_false ).
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_I_JournalEntryItem" dataSource="/EY1/SAV_I_JOURNALENTRYITEM" maxEditMode="RO" exposure="TRUE" >|  &
+               |<sadl:structure name="I_CnsldtnDocumentTypeT" dataSource="I_CNSLDTNDOCUMENTTYPET" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               | <sadl:association name="TO_DIMENSION" binding="_DIMENSION" target="I_CnsldtnDimension" cardinality="zeroToOne" />|  &
+               | <sadl:association name="TO_LANGUAGE" binding="_LANGUAGE" target="I_Language" cardinality="zeroToOne" />|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="I_CnsldtnFinStmntItemText" dataSource="I_CNSLDTNFINSTMNTITEMTEXT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &

@@ -5,10 +5,22 @@
 @EndUserText.label: 'I-View for DTRF SGAAP PYA'
 @VDM.viewType: #BASIC
 
-define view /EY1/SAV_I_DTRF_SGAAP_PYA  with parameters
-    p_toperiod : poper,
-    p_ryear    : gjahr
-  as select  from ZEY_SAV_I_GLACC_DTRF_MD (p_ryear : $parameters.p_ryear) as GLAccnt
+define view /EY1/SAV_I_DTRF_SGAAP_PYA
+  with parameters
+    p_toperiod     : poper,
+    p_ryear        : gjahr,
+    p_taxintention : zz1_taxintention,
+    p_rbunit       : fc_bunit
+  as select from    /EY1/SAV_I_DTRF_SGAAP_PYANR_LC(p_toperiod: $parameters.p_toperiod,
+                    p_ryear:$parameters.p_ryear ,
+                    p_taxintention:$parameters.p_taxintention,
+                    p_rbunit:$parameters.p_rbunit ) as GLAccnt
+    left outer join /EY1/SAV_I_Get_Tax_Rate
+                    (p_toperiod:$parameters.p_toperiod ,
+                    p_ryear:$parameters.p_ryear ,
+                    p_rbunit: $parameters.p_rbunit) as TaxRate on  TaxRate.ConsolidationUnit = $parameters.p_rbunit
+                                                               and TaxRate.FiscalYear        = $parameters.p_ryear
+
 {
         //GLAccnt
   key   GLAccnt.ChartOfAccounts,
@@ -18,13 +30,18 @@ define view /EY1/SAV_I_DTRF_SGAAP_PYA  with parameters
   key   GLAccnt.FiscalYear,
   key   GLAccnt.ConsolidationDimension,
         GLAccnt.FinancialStatementItem,
-       
 
-        cast (0 as abap.curr( 23, 2)) as PYAPl,
-        cast (0 as abap.curr( 23, 2)) as PYAEq,
-        cast (0 as abap.curr( 23, 2)) as PYAOpl,
-        cast (0 as abap.curr( 23, 2)) as PYAOeq,
-        cast (0 as abap.curr( 23, 2)) as PYA
+        //        PYAPl,
+        //        PYAEq,
+        //        PYAOpl,
+        //        PYAOeq,
+        //        (PYAPl+PYAEq+PYAOpl+PYAOeq) as PYA
+
+        PYAPl* StatOBDTRate * MultiFactor                         as PYAPl,
+        PYAOpl* StatOBDTRate * MultiFactor                        as PYAOpl,
+        PYAEq* StatOBDTRate * MultiFactor                         as PYAEq,
+        PYAOeq* StatOBDTRate * MultiFactor                        as PYAOeq,
+        (PYAPl+PYAEq+PYAOpl+PYAOeq)  * StatOBDTRate * MultiFactor as PYA
 }
 where
   GLAccnt.FiscalYear = :p_ryear

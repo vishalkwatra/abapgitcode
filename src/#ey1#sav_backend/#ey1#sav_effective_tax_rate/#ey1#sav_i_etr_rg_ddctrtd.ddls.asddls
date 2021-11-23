@@ -7,12 +7,12 @@
 
 define view /EY1/SAV_I_ETR_RG_DDCTRTD
   with parameters
-    p_fromperiod    : poper,
-    p_toperiod      : poper,
-    p_ryear         : gjahr,
-    p_switch        : char1,
+    p_fromperiod   : poper,
+    p_toperiod     : poper,
+    p_ryear        : gjahr,
+    p_switch       : char1,
     p_taxintention : zz1_taxintention,
-    p_rbunit        : fc_bunit
+    p_rbunit       : fc_bunit
   as select from    /EY1/SAV_I_ETR_RG_DDCTRTDYB
                  ( p_toperiod:$parameters.p_toperiod ,
                     p_ryear:$parameters.p_ryear ,
@@ -42,7 +42,7 @@ define view /EY1/SAV_I_ETR_RG_DDCTRTD
       GlAccount.MainCurrency,
       ConsolidationLedger,
 
-      PlYearBalance                                                                                                                            as Amount,
+      PlYearBalance                                                                                                                       as Amount,
       Rate,
 
       // Tax = (Amount * Rate) / 100

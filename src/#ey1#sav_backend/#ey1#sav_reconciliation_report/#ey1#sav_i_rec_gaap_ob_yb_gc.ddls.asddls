@@ -14,9 +14,9 @@ define view /EY1/SAV_I_Rec_GAAP_OB_YB_GC
     //    p_specialperiod : zz1_specialperiod
     p_taxintention : zz1_taxintention
 
-  as select distinct from /EY1/SAV_I_Rec_GlAcCUnit_GAAP as GLAccnt
+  as select distinct from /EY1/SAV_I_Rec_GlAcCUnit_GAAP(p_ryear: $parameters.p_ryear) as GLAccnt
 
-    inner join            /EY1/SAV_I_Accounts_Class     as AccountsClass on GLAccnt.AccountClassCode = AccountsClass.acc_class_code
+    left outer join       /EY1/SAV_I_Accounts_Class     as AccountsClass on GLAccnt.AccountClassCode = AccountsClass.acc_class_code
 
     left outer join       /EY1/SAV_I_Rec_GAAP_OB_GC
                     ( p_ryear:$parameters.p_ryear,

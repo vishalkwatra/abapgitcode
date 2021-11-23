@@ -16,7 +16,8 @@ define view /EY1/SAV_I_TRF_RGAAP_CB_PMT_GC
 
     left outer join /EY1/SAV_I_TRF_RGAAP_OB_GC
                     ( p_ryear:$parameters.p_ryear,
-                          p_taxintention :$parameters.p_taxintention ) as RGaapOBGC on  RGaapOBGC.GLAccount         = GLAccnt.GLAccount
+                          p_taxintention :$parameters.p_taxintention,
+                           p_toperiod :$parameters.p_toperiod )        as RGaapOBGC on  RGaapOBGC.GLAccount         = GLAccnt.GLAccount
                                                                                     and RGaapOBGC.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
     left outer join /EY1/SAV_I_TRF_RGAAP_YB_GC
@@ -26,10 +27,10 @@ define view /EY1/SAV_I_TRF_RGAAP_CB_PMT_GC
                                                                                     and RGaapYBGC.FiscalYear        = GLAccnt.FiscalYear
                                                                                     and RGaapYBGC.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
-    left outer join /EY1/SAV_I_TRF_RGAAP_PYA
-                    ( p_toperiod :$parameters.p_toperiod,
-                          p_ryear:$parameters.p_ryear )                as RGaapPYA  on  RGaapPYA.GLAccount         = GLAccnt.GLAccount
-                                                                                    and RGaapPYA.FiscalYear        = GLAccnt.FiscalYear
+    left outer join /EY1/SAV_I_TRF_RGAAP_PYA_GC
+                    (  p_ryear:$parameters.p_ryear,
+                          p_taxintention :$parameters.p_taxintention,
+                          p_toperiod :$parameters.p_toperiod )         as RGaapPYA  on  RGaapPYA.GLAccount         = GLAccnt.GLAccount
                                                                                     and RGaapPYA.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
     left outer join /EY1/SAV_I_TRF_RGAAP_CTA

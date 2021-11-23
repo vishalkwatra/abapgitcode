@@ -76,7 +76,8 @@ union all select from /EY1/SAV_I_ETR_SUM_ExpTaxEB( p_ryear:$parameters.p_ryear,
                                                    p_toperiod:$parameters.p_toperiod , 
                                                    p_switch: $parameters.p_switch, 
                                                    p_taxintention: $parameters.p_taxintention,
-                                                   p_rbunit: $parameters.p_rbunit)
+                                                   p_rbunit: $parameters.p_rbunit,
+                                                   p_intention: $parameters.p_intention)
 {
   key ConsolidationChartofAccounts,
   key ChartOfAccounts,

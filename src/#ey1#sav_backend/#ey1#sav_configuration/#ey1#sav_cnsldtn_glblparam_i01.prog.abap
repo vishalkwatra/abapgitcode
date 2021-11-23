@@ -32,7 +32,7 @@ MODULE user_command_0100 INPUT.
       PERFORM populate_period_to.
 
     WHEN 'FC_ULB'.                              "When value from a consolidation unit listbox is selected
-      gv_ok_flag = 'X'.
+      "gv_ok_flag = 'X'.    "Line Commented
       CLEAR i_currency.
       CALL FUNCTION 'SAPGUI_SET_FUNCTIONCODE'.  " Dynamic function code setting
 

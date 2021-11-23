@@ -12,13 +12,15 @@ define view /EY1/SAV_I_ETR_SG_SUM_ExpTaxEB
     p_toperiod      : poper,
     p_switch        : char1,
     p_taxintention : zz1_taxintention,
-    p_rbunit        : fc_bunit
+    p_rbunit        : fc_bunit,
+    p_intention     : /ey1/sav_intent
   as select from    /EY1/SAV_I_ETR_SG_SUM_PBT_LCGC
                  ( p_ryear:$parameters.p_ryear,
                     p_fromperiod:$parameters.p_fromperiod,
                     p_toperiod:$parameters.p_toperiod,
                     p_switch:$parameters.p_switch,
-                    p_taxintention: $parameters.p_taxintention ) as ExpectedTaxExpenses
+                    p_taxintention: $parameters.p_taxintention,
+                    p_intention: $parameters.p_intention ) as ExpectedTaxExpenses
 
     left outer join /EY1/SAV_I_Get_Tax_Rate( p_toperiod: $parameters.p_toperiod,
                                p_ryear:$parameters.p_ryear ,

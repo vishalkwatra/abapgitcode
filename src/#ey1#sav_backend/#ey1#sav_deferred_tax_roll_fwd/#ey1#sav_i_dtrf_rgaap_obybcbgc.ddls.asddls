@@ -35,8 +35,11 @@ define view /EY1/SAV_I_DTRF_RGAAP_OBYBCBGC
                     p_taxintention :$parameters.p_taxintention ) as RGaapCBGC on  RGaapCBGC.GLAccount         = GLAccnt.GLAccount
                                                                               and RGaapCBGC.FiscalYear        = GLAccnt.FiscalYear
                                                                               and RGaapCBGC.ConsolidationUnit = GLAccnt.ConsolidationUnit
-    left outer join /EY1/SAV_I_DTRF_RGAAP_PYA
-                    ( p_ryear:$parameters.p_ryear )              as RGaapPYA  on  RGaapPYA.GLAccount         = GLAccnt.GLAccount
+    left outer join /EY1/SAV_I_DTRF_RGAAP_PYA_GC
+                    ( p_ryear:$parameters.p_ryear,
+                    p_taxintention  : $parameters.p_taxintention,
+                    p_toperiod : $parameters.p_toperiod,
+                    p_rbunit    : $parameters.p_rbunit )              as RGaapPYA  on  RGaapPYA.GLAccount         = GLAccnt.GLAccount
                                                                               and RGaapPYA.FiscalYear        = GLAccnt.FiscalYear
                                                                               and RGaapPYA.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_DTRF_RGAAP_CTA
@@ -48,7 +51,7 @@ define view /EY1/SAV_I_DTRF_RGAAP_OBYBCBGC
                                                                               and RGaapTRC.FiscalYear        = GLAccnt.FiscalYear
                                                                               and RGaapTRC.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
-  association [1] to /ey1/ggaap_tas as _GGaapTAS on _GGaapTAS.mandt = $session.client
+    inner join      /EY1/Sav_I_Group_Unit_Mapping                as IMap      on IMap.ConsoidationUnit = GLAccnt.ConsolidationUnit
 
 {
       //GLAccnt
@@ -127,14 +130,11 @@ define view /EY1/SAV_I_DTRF_RGAAP_OBYBCBGC
       @Semantics.amount.currencyCode: 'MainCurrency'
       TRC,
 
-      _GGaapTAS.classification            as Classification,
+      IMap.Classification,
 
       cast ('Group' as abap.char(5))      as CurrencyType,
 
       BsEqPl,
       CNC,
-      TaxEffected,
-
-      //Association
-      _GGaapTAS
+      TaxEffected
 }

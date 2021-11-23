@@ -19,7 +19,7 @@ define view /EY1/SAV_I_TRF_RGAAP_PYA
   key   GLAccnt.ConsolidationDimension,
         GLAccnt.FinancialStatementItem,
 
-
+        
         PlaceholderCurrency as PYAPl,
         PlaceholderCurrency as PYAPmnt,
         PlaceholderCurrency as PYAEq,

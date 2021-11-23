@@ -22,7 +22,8 @@ CLASS /EY1/CL_SAV_TEMPRY_ROL_DPC_EXT IMPLEMENTATION.
 ********************************************************************************
     DATA: lo_global_param       TYPE REF TO /ey1/cl_sav_tempry_rol_mpc=>ts_globalparameter01,
           lo_glbparam_utility   TYPE REF TO /ey1/sav_cl_global_params,
-          ls_user_global_params TYPE /ey1/sav_str_glbl_params.
+          ls_user_global_params TYPE /ey1/sav_str_glbl_params,
+          lv_default              TYPE abap_bool.
 
     CREATE DATA lo_global_param.
 
@@ -35,7 +36,15 @@ CLASS /EY1/CL_SAV_TEMPRY_ROL_DPC_EXT IMPLEMENTATION.
 
         lo_glbparam_utility = /ey1/sav_cl_global_params=>get_instance( ).
 
+        "Consolidation Unut
+        READ TABLE it_parameter INTO DATA(ls_parameter) WITH KEY name = 'Default'.
+        IF sy-subrc = 0.
+            lv_default = ls_parameter-value.
+        ENDIF.
+
         CALL METHOD lo_glbparam_utility->get_user_settings
+          EXPORTING
+            iv_default            = lv_default
           IMPORTING
             es_user_global_params = ls_user_global_params.
 

@@ -12,7 +12,7 @@ define view /EY1/SAV_I_PR_G2S_Pmnt_YB_GC
     p_taxintention : zz1_taxintention
   as select from     acdocu
     inner join       /ey1/reconledger as ReconLedger on acdocu.rbunit = ReconLedger.bunit
-    inner join /ey1/trans_type  as TransType   on  TransType.rldnrassgnttype = 'PERMANENT'
+    inner join /EY1/I_TRANS_TYPE  as TransType   on  TransType.rldnrassgnttype = 'PERMANENT'
                                                      and acdocu.rmvct              = TransType.trtyp
 
     inner join   /EY1/SAV_I_Get_Cnsldtn_Version as GetVersion  on  GetVersion.ConsolidationLedger = ReconLedger.g2s

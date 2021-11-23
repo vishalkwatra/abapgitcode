@@ -251,7 +251,9 @@ METHOD /iwbep/if_mgw_appl_srv_runtime~execute_action.
           lv_per_to               TYPE poper,
           lv_log                  TYPE fincs_lognumber,
           lv_rldnr                TYPE rldnr,
-          lv_url                  TYPE c LENGTH 1024.
+          lv_url                  TYPE c LENGTH 1024,
+          lv_default              TYPE abap_bool,
+          lv_intention            TYPE /ey1/sav_intent.
 
     CREATE DATA lo_global_param.
 
@@ -263,7 +265,15 @@ METHOD /iwbep/if_mgw_appl_srv_runtime~execute_action.
 
         lo_glbparam_utility = /ey1/sav_cl_global_params=>get_instance( ).
 
+        "Consolidation Unut
+        READ TABLE it_parameter INTO ls_parameter WITH KEY name = 'Default'.
+        IF sy-subrc = 0.
+            lv_default = ls_parameter-value.
+        ENDIF.
+
         CALL METHOD lo_glbparam_utility->get_user_settings
+          EXPORTING
+            iv_default            = lv_default
           IMPORTING
             es_user_global_params = ls_user_global_params.
 
@@ -461,20 +471,61 @@ METHOD /iwbep/if_mgw_appl_srv_runtime~execute_action.
               lv_rldnr = ls_parameter-value.
             ENDIF.
 
-            CALL METHOD lo_data_mon_util->execute_all_actions
-              EXPORTING
-                bunit               = lv_cons_unit    " Undefined range (can be used for patch levels)
-                ryear               = lv_ryear        " Fiscal year
-                period_from         = lv_per_frm      " Posting period
-                period_to           = lv_per_to       " Posting period
-                local_currency_type = lv_lcl_cur      " Amount in Company Code Currency
-                group_currency_type = lv_grp_cur      " Currency key of the ledger currency
-                rldnr               = lv_rldnr
-              IMPORTING
-                et_message          = lt_message      " Return table
-              CHANGING
-                cv_log              = lv_log
-                cv_url              = lv_url.         " Table Type - Currency Translation Log
+*        Intention
+            READ TABLE it_parameter INTO ls_parameter WITH KEY name = 'Intention'.
+            IF sy-subrc = 0.
+              lv_intention = ls_parameter-value.
+            ENDIF.
+
+            IF lv_intention = 'TXP'.
+             CALL METHOD lo_data_mon_util->execute_all_actions
+               EXPORTING
+                 bunit               = lv_cons_unit    " Undefined range (can be used for patch levels)
+                 ryear               = lv_ryear        " Fiscal year
+                 period_from         = lv_per_frm      " Posting period
+                 period_to           = lv_per_to       " Posting period
+                 local_currency_type = lv_lcl_cur      " Amount in Company Code Currency
+                 group_currency_type = lv_grp_cur      " Currency key of the ledger currency
+                 rldnr               = lv_rldnr
+               IMPORTING
+                 et_message          = lt_message      " Return table
+               CHANGING
+                 cv_log              = lv_log
+                 cv_url              = lv_url.         " Table Type - Currency Translation Log
+             ELSEIF ( lv_intention = 'STR' OR lv_intention = 'CIT' ) AND ( lv_rldnr = 'C2' OR lv_rldnr = 'C3' ).
+                CALL METHOD lo_data_mon_util->execute_all_actions
+                  EXPORTING
+                    bunit               = lv_cons_unit    " Undefined range (can be used for patch levels)
+                    ryear               = lv_ryear        " Fiscal year
+                    period_from         = lv_per_frm      " Posting period
+                    period_to           = lv_per_to       " Posting period
+                    local_currency_type = lv_lcl_cur      " Amount in Company Code Currency
+                    group_currency_type = lv_grp_cur      " Currency key of the ledger currency
+                    rldnr               = lv_rldnr
+                  IMPORTING
+                    et_message          = lt_message      " Return table
+                  CHANGING
+                    cv_log              = lv_log
+                    cv_url              = lv_url.         " Table Type - Currency Translation Log
+             ELSEIF (  lv_intention = 'TXA' OR lv_intention = 'TXU' ) AND
+               ( lv_rldnr = 'C3' ).
+                CALL METHOD lo_data_mon_util->execute_all_actions
+                  EXPORTING
+                    bunit               = lv_cons_unit    " Undefined range (can be used for patch levels)
+                    ryear               = lv_ryear        " Fiscal year
+                    period_from         = lv_per_frm      " Posting period
+                    period_to           = lv_per_to       " Posting period
+                    local_currency_type = lv_lcl_cur      " Amount in Company Code Currency
+                    group_currency_type = lv_grp_cur      " Currency key of the ledger currency
+                    rldnr               = lv_rldnr
+                  IMPORTING
+                    et_message          = lt_message      " Return table
+                  CHANGING
+                    cv_log              = lv_log
+                    cv_url              = lv_url.         " Table Type - Currency Translation Log
+             ENDIF.
+
+
 
             LOOP AT lt_message INTO DATA(ls_msg).
               MOVE-CORRESPONDING ls_msg TO ls_ret_log.

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_FUGR" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <AREAT>Priori Year Adjustment - Function Group</AREAT>
+   <INCLUDES>
+    <SOBJ_NAME>/EY1/LFG_PYATOP</SOBJ_NAME>
+    <SOBJ_NAME>/EY1/SAPLFG_PYA</SOBJ_NAME>
+   </INCLUDES>
+   <FUNCTIONS>
+    <item>
+     <FUNCNAME>/EY1/FM_PYA_LINES_CALC_N_UPDT</FUNCNAME>
+     <SHORT_TEXT>PYA Lines Calculate and Update</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IV_GJAHR</PARAMETER>
+       <TYP>GJAHR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_TAXINTENTION</PARAMETER>
+       <TYP>/EY1/SAV_INTENT</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_BUNIT</PARAMETER>
+       <TYP>FC_BUNIT</TYP>
+      </RSIMP>
+     </IMPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IV_GJAHR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fiscal Year</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_TAXINTENTION</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Tax Intention</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_BUNIT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Consolidation Unit</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>/EY1/FM_PYA_LINES_POST</FUNCNAME>
+     <UPDATE_TASK>1</UPDATE_TASK>
+     <SHORT_TEXT>Calculated PYA Lines Post in Table - Update FM</SHORT_TEXT>
+     <TABLES>
+      <RSTBL>
+       <PARAMETER>TT_PYA</PARAMETER>
+       <DBSTRUCT>/EY1/PYA_AMOUNT</DBSTRUCT>
+      </RSTBL>
+     </TABLES>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>TT_PYA</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Prioir Year Adjustment Amount Details</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+   </FUNCTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

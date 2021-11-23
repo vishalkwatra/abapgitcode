@@ -11,9 +11,15 @@ define view /EY1/SAV_I_GlAcc_BSEQTE_MD
   as select distinct from fincs_fsimapitm              as GLAccnt
     left outer join       /EY1/SAV_I_FinancialStatItem as fsitem        on fsitem.item = GLAccnt.ritem
 
-    left outer join       acdocu                                        on  acdocu.racct = GLAccnt.racct
+                
+    left outer join       /EY1/I_ACDOCU_CUM_PYA( p_ryear:$parameters.p_ryear )  as acdocu                on acdocu.racct = GLAccnt.racct
+                                                                        and acdocu.ktopl = GLAccnt.ktopl
                                                                         and acdocu.ryear = :p_ryear
-
+    
+    --left outer join       acdocu                                        on  acdocu.racct = GLAccnt.racct
+    --                                                                    and acdocu.ktopl = GLAccnt.ktopl
+    --                                                                    and acdocu.ryear = :p_ryear
+    
     left outer join       /EY1/SAV_I_Accounts_Class    as AccountsClass on fsitem.account_classcode = AccountsClass.acc_class_code
 
 {
@@ -21,6 +27,7 @@ define view /EY1/SAV_I_GlAcc_BSEQTE_MD
   key account_classcode        as AccountClassCode,
   key rdimen                   as ConsolidationDimension,
   key ryear                    as FiscalYear,
+      rcongr,
 
       GLAccnt.ritem            as FinancialStatementItem,
       GLAccnt.ktopl            as ChartOfAccounts,

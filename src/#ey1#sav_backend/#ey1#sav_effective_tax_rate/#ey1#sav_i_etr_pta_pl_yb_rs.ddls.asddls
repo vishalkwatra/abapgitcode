@@ -13,7 +13,8 @@ define view /EY1/SAV_I_ETR_PTA_PL_YB_RS
     p_rbunit        : fc_bunit,
     p_switch        : char1,
     p_taxintention : zz1_taxintention,
-    p_reportingType : char5
+    p_reportingType : char5,
+    p_intention     : /ey1/sav_intent
   as select from    /EY1/SAV_I_ETR_PTA_PL_YB_LCGC( p_ryear:$parameters.p_ryear ,
                     p_toperiod: $parameters.p_toperiod,
                     p_rbunit:$parameters.p_rbunit,
@@ -24,7 +25,8 @@ define view /EY1/SAV_I_ETR_PTA_PL_YB_RS
                     p_toperiod: $parameters.p_toperiod,
                     p_switch:$parameters.p_switch ,
                     p_taxintention:$parameters.p_taxintention ,
-                    p_rbunit:$parameters.p_rbunit )               as PBT on  PBT.ConsolidationChartofAccounts = PTA.ConsolidationChartofAccounts
+                    p_rbunit:$parameters.p_rbunit,
+                    p_intention: $parameters.p_intention )               as PBT on  PBT.ConsolidationChartofAccounts = PTA.ConsolidationChartofAccounts
                                                                          and PBT.ChartOfAccounts              = PTA.ChartOfAccounts
                                                                          and PBT.ConsolidationUnit            = PTA.ConsolidationUnit
                                                                          and PBT.FiscalYear                   = PTA.FiscalYear

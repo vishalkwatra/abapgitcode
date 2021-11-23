@@ -27,6 +27,7 @@ on A.Intent = b.intent {
       A.PeriodTo,
       A.TaxIntention,
       b.curropenperiod as CurrOpenPeriod,
-      b.status
+      b.status,
+      b.isSelected
       
 }

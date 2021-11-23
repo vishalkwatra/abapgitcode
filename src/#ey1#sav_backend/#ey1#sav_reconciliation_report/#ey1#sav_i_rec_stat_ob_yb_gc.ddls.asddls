@@ -12,19 +12,22 @@ define view /EY1/SAV_I_Rec_STAT_OB_YB_GC
     p_toyb         : poper,
     p_switch       : char1,
     //    p_specialperiod : zz1_specialperiod
-    p_taxintention : zz1_taxintention
+    p_taxintention : zz1_taxintention,
+    p_intention    : zz1_taxintention
 
-  as select distinct from /EY1/SAV_I_Rec_GlAccCUnit_STAT as GLAccnt
+  as select distinct from /EY1/SAV_I_Rec_GlAccCUnit_STAT(p_ryear: $parameters.p_ryear)                as GLAccnt
 
-    inner join            /EY1/SAV_I_Accounts_Class      as AccountsClass on GLAccnt.AccountClassCode = AccountsClass.acc_class_code
+    inner join            /EY1/SAV_I_Accounts_Class                     as AccountsClass on GLAccnt.AccountClassCode = AccountsClass.acc_class_code
 
-    left outer join       /EY1/SAV_I_Rec_STAT_OB_GC
-                    ( p_ryear: $parameters.p_ryear,
-                          p_taxintention: $parameters.p_taxintention
+    left outer join       /EY1/SAV_I_Rec_STAT_OBNR_GC
+                    ( p_ryear:$parameters.p_ryear,
+                          p_periodto: $parameters.p_toyb,
+                          p_taxintention: $parameters.p_taxintention,
+                          p_intention: $parameters.p_intention
                           //                          p_specialperiod:$parameters.p_specialperiod
-                          )                              as StatOB        on  StatOB.GLAccount         = GLAccnt.GLAccount
-                                                                          and StatOB.FiscalYear        = GLAccnt.FiscalYear
-                                                                          and StatOB.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                          )                                             as StatOB        on  StatOB.GLAccount         = GLAccnt.GLAccount
+                                                                                         and StatOB.FiscalYear        = GLAccnt.FiscalYear
+                                                                                         and StatOB.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
     left outer join       /EY1/SAV_I_Rec_STAT_YB_Exc_GC
                     ( p_ryear:$parameters.p_ryear,
@@ -32,30 +35,37 @@ define view /EY1/SAV_I_Rec_STAT_OB_YB_GC
                            p_toyb:$parameters.p_toyb,
                            p_taxintention: $parameters.p_taxintention
                           //                           p_specialperiod: $parameters.p_specialperiod
-                            )                            as StatExcCTA    on  StatExcCTA.GLAccount         = GLAccnt.GLAccount
-                                                                          and StatExcCTA.FiscalYear        = GLAccnt.FiscalYear
-                                                                          and StatExcCTA.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                            )                                           as StatExcCTA    on  StatExcCTA.GLAccount         = GLAccnt.GLAccount
+                                                                                         and StatExcCTA.FiscalYear        = GLAccnt.FiscalYear
+                                                                                         and StatExcCTA.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join       /EY1/SAV_I_Rec_STAT_YB_Inc_GC
                     ( p_ryear:$parameters.p_ryear,
                           p_fromyb:$parameters.p_fromyb,
                           p_toyb:$parameters.p_toyb,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                              as StatIncCTA    on  StatIncCTA.GLAccount         = GLAccnt.GLAccount
-                                                                          and StatIncCTA.FiscalYear        = GLAccnt.FiscalYear
-                                                                          and StatIncCTA.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                          )                                             as StatIncCTA    on  StatIncCTA.GLAccount         = GLAccnt.GLAccount
+                                                                                         and StatIncCTA.FiscalYear        = GLAccnt.FiscalYear
+                                                                                         and StatIncCTA.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join       /EY1/SAV_I_Rec_STAT_CTA_GC
                     ( p_ryear:$parameters.p_ryear,
                           p_fromyb:$parameters.p_fromyb,
                           p_toyb:$parameters.p_toyb,
                           p_taxintention: $parameters.p_taxintention
                           //                          p_specialperiod: $parameters.p_specialperiod
-                          )                              as StatCTA       on  StatCTA.GLAccount         = GLAccnt.GLAccount
-                                                                          and StatCTA.FiscalYear        = GLAccnt.FiscalYear
-                                                                          and StatCTA.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                          )                                             as StatCTA       on  StatCTA.GLAccount         = GLAccnt.GLAccount
+                                                                                         and StatCTA.FiscalYear        = GLAccnt.FiscalYear
+                                                                                         and StatCTA.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
-    left outer join       /EY1/SAV_I_Recon_Adj           as ReconAdj      on  ReconAdj.racct = GLAccnt.GLAccount
-                                                                          and ReconAdj.ryear = GLAccnt.FiscalYear
+  //    left outer join       /EY1/SAV_I_Recon_Adj           as ReconAdj      on  ReconAdj.racct = GLAccnt.GLAccount
+  //                                                                          and ReconAdj.ryear = GLAccnt.FiscalYear
+
+    left outer join       /EY1/SAV_I_Rec_STAT_PYA_GC( p_toyb: $parameters.p_toyb,
+                              p_fromyb: $parameters.p_fromyb,
+                              p_ryear: $parameters.p_ryear,
+                              p_taxintention: $parameters.p_intention ) as StatPYA       on  StatPYA.GLAccount         = GLAccnt.GLAccount
+                                                                                         and StatPYA.FiscalYear        = GLAccnt.FiscalYear
+                                                                                         and StatPYA.ConsolidationUnit = GLAccnt.ConsolidationUnit
 {
   key GLAccnt.GLAccount,
   key AccountClassCode,

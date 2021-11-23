@@ -1,4 +1,4 @@
-* regenerated at 21.07.2021 08:13:42
+* regenerated at 04.10.2021 04:54:28
 *******************************************************************
 *   System-defined Include-files.                                 *
 *******************************************************************
@@ -14,10 +14,10 @@
 * INCLUDE /EY1/LGLOBALPARE...                " Events
 * INCLUDE /EY1/LGLOBALPARP...                " Local class implement.
 * INCLUDE /EY1/LGLOBALPART99.                " ABAP Unit tests
-
-INCLUDE /EY1/LGLOBALPARI01.
   INCLUDE /EY1/LGLOBALPARF00                      . " subprograms
   INCLUDE /EY1/LGLOBALPARI00                      . " PAI modules
   INCLUDE LSVIMFXX                                . " subprograms
   INCLUDE LSVIMOXX                                . " PBO modules
   INCLUDE LSVIMIXX                                . " PAI modules
+
+INCLUDE /EY1/LGLOBALPARI01.

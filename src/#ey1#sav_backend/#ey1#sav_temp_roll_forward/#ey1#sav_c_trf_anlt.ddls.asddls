@@ -27,6 +27,12 @@ define view /EY1/SAV_C_TRF_ANLT
     //    p_specialperiod : zz1_specialperiod,
 
     @EndUserText.label: 'Tax Intention'
+    @Consumption.valueHelpDefinition: [{
+          entity: {
+            name: '/EY1/SAV_I_ReadIntentVH',
+            element: 'taxintention'
+          }
+        }]
     @Consumption.defaultValue: '101'
     p_taxintention : zz1_taxintention,
 
@@ -60,6 +66,7 @@ define view /EY1/SAV_C_TRF_ANLT
           }
         }]
     p_currencytype : /ey1/ctype_name
+
 
   as select from /EY1/SAV_I_TRF_ANLT(p_toperiod:$parameters.p_toperiod,
                  p_ryear:$parameters.p_ryear,

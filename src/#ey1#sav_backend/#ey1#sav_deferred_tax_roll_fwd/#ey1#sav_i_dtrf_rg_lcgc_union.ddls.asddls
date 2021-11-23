@@ -16,7 +16,7 @@ define view /EY1/SAV_I_DTRF_RG_LCGC_Union
   as select from /EY1/SAV_I_DTRF_RGAAP_OBYBCBLC( p_rbunit :$parameters.p_rbunit,
                                                  p_toperiod :$parameters.p_toperiod,
                                                  p_ryear:$parameters.p_ryear,
-                                                 p_taxintention :$parameters.p_taxintention ) as RGaapLC  
+                                                 p_taxintention :$parameters.p_taxintention ) as RGaapLC
 { //ZEY_SAV_I_TRF_RGAAP_OBYBCB_LC
   key ChartOfAccounts,
   key RGaapLC.ConsolidationUnit,
@@ -38,10 +38,9 @@ define view /EY1/SAV_I_DTRF_RG_LCGC_Union
       PlOpeningBalance,
       OpeningBalanceDTADTL,
 
-      case when OpeningBalanceDTADTL < 0
-      then cast('DTL' as abap.char(3))
-      else cast('DTA' as abap.char(3))
-      end                                                                        as OBClass,
+      case when OpeningBalanceDTADTL < 0 then cast('DTL' as abap.char(3))
+           when OpeningBalanceDTADTL > 0 then cast('DTA' as abap.char(3))
+           else cast('' as abap.char(3)) end                                     as TempOBClass,
 
       //Year Balance
       PlYearBalance,
@@ -61,9 +60,9 @@ define view /EY1/SAV_I_DTRF_RG_LCGC_Union
       EqClosingBalance,
       ClosingBalanceDTADTL,
 
-      case when ClosingBalanceDTADTL < 0
-      then cast('DTL' as abap.char(3))
-      else cast('DTA' as abap.char(3)) end                                       as CBClass,
+      case when ClosingBalanceDTADTL < 0 then cast('DTL' as abap.char(3))
+           when ClosingBalanceDTADTL > 0 then cast('DTA' as abap.char(3))
+           else cast('' as abap.char(3)) end                                     as TempCBClass,
 
       //CTA
       CTAPl,
@@ -82,10 +81,12 @@ define view /EY1/SAV_I_DTRF_RG_LCGC_Union
       TRCEq,
       TRC,
 
+      Classification,
       CurrencyType,
       BsEqPl,
+      CNC,
       TaxEffected,
-      cast ('RGAAP' as abap.char(5))                                             as ReportingType    
+      cast ('RGAAP' as abap.char(5))                                             as ReportingType
 }
 
 union all select from /EY1/SAV_I_DTRF_RGAAP_OBYBCBGC( p_rbunit :$parameters.p_rbunit,
@@ -113,9 +114,9 @@ union all select from /EY1/SAV_I_DTRF_RGAAP_OBYBCBGC( p_rbunit :$parameters.p_rb
       PlOpeningBalance,
       OpeningBalanceDTADTL,
 
-      case when OpeningBalanceDTADTL < 0
-      then cast('DTL' as abap.char(3))
-      else cast('DTA' as abap.char(3)) end                                       as OBClass,
+      case when OpeningBalanceDTADTL < 0 then cast('DTL' as abap.char(3))
+           when OpeningBalanceDTADTL > 0 then cast('DTA' as abap.char(3))
+           else cast('' as abap.char(3)) end                                     as TempOBClass,
 
       //Year Balance
       PlYearBalance,
@@ -135,9 +136,9 @@ union all select from /EY1/SAV_I_DTRF_RGAAP_OBYBCBGC( p_rbunit :$parameters.p_rb
       EqClosingBalance,
       ClosingBalanceDTADTL,
 
-      case when ClosingBalanceDTADTL < 0
-      then cast('DTL' as abap.char(3))
-      else cast('DTA' as abap.char(3)) end                                       as CBClass,
+      case when ClosingBalanceDTADTL < 0 then cast('DTL' as abap.char(3))
+           when ClosingBalanceDTADTL > 0 then cast('DTA' as abap.char(3))
+           else cast('' as abap.char(3)) end                                     as TempCBClass,
 
       //CTA
       CTAPl,
@@ -156,8 +157,10 @@ union all select from /EY1/SAV_I_DTRF_RGAAP_OBYBCBGC( p_rbunit :$parameters.p_rb
       TRCEq,
       TRC,
 
+      Classification,
       CurrencyType,
       BsEqPl,
+      CNC,
       TaxEffected,
       cast ('RGAAP' as abap.char(5))                                             as ReportingType
 }

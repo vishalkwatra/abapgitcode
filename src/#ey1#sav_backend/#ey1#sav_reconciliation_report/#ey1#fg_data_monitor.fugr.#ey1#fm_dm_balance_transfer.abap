@@ -16,6 +16,8 @@ FUNCTION /EY1/FM_DM_BALANCE_TRANSFER.
     DATA:  lv_time      TYPE sy-uzeit,
            lv_lines     TYPE i.
 
+    DATA: lv_year       TYPE gjahr.
+
     DATA: jobcount      TYPE tbtcjob-jobcount,
           host          TYPE msxxlist-host.
     TYPES: BEGIN OF ts_starttime.
@@ -30,6 +32,9 @@ FUNCTION /EY1/FM_DM_BALANCE_TRANSFER.
                 low     TYPE fc_bunit,
                 high    TYPE fc_bunit,
            END  OF ra_bunit.
+
+
+    lv_year = iv_ryear.
 
     CALL FUNCTION 'JOB_OPEN'
            EXPORTING
@@ -62,7 +67,7 @@ FUNCTION /EY1/FM_DM_BALANCE_TRANSFER.
                  WITH pa_congr EQ iv_congr
                  WITH so_bunit IN ra_bunit
                  WITH pa_rvers EQ iv_rvers
-                 WITH pa_prvyr EQ iv_ryear
+                 WITH pa_prvyr EQ lv_year
                  WITH pa_itclg EQ iv_itclg
                  WITH pa_prot  EQ 'X'
                  WITH pa_test  EQ space

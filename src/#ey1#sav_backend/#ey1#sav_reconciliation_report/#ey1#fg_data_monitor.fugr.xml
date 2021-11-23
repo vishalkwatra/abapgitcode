@@ -104,12 +104,12 @@
       <RSIMP>
        <PARAMETER>IV_RLDNR</PARAMETER>
        <OPTIONAL>X</OPTIONAL>
-       <TYP>RLDNR</TYP>
+       <TYP>FC_RLDNR</TYP>
       </RSIMP>
       <RSIMP>
        <PARAMETER>IV_ITCLG</PARAMETER>
        <OPTIONAL>X</OPTIONAL>
-       <TYP>STRING</TYP>
+       <TYP>FC_ITCLG</TYP>
       </RSIMP>
      </IMPORT>
      <DOCUMENTATION>
@@ -161,6 +161,7 @@
       <RSFDO>
        <PARAMETER>IV_ITCLG</PARAMETER>
        <KIND>P</KIND>
+       <STEXT>Consolidation Chart of Accounts</STEXT>
       </RSFDO>
      </DOCUMENTATION>
     </item>
@@ -443,6 +444,106 @@
        <PARAMETER>IV_RLDNR</PARAMETER>
        <KIND>P</KIND>
        <STEXT>Ledger</STEXT>
+      </RSFDO>
+     </DOCUMENTATION>
+    </item>
+    <item>
+     <FUNCNAME>/EY1/FM_GET_BAL_TRANSF_LOG</FUNCNAME>
+     <SHORT_TEXT>Returns Balance Transfer Log</SHORT_TEXT>
+     <IMPORT>
+      <RSIMP>
+       <PARAMETER>IV_DIMEN</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>FC_DIMEN</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_CONGR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>FC_CONGR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_RVERS</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>FC_RVERS</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_RYEAR</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>FC_RYEAR</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_BUNIT</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>FC_BUNIT</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_ITCLG</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>FC_ITCLG</TYP>
+      </RSIMP>
+      <RSIMP>
+       <PARAMETER>IV_JOBNAME</PARAMETER>
+       <OPTIONAL>X</OPTIONAL>
+       <TYP>TBTCJOB-JOBNAME</TYP>
+      </RSIMP>
+     </IMPORT>
+     <EXPORT>
+      <RSEXP>
+       <PARAMETER>ET_TAB</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>REF TO DATA</TYP>
+       <REF_CLASS>X</REF_CLASS>
+      </RSEXP>
+      <RSEXP>
+       <PARAMETER>EV_CONGR</PARAMETER>
+       <REFERENCE>X</REFERENCE>
+       <TYP>FC_CONGR</TYP>
+      </RSEXP>
+     </EXPORT>
+     <DOCUMENTATION>
+      <RSFDO>
+       <PARAMETER>IV_DIMEN</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Dimension</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_CONGR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Consolidation Group</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_RVERS</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Consolidation (end-result) version</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_RYEAR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Fiscal year</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_BUNIT</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Consolidation Unit</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_ITCLG</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Consolidation Chart of Accounts</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>IV_JOBNAME</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Background job name</STEXT>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>ET_TAB</PARAMETER>
+       <KIND>P</KIND>
+      </RSFDO>
+      <RSFDO>
+       <PARAMETER>EV_CONGR</PARAMETER>
+       <KIND>P</KIND>
+       <STEXT>Consolidation Group</STEXT>
       </RSFDO>
      </DOCUMENTATION>
     </item>

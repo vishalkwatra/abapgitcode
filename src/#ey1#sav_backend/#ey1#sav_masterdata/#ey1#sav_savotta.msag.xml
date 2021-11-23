@@ -235,6 +235,24 @@
      <MSGNR>037</MSGNR>
      <TEXT>Data Saved for Fiscal Year &amp;1</TEXT>
     </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>038</MSGNR>
+     <TEXT>Please Select Only one as Default for User &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>039</MSGNR>
+     <TEXT>PeriodTo &amp;1 Saved for Intenton &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>/EY1/SAV_SAVOTTA</ARBGB>
+     <MSGNR>040</MSGNR>
+     <TEXT>Error In Saving PeriodTo &amp;1 for Intention &amp;2</TEXT>
+    </T100>
    </T100>
   </asx:values>
  </asx:abap>

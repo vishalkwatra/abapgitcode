@@ -13,7 +13,7 @@ define view /EY1/SAV_I_Rec_GAAP_OB_YB_LC
     //    p_specialperiod : zz1_specialperiod
     p_taxintention : zz1_taxintention
 
-  as select distinct from /EY1/SAV_I_Rec_GlAcCUnit_GAAP as GLAccnt
+  as select distinct from /EY1/SAV_I_Rec_GlAcCUnit_GAAP(p_ryear: $parameters.p_ryear) as GLAccnt
 
     left outer join       /EY1/SAV_I_Rec_GAAP_OB_LC
                     ( p_ryear:$parameters.p_ryear,

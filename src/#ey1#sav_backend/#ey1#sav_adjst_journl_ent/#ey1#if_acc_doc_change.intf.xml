@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_INTF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOINTERF>
+    <CLSNAME>/EY1/IF_ACC_DOC_CHANGE</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>Accounting Document Change Interface</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <UNICODE>X</UNICODE>
+   </VSEOINTERF>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/IF_ACC_DOC_CHANGE</CLSNAME>
+     <CMPNAME>CHANGE_HEADER</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Change Header</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/EY1/IF_ACC_DOC_CHANGE</CLSNAME>
+     <CMPNAME>CHANGE_ITEM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Change Item</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+  </asx:values>
+ </asx:abap>
+</abapGit>

@@ -136,6 +136,52 @@ CLASS /EY1/CL_D_SAV_I_ACC_CLASS_ACTI IMPLEMENTATION.
         lo_property_helper->set_attribute_read_only( iv_attribute_name = /EY1/IF_SAV_I_ACC_CLASS_C=>sc_node_attribute-/EY1/SAV_I_ACC_CLASS-accountclasscodeforedit
                                                      iv_key            = ls_acc-key ).
       ENDIF.
+
+      AUTHORITY-CHECK OBJECT '/EY1/TAXCG' FOR USER sy-uname
+                                             ID 'ACTVT' FIELD '06'.
+      IF sy-subrc <> 0.
+            CALL METHOD lo_property_helper->set_node_delete_enabled
+              EXPORTING
+                iv_key  = ls_acc-key
+                iv_value = abap_false.
+
+
+            CALL METHOD lo_property_helper->set_nodesubtree_delete_enabled
+               EXPORTING
+                 iv_key   = ls_acc-key
+                 iv_value =  abap_false.
+      ENDIF.
+
+      AUTHORITY-CHECK OBJECT '/EY1/TAXCG' FOR USER sy-uname
+                                             ID 'ACTVT' FIELD '02'.
+      IF sy-subrc <> 0.
+            CALL METHOD lo_property_helper->set_nodesubtree_change_enabled
+              EXPORTING
+                iv_key   = ls_acc-key
+                iv_value = abap_false.
+
+            CALL METHOD lo_property_helper->set_node_update_enabled
+              EXPORTING
+                iv_key   = ls_acc-key
+                iv_value = abap_false.
+
+            CALL METHOD lo_property_helper->set_nodesubtree_update_enabled
+               EXPORTING
+                 iv_key   = ls_acc-key
+                 iv_value = abap_false.
+      ENDIF.
+
+      AUTHORITY-CHECK OBJECT '/EY1/TAXCG' FOR USER sy-uname
+                                             ID 'ACTVT' FIELD '01'.
+      IF sy-subrc <> 0.
+            CALL METHOD lo_property_helper->set_nodesubtree_create_enabled
+              EXPORTING
+                iv_key   = ls_acc-key
+                iv_value = abap_false.
+      ENDIF.
+
+
+
     ENDLOOP.
   ENDMETHOD.
 ENDCLASS.

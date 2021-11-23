@@ -19,6 +19,7 @@ DATA : ok_code             TYPE sy-ucomm, "User command variable
        gt_list             TYPE vrm_values,
        gw_value            LIKE LINE OF gt_list,
        gv_ok_flag(1),
+       gv_bunit            TYPE fc_bunit,
        i_bunittext(50),
        i_congrtext(50),
        i_intentiontext(50).

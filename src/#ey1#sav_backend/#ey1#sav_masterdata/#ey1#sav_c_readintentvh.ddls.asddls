@@ -21,6 +21,7 @@ define view /EY1/SAV_C_ReadIntentVH
       IntentDescription,
       
       PeriodTo,
-      TaxIntention
+      TaxIntention,
+      AnalyticsPeriodTo
 //      SpecialPeriod
 }

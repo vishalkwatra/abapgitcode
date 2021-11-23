@@ -13,6 +13,9 @@ define view /EY1/SAV_I_ETR_RG_CTRTDCB
     p_switch        : char1,
     p_taxintention : zz1_taxintention,
     p_rbunit        : fc_bunit
+    
+    
+    
   as select from    /EY1/SAV_I_ETR_RG_CTRTDCBPL
                  ( p_toperiod:$parameters.p_toperiod ,
                     p_ryear:$parameters.p_ryear ,

@@ -10,6 +10,7 @@ define view /EY1/SAV_I_CurrLocalGroupVH
   association [0..1] to A_CnsldtnUnitT as _CnsldtnUnitT on  $projection.ConsolidationUnit = _CnsldtnUnitT.ConsolidationUnit
                                                         and _CnsldtnUnitT.Language        = $session.system_language
 {
+  key  lc.mandt                            as mandt,
   key  ConsolidationUnit                   as ConsolidationUnit,
   key  cast('Local' as abap.char( 5 ))     as CurrencyType,
   key  ConsolidationUnitLocalCurrency      as Currency,

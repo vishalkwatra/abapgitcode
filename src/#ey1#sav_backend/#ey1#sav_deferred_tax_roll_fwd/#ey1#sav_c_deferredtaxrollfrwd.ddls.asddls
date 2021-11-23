@@ -12,6 +12,7 @@ define view /EY1/SAV_C_DeferredTaxRollFrwd
     p_toperiod     : poper,
     p_ryear        : gjahr,
     p_taxintention : zz1_taxintention
+    
   as select from /EY1/SAV_I_DeferredTaxRollFrwd
                  ( p_rbunit :$parameters.p_rbunit,
                    p_toperiod :$parameters.p_toperiod,
@@ -98,42 +99,50 @@ define view /EY1/SAV_C_DeferredTaxRollFrwd
       @DefaultAggregation: #SUM
       @EndUserText.label: 'CY P&L'
       PlYearBalance,
+      //cast( 0 as abap.curr(23,2))    as PlYearBalance,
 
       @Semantics.amount.currencyCode: 'MainCurrency'
       @DefaultAggregation: #SUM
       @EndUserText.label: 'CY EQ'
       EqYearBalance,
+      //cast( 0 as abap.curr(23,2))    as EqYearBalance,
 
       @Semantics.amount.currencyCode: 'MainCurrency'
       @DefaultAggregation: #SUM
       @EndUserText.label: 'CY OTH P&L'
       OPlYearBalance,
+      //cast( 0 as abap.curr(23,2))    as OPlYearBalance,
 
       @Semantics.amount.currencyCode: 'MainCurrency'
       @DefaultAggregation: #SUM
       @EndUserText.label: 'CY OTH EQ'
       OEqYearBalance,
+      //cast( 0 as abap.curr(23,2))    as OEqYearBalance,
 
       @Semantics.amount.currencyCode: 'MainCurrency'
       @DefaultAggregation: #SUM
       @EndUserText.label: 'CY Mvmnt'
       CurrentYearMvmnt,
+      //cast( 0 as abap.curr(23,2))    as CurrentYearMvmnt,
 
       //Closing Balance
       @Semantics.amount.currencyCode: 'MainCurrency'
       @DefaultAggregation: #SUM
       @EndUserText.label: 'CB P&L'
       PlClosingBalance,
+      //cast( 0 as abap.curr(23,2))    as PlClosingBalance,
 
       @Semantics.amount.currencyCode: 'MainCurrency'
       @DefaultAggregation: #SUM
       @EndUserText.label: 'CB EQ'
       EqClosingBalance,
+      //cast( 0 as abap.curr(23,2))    as EqClosingBalance,
 
       @Semantics.amount.currencyCode: 'MainCurrency'
       @DefaultAggregation: #SUM
       @EndUserText.label: 'CB DTA/DTL'
       ClosingBalanceDTADTL,
+      //cast( 0 as abap.curr(23,2))    as ClosingBalanceDTADTL,
 
       //CTA
       @Semantics.amount.currencyCode: 'MainCurrency'

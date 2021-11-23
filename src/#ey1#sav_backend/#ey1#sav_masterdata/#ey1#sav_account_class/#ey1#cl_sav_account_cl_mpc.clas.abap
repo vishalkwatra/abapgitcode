@@ -169,7 +169,7 @@ get_last_modified_rds_4( ).
 *&---------------------------------------------------------------------*
 
 
-  CONSTANTS: lc_gen_date_time TYPE timestamp VALUE '20210119102239'.                  "#EC NOTEXT
+  CONSTANTS: lc_gen_date_time TYPE timestamp VALUE '20210902052318'.                  "#EC NOTEXT
  DATA: lv_rds_last_modified TYPE timestamp .
   rv_last_modified = super->get_last_modified( ).
   IF rv_last_modified LT lc_gen_date_time.
@@ -194,7 +194,7 @@ get_last_modified_rds_4( ).
 *   4
 *&---------------------------------------------------------------------*
 *    @@TYPE_SWITCH:
-    CONSTANTS: co_gen_date_time TYPE timestamp VALUE '20210119112240'.
+    CONSTANTS: co_gen_date_time TYPE timestamp VALUE '20210902072318'.
     TRY.
         rv_last_modified_rds = CAST cl_sadl_gw_model_exposure( if_sadl_gw_model_exposure_data~get_model_exposure( ) )->get_last_modified( ).
       CATCH cx_root ##CATCH_ALL.
@@ -207,13 +207,11 @@ get_last_modified_rds_4( ).
 
 
   method IF_SADL_GW_MODEL_EXPOSURE_DATA~GET_MODEL_EXPOSURE.
-    CONSTANTS: co_gen_timestamp TYPE timestamp VALUE '20210119112240'.
+    CONSTANTS: co_gen_timestamp TYPE timestamp VALUE '20210902072318'.
     DATA(lv_sadl_xml) =
                |<?xml version="1.0" encoding="utf-16"?>|  &
                |<sadl:definition xmlns:sadl="http://sap.com/sap.nw.f.sadl" syntaxVersion="" >|  &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_C_ACC_CLASS" binding="/EY1/SAV_C_ACC_CLASS" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACCTYPE_VH" binding="/EY1/SAV_I_ACCTYPE_VH" />|  &
-               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACC_CLASS_TEXT" binding="/EY1/SAV_I_ACC_CLASS_TEXT" />|  &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_I_FSTYPE_VH" binding="/EY1/SAV_I_FSTYPE_VH" />|  &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_I_TRANSACTIONTYPE_VH" binding="/EY1/SAV_I_TRANSACTIONTYPE_VH" />|  &
                | <sadl:dataSource type="CDS" name="C_CNSLDTNCHARTOFACCOUNTSVH" binding="C_CNSLDTNCHARTOFACCOUNTSVH" />|  &
@@ -222,6 +220,8 @@ get_last_modified_rds_4( ).
                | <sadl:dataSource type="CDS" name="Z_I_FSTYPE_VH" binding="Z_I_FSTYPE_VH" />|  &
                | <sadl:dataSource type="CDS" name="Z_I_TRANSACTIONTYPE_VH" binding="Z_I_TRANSACTIONTYPE_VH" />|  &
                | <sadl:dataSource type="CDS" name="/EY1/SAV_C_ACC_FS_ITEM" binding="/EY1/SAV_C_ACC_FS_ITEM" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACCTYPE_VH" binding="/EY1/SAV_I_ACCTYPE_VH" />|  &
+               | <sadl:dataSource type="CDS" name="/EY1/SAV_I_ACC_CLASS_TEXT" binding="/EY1/SAV_I_ACC_CLASS_TEXT" />|  &
                |<sadl:resultSet>|  &
                |<sadl:structure name="xEY1xSAV_C_Acc_Class" dataSource="/EY1/SAV_C_ACC_CLASS" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
@@ -231,14 +231,6 @@ get_last_modified_rds_4( ).
                | <sadl:association name="TO_FINSTATITEM" binding="_FINSTATITEM" target="xEY1xSAV_C_Acc_FS_Item" cardinality="zeroToMany" />|  &
                | <sadl:association name="TO_FSTYPETEXT" binding="_FSTYPETEXT" target="xEY1xSAV_I_FSType_VH" cardinality="one" />|  &
                | <sadl:association name="TO_TRANSACTIONTYPETEXT" binding="_TRANSACTIONTYPETEXT" target="xEY1xSAV_I_TransactionType_VH" cardinality="one" />|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_I_AccType_VH" dataSource="/EY1/SAV_I_ACCTYPE_VH" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
-               |</sadl:structure>|  &
-               |<sadl:structure name="xEY1xSAV_I_Acc_Class_Text" dataSource="/EY1/SAV_I_ACC_CLASS_TEXT" maxEditMode="RO" exposure="TRUE" >|  &
-               | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="xEY1xSAV_I_FSType_VH" dataSource="/EY1/SAV_I_FSTYPE_VH" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
@@ -258,8 +250,7 @@ get_last_modified_rds_4( ).
                |</sadl:structure>|  &
                |<sadl:structure name="Z_I_ACCTYPE_VH" dataSource="Z_I_ACCTYPE_VH" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>| .
-      lv_sadl_xml = |{ lv_sadl_xml }| &
+               | </sadl:query>|  &
                |</sadl:structure>|  &
                |<sadl:structure name="Z_I_FSTYPE_VH" dataSource="Z_I_FSTYPE_VH" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
@@ -267,9 +258,18 @@ get_last_modified_rds_4( ).
                |</sadl:structure>|  &
                |<sadl:structure name="Z_I_TransactionType_VH" dataSource="Z_I_TRANSACTIONTYPE_VH" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
-               | </sadl:query>|  &
+               | </sadl:query>| .
+      lv_sadl_xml = |{ lv_sadl_xml }| &
                |</sadl:structure>|  &
                |<sadl:structure name="xEY1xSAV_C_Acc_FS_Item" dataSource="/EY1/SAV_C_ACC_FS_ITEM" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_I_AccType_VH" dataSource="/EY1/SAV_I_ACCTYPE_VH" maxEditMode="RO" exposure="TRUE" >|  &
+               | <sadl:query name="SADL_QUERY">|  &
+               | </sadl:query>|  &
+               |</sadl:structure>|  &
+               |<sadl:structure name="xEY1xSAV_I_Acc_Class_Text" dataSource="/EY1/SAV_I_ACC_CLASS_TEXT" maxEditMode="RO" exposure="TRUE" >|  &
                | <sadl:query name="SADL_QUERY">|  &
                | </sadl:query>|  &
                |</sadl:structure>|  &

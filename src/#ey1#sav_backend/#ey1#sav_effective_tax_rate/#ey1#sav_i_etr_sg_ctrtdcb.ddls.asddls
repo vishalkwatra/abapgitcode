@@ -25,7 +25,8 @@ define view /EY1/SAV_I_ETR_SG_CTRTDCB
                     p_toperiod: $parameters.p_toperiod,
                     p_switch: $parameters.p_switch,
                     p_taxintention: $parameters.p_taxintention,
-                    p_rbunit: $parameters.p_rbunit) as PBT on  PBT.ConsolidationChartofAccounts = GlAccount.ConsolidationChartofAccounts
+                    p_rbunit: $parameters.p_rbunit,
+                    p_intention : $parameters.p_taxintention) as PBT on  PBT.ConsolidationChartofAccounts = GlAccount.ConsolidationChartofAccounts
                                                            and PBT.ChartOfAccounts              = GlAccount.ChartOfAccounts
                                                            and PBT.ConsolidationUnit            = GlAccount.ConsolidationUnit
                                                            and PBT.FiscalYear                   = GlAccount.FiscalYear

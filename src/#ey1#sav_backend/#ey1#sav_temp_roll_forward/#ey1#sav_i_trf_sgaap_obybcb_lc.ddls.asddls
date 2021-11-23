@@ -7,40 +7,42 @@
 
 define view /EY1/SAV_I_TRF_SGAAP_OBYBCB_LC
   with parameters
-    p_toperiod      : poper,
-    p_ryear         : gjahr,
-//    p_specialperiod : zz1_specialperiod
-    p_taxintention  : zz1_taxintention
+    p_toperiod     : poper,
+    p_ryear        : gjahr,
+    //    p_specialperiod : zz1_specialperiod
+    p_taxintention : zz1_taxintention
   as select from    /EY1/SAV_I_GlAcc_TRF_MD
-                 ( p_ryear:$parameters.p_ryear )                         as GLAccnt
+                 ( p_ryear:$parameters.p_ryear )                       as GLAccnt
 
     left outer join /EY1/SAV_I_TRF_SGAAP_OB_LC
                     ( p_ryear:$parameters.p_ryear,
-                          p_taxintention :$parameters.p_taxintention ) as SGaapOBLC on  SGaapOBLC.GLAccount         = GLAccnt.GLAccount
-                                                                                      and SGaapOBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                          p_taxintention :$parameters.p_taxintention,
+                          p_toperiod :$parameters.p_toperiod  )        as SGaapOBLC  on  SGaapOBLC.GLAccount         = GLAccnt.GLAccount
+                                                                                     and SGaapOBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
 
     left outer join /EY1/SAV_I_TRF_SGAAP_YB_LC
                     ( p_toperiod :$parameters.p_toperiod,
                           p_ryear:$parameters.p_ryear,
-                          p_taxintention :$parameters.p_taxintention ) as SGaapYBLC on  SGaapYBLC.GLAccount         = GLAccnt.GLAccount
-                                                                                      and SGaapYBLC.FiscalYear        = GLAccnt.FiscalYear
-                                                                                      and SGaapYBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                          p_taxintention :$parameters.p_taxintention ) as SGaapYBLC  on  SGaapYBLC.GLAccount         = GLAccnt.GLAccount
+                                                                                     and SGaapYBLC.FiscalYear        = GLAccnt.FiscalYear
+                                                                                     and SGaapYBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_TRF_SGAAP_CB_LC
                     ( p_toperiod :$parameters.p_toperiod,
                     p_ryear:$parameters.p_ryear,
-                    p_taxintention :$parameters.p_taxintention )       as SGaapCBLC on  SGaapCBLC.GLAccount         = GLAccnt.GLAccount
-                                                                                      and SGaapCBLC.FiscalYear        = GLAccnt.FiscalYear
-                                                                                      and SGaapCBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
-    left outer join /EY1/SAV_I_TRF_SGAAP_PYA
-                    ( p_toperiod :$parameters.p_toperiod,
-                    p_ryear:$parameters.p_ryear )                        as SGaapPYA  on  SGaapPYA.GLAccount         = GLAccnt.GLAccount
-                                                                                      and SGaapPYA.FiscalYear        = GLAccnt.FiscalYear
-                                                                                      and SGaapPYA.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                    p_taxintention :$parameters.p_taxintention )             as SGaapCBLC  on  SGaapCBLC.GLAccount         = GLAccnt.GLAccount
+                                                                                     and SGaapCBLC.FiscalYear        = GLAccnt.FiscalYear
+                                                                                     and SGaapCBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
+    left outer join /EY1/SAV_I_TRF_SGAAP_PYA_LC
+                    ( p_ryear:$parameters.p_ryear,
+                    p_taxintention :$parameters.p_taxintention,
+                    p_toperiod :$parameters.p_toperiod)                as SGaapPYALC on  SGaapPYALC.GLAccount         = GLAccnt.GLAccount
+                                                                                     and SGaapPYALC.ConsolidationUnit = GLAccnt.ConsolidationUnit
+
     left outer join /EY1/SAV_I_TRF_SGAAP_CTA
                     ( p_toperiod :$parameters.p_toperiod,
-                    p_ryear:$parameters.p_ryear )                        as SGaapCTA  on  SGaapCTA.GLAccount         = GLAccnt.GLAccount
-                                                                                      and SGaapCTA.FiscalYear        = GLAccnt.FiscalYear
-                                                                                      and SGaapCTA.ConsolidationUnit = GLAccnt.ConsolidationUnit
+                    p_ryear:$parameters.p_ryear )                      as SGaapCTA   on  SGaapCTA.GLAccount         = GLAccnt.GLAccount
+                                                                                     and SGaapCTA.FiscalYear        = GLAccnt.FiscalYear
+                                                                                     and SGaapCTA.ConsolidationUnit = GLAccnt.ConsolidationUnit
 {
       //GLAccnt
   key GLAccnt.ChartOfAccounts,
@@ -107,7 +109,6 @@ define view /EY1/SAV_I_TRF_SGAAP_OBYBCB_LC
       CTAEq,
       @Semantics.amount.currencyCode: 'MainCurrency'
       CTA,
-
       // PYA
       @Semantics.amount.currencyCode: 'MainCurrency'
       PYAPl,
@@ -122,7 +123,8 @@ define view /EY1/SAV_I_TRF_SGAAP_OBYBCB_LC
       @Semantics.amount.currencyCode: 'MainCurrency'
       PYAOeq,
       @Semantics.amount.currencyCode: 'MainCurrency'
-      PYA,
+      PYABal+PYAOBal                     as PYA,
+
 
       @Semantics.amount.currencyCode: 'MainCurrency'
       TempTransType + TempOtherTransType as CurrentYearMvmnt,

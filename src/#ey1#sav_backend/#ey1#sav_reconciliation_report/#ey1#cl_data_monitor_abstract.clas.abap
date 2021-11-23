@@ -36,40 +36,43 @@ CLASS /EY1/CL_DATA_MONITOR_ABSTRACT IMPLEMENTATION.
 
   METHOD READ_CONSOLIDATION_TYPE.
 
-    TYPES: BEGIN OF ty_cacti,
-             cacti TYPE tf261-cacti,
-           END OF ty_cacti,
-           BEGIN OF tr_cacti,
-             sign      TYPE char1,
-             option    TYPE char2,
-             low       TYPE tf261-cacti,
-             high      TYPE tf261-cacti,
-           END OF tr_cacti.
-    DATA: r_cacti  TYPE TABLE OF tr_cacti,
-          rs_cacti TYPE tr_cacti.
-
-
-    SELECT DISTINCT cacti
-       FROM tf261
-       INTO TABLE et_cacti
-       WHERE dimen = gs_tf004-dimen
-       AND   itclg = gs_global_params-itclg
-*       AND   rvers = gs_global_params-rvers
-       AND   ryear = gs_global_params-ryear
-       AND   perid = gs_global_params-period_to
-       AND   bunit = gs_global_params-bunit
-       ORDER BY cacti.
-  IF sy-subrc = 0.
+*    TYPES: BEGIN OF ty_cacti,
+*             cacti TYPE tf261-cacti,
+*           END OF ty_cacti,
+*           BEGIN OF tr_cacti,
+*             sign      TYPE char1,
+*             option    TYPE char2,
+*             low       TYPE tf261-cacti,
+*             high      TYPE tf261-cacti,
+*           END OF tr_cacti.
+*    DATA: r_cacti  TYPE TABLE OF tr_cacti,
+*          rs_cacti TYPE tr_cacti.
+*
+*
+*    SELECT DISTINCT cacti
+*       FROM tf261
+*       INTO TABLE et_cacti
+*       WHERE dimen = gs_tf004-dimen
+*       AND   itclg = gs_global_params-itclg
+**       AND   rvers = gs_global_params-rvers
+*       AND   ryear = gs_global_params-ryear
+*       AND   perid = gs_global_params-period_to
+*       AND   bunit = gs_global_params-bunit
+*       ORDER BY cacti.
+*  IF sy-subrc = 0.
     "To Be Removed
-    rs_cacti-sign = 'I'.
-    rs_cacti-option = 'EQ'.
+*    rs_cacti-sign = 'I'.
+*    rs_cacti-option = 'EQ'.
 *    rs_cacti-low = '1100'.
 *    APPEND rs_cacti TO r_cacti.
-    rs_cacti-low = '1015'.
-    APPEND rs_cacti TO r_cacti.
-    DELETE et_cacti WHERE cacti NOT IN r_cacti[].
+*    rs_cacti-low = '1015'.
+*    APPEND rs_cacti TO r_cacti.
 
-  ENDIF.
+    APPEND '1015' TO et_cacti.
+    APPEND '1011' TO et_cacti.
+    "DELETE et_cacti WHERE cacti NOT IN r_cacti[].
+
+*  ENDIF.
 
 
   ENDMETHOD.

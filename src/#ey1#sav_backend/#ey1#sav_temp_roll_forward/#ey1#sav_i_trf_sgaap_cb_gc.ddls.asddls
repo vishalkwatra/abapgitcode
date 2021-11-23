@@ -24,7 +24,7 @@ define view /EY1/SAV_I_TRF_SGAAP_CB_GC
     left outer join /EY1/SAV_I_TRF_SGAAP_CB_PMT_GC
                     ( p_toperiod :$parameters.p_toperiod,
                       p_ryear:$parameters.p_ryear,
-                      p_taxintention :$parameters.p_taxintention ) as SGaapCBPmntGC on  SGaapCBPmntGC.GLAccount         = GLAccnt.GLAccount
+                      p_taxintention :$parameters.p_taxintention) as SGaapCBPmntGC on  SGaapCBPmntGC.GLAccount         = GLAccnt.GLAccount
                                                                                       and SGaapCBPmntGC.FiscalYear        = GLAccnt.FiscalYear
                                                                                       and SGaapCBPmntGC.ConsolidationUnit = GLAccnt.ConsolidationUnit
 

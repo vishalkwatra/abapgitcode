@@ -29,6 +29,13 @@ define view /EY1/SAV_C_DTRF_ANLT
     @Consumption.hidden :false
     //p_specialperiod : zz1_specialperiod,
     @EndUserText.label: 'Tax Intention'
+    
+    @Consumption.valueHelpDefinition: [{
+          entity: {
+            name: '/EY1/SAV_I_ReadIntentVH',
+            element: 'taxintention'
+          }
+        }]
     @Consumption.defaultValue: '101'
     p_taxintention : zz1_taxintention,
     @Consumption.hidden :false

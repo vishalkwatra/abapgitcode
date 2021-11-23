@@ -32,7 +32,9 @@ define view /EY1/SAV_I_DTRF_SGAAP_CB_EQ_LC
                                                                                   and SGaapYBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_DTRF_SGAAP_PYA
                     ( p_toperiod :$parameters.p_toperiod,
-                      p_ryear:$parameters.p_ryear )                  as SGaapPYA  on  SGaapPYA.GLAccount         = GLAccnt.GLAccount
+                      p_ryear:$parameters.p_ryear,
+                      p_taxintention: $parameters.p_taxintention,
+                      p_rbunit: $parameters.p_rbunit )                  as SGaapPYA  on  SGaapPYA.GLAccount         = GLAccnt.GLAccount
                                                                                   and SGaapPYA.FiscalYear        = GLAccnt.FiscalYear
                                                                                   and SGaapPYA.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_DTRF_SGAAP_CTA

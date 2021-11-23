@@ -33,7 +33,7 @@ define view /EY1/SAV_I_Rec_STAT_OB_LC
 where
       poper                =  '000'
   and zz1_taxintention_cje <= :p_taxintention
-//zz1_specialperiod_cje <= :p_specialperiod
+  and ryear                =  :p_ryear
 group by
   rbunit,
   racct,

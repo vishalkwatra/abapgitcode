@@ -1,6 +1,6 @@
 *---------------------------------------------------------------------*
 *    program for:   TABLEFRAME_/EY1/GLOBALPAR
-*   generation date: 21.07.2021 at 08:13:39
+*   generation date: 04.10.2021 at 04:54:26
 *   view maintenance generator version: #001407#
 *---------------------------------------------------------------------*
 FUNCTION TABLEFRAME_/EY1/GLOBALPAR     .

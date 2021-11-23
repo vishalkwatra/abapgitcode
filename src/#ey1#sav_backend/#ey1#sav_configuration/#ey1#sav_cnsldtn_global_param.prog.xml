@@ -3009,6 +3009,12 @@
      <LENGTH>46</LENGTH>
     </item>
     <item>
+     <ID>I</ID>
+     <KEY>010</KEY>
+     <ENTRY>Not Authorized to Save</ENTRY>
+     <LENGTH>100</LENGTH>
+    </item>
+    <item>
      <ID>R</ID>
      <ENTRY>Savotta : Consolidate Global Parameters</ENTRY>
      <LENGTH>39</LENGTH>

@@ -11,19 +11,23 @@ define view /EY1/SAV_I_ER_G2S_RechChkLCGC
     p_fromyb       : poper,
     p_toyb         : poper,
     p_switch       : char1,
-    p_taxintention : zz1_taxintention
+    p_taxintention : zz1_taxintention,
+    p_intention    : zz1_taxintention
 
   as select from    /EY1/SAV_I_ER_G2S_CB_RCHK_LCGC(p_ryear:$parameters.p_ryear,
                                                    p_fromyb:$parameters.p_fromyb,
                                                    p_toyb:$parameters.p_toyb,
                                                    p_switch:$parameters.p_switch,
-                                                   p_taxintention: $parameters.p_taxintention) as GLAcc
+                                                   p_taxintention: $parameters.p_taxintention,
+                                                   p_intention: $parameters.p_intention
+                                                   )                                           as GLAcc
 
     left outer join /EY1/SAV_I_ER_G2S_OB_RCHK_LCGC(p_ryear:$parameters.p_ryear,
                                                    p_fromyb:$parameters.p_fromyb,
                                                    p_toyb:$parameters.p_toyb,
                                                    p_switch:$parameters.p_switch,
-                                                   p_taxintention: $parameters.p_taxintention) as OBRchk on  OBRchk.GLAccount                    = GLAcc.GLAccount
+                                                   p_taxintention: $parameters.p_taxintention,
+                                                   p_intention: $parameters.p_intention) as OBRchk on  OBRchk.GLAccount                    = GLAcc.GLAccount
                                                                                                          and OBRchk.ConsolidationUnit            = GLAcc.ConsolidationUnit
                                                                                                          and OBRchk.ConsolidationChartofAccounts = GLAcc.ConsolidationChartofAccounts
                                                                                                          and OBRchk.ChartOfAccounts              = GLAcc.ChartOfAccounts
@@ -33,7 +37,8 @@ define view /EY1/SAV_I_ER_G2S_RechChkLCGC
                                                    p_fromyb:$parameters.p_fromyb,
                                                    p_toyb:$parameters.p_toyb,
                                                    p_switch:$parameters.p_switch,
-                                                   p_taxintention: $parameters.p_taxintention) as YBRchk on  YBRchk.GLAccount                    = GLAcc.GLAccount
+                                                   p_taxintention: $parameters.p_taxintention,
+                                                   p_intention: $parameters.p_intention) as YBRchk on  YBRchk.GLAccount                    = GLAcc.GLAccount
                                                                                                          and YBRchk.ConsolidationUnit            = GLAcc.ConsolidationUnit
                                                                                                          and YBRchk.ConsolidationChartofAccounts = GLAcc.ConsolidationChartofAccounts
                                                                                                          and YBRchk.ChartOfAccounts              = GLAcc.ChartOfAccounts

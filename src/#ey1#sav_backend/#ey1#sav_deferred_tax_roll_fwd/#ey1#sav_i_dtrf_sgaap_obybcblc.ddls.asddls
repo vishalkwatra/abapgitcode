@@ -37,7 +37,9 @@ define view /EY1/SAV_I_DTRF_SGAAP_OBYBCBLC
                                                                                 and SGaapCBLC.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_DTRF_SGAAP_PYA
                     ( p_toperiod :$parameters.p_toperiod,
-                      p_ryear:$parameters.p_ryear )                as SGaapPYA  on  SGaapPYA.GLAccount         = GLAccnt.GLAccount
+                      p_ryear:$parameters.p_ryear,
+                      p_taxintention: $parameters.p_taxintention,
+                      p_rbunit: $parameters.p_rbunit )                as SGaapPYA  on  SGaapPYA.GLAccount         = GLAccnt.GLAccount
                                                                                 and SGaapPYA.FiscalYear        = GLAccnt.FiscalYear
                                                                                 and SGaapPYA.ConsolidationUnit = GLAccnt.ConsolidationUnit
     left outer join /EY1/SAV_I_DTRF_SGAAP_CTA
@@ -50,7 +52,8 @@ define view /EY1/SAV_I_DTRF_SGAAP_OBYBCBLC
                       p_ryear:$parameters.p_ryear )                as SGaapTRC  on  SGaapTRC.GLAccount         = GLAccnt.GLAccount
                                                                                 and SGaapTRC.FiscalYear        = GLAccnt.FiscalYear
                                                                                 and SGaapTRC.ConsolidationUnit = GLAccnt.ConsolidationUnit
-  association [1] to /ey1/ggaap_tas as _GGaapTAS on _GGaapTAS.mandt = $session.client
+
+    inner join      /EY1/Sav_I_Group_Unit_Mapping                  as IMap      on IMap.ConsoidationUnit = GLAccnt.ConsolidationUnit
 
 {
       //GLAccnt
@@ -131,14 +134,11 @@ define view /EY1/SAV_I_DTRF_SGAAP_OBYBCBLC
       @Semantics.amount.currencyCode: 'MainCurrency'
       TRC,
 
-      _GGaapTAS.classification            as Classification,
+      IMap.Classification,
 
       cast ('Local' as abap.char(5))      as CurrencyType,
 
       BsEqPl,
       CNC,
-      TaxEffected,
-
-      //Association
-      _GGaapTAS
+      TaxEffected
 }

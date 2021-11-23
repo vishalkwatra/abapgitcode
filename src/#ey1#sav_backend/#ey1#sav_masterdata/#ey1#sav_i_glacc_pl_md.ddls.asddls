@@ -5,12 +5,14 @@
 @EndUserText.label: 'I-View GLAccount- PL -MD'
 @VDM.viewType: #BASIC
 
-define view /EY1/SAV_I_GlAcc_PL_MD with parameters
+define view /EY1/SAV_I_GlAcc_PL_MD
+  with parameters
     p_ryear : gjahr
   as select distinct from fincs_fsimapitm              as GLAccnt
     left outer join       /EY1/SAV_I_FinancialStatItem as fsitem        on fsitem.item = GLAccnt.ritem
 
     left outer join       acdocu                                        on  acdocu.racct = GLAccnt.racct
+                                                                        and acdocu.ktopl = GLAccnt.ktopl
                                                                         and acdocu.ryear = :p_ryear
 
     left outer join       /EY1/SAV_I_Accounts_Class    as AccountsClass on fsitem.account_classcode = AccountsClass.acc_class_code

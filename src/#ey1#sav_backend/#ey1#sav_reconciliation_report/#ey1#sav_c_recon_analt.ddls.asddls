@@ -50,13 +50,15 @@ define view /EY1/SAV_C_RECON_ANALT
     @EndUserText.label: 'Currency Type'
     @Consumption.valueHelpDefinition: [{  entity: { name:    '/EY1/SAV_CURRENCYTYPE_VH',
                                                     element: 'currency_type' } }]
-    p_currencytype : /ey1/ctype_name
+    p_currencytype : /ey1/ctype_name,
+    p_intention : zz1_taxintention
 
   as select from /EY1/SAV_I_RECON_ANALT(p_ryear:$parameters.p_ryear,
                                         p_fromyb:$parameters.p_fromyb,
                                         p_toyb:$parameters.p_toyb,
                                         p_switch:$parameters.p_switch,
-                                        p_taxintention: $parameters.p_taxintention)
+                                        p_taxintention: $parameters.p_taxintention,
+                                        p_intention: $parameters.p_intention)
   //                                        p_specialperiod:$parameters.p_specialperiod)
 {
   key FiscalYear,

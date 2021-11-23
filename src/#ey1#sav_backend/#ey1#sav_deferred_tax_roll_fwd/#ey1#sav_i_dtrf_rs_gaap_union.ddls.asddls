@@ -27,9 +27,26 @@ define view /EY1/SAV_I_DTRF_RS_GAAP_Union
       FinancialStatementItem,
       MainCurrency,
 
+      Classification,
+      CNC,
+
       // OB & CB Class
-      OBClass,
-      CBClass,
+      case when TempOBClass = '' then TempOBClass
+      //      cast('' as abap.char(3))
+           else ( case when ( Classification = 'IFRS - NON-CURRENT' or Classification = 'US GAAP (NEW) - NON-CURRENT')
+                     then concat(TempOBClass, concat('-', 'NC'))
+                     when Classification = 'GAAP - CURRENT' then concat (TempOBClass, concat('-', 'C'))
+                     else concat(TempOBClass, concat('-', CNC)) end )
+                     end as OBClass,
+
+      case when TempCBClass = '' then TempCBClass
+      //      cast('' as abap.char(3))
+           else ( case when ( Classification = 'IFRS - NON-CURRENT' or Classification = 'US GAAP (NEW) - NON-CURRENT')
+                     then concat(TempCBClass, concat('-', 'NC'))
+                     when Classification = 'GAAP - CURRENT' then concat (TempCBClass, concat('-', 'C'))
+                     else concat(TempCBClass, concat('-', CNC)) end )
+                     end as CBClass,
+
 
       //Tax Rates
       OBRate,
@@ -92,9 +109,25 @@ union all select from /EY1/SAV_I_DTRF_SG_LCGC_UNION( p_rbunit :$parameters.p_rbu
       FinancialStatementItem,
       MainCurrency,
 
-      //OB & CB Class
-      OBClass,
-      CBClass,
+      Classification,
+      CNC,
+
+      // OB & CB Class
+      case when TempOBClass = '' then TempOBClass
+      //      cast('' as abap.char(3))
+           else ( case when ( Classification = 'IFRS - NON-CURRENT' or Classification = 'US GAAP (NEW) - NON-CURRENT')
+                       then concat(TempOBClass, concat('-', 'NC'))
+                       when Classification = 'GAAP - CURRENT' then concat (TempOBClass, concat('-', 'C'))
+                       else concat(TempOBClass, concat('-', CNC)) end )
+           end as OBClass,
+
+      case when TempCBClass = '' then TempCBClass
+      //      cast('' as abap.char(3))
+           else ( case when ( Classification = 'IFRS - NON-CURRENT' or Classification = 'US GAAP (NEW) - NON-CURRENT')
+                       then concat(TempCBClass, concat('-', 'NC'))
+                       when Classification = 'GAAP - CURRENT' then concat (TempCBClass, concat('-', 'C'))
+                       else concat(TempCBClass, concat('-', CNC)) end )
+           end as CBClass,
 
       //Tax Rates
       OBRate,

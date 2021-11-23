@@ -11,5 +11,6 @@ define view /EY1/SAV_I_GlAccCUnit
 {
   key glaccnt.racct     as GLAccount,
   key account_classcode as AccountClassCode,
-      glaccnt.ritem     as FinancialStatementItem
+      glaccnt.ritem     as FinancialStatementItem,
+      glaccnt.ktopl     as ktopl
 }

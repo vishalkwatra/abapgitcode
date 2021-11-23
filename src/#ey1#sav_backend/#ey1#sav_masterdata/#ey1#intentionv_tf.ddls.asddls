@@ -16,5 +16,6 @@ with parameters
  status: abap.string;
  seqnr_flb: seqnr_flb;
  curropenperiod: /ey1/to_period;
+ isSelected: abap.char( 1 );
  } 
  implemented by method /ey1/cl_intentions_dropdown=>get_intention
